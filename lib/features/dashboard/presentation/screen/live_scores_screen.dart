@@ -1,4 +1,5 @@
 import 'package:koora_kick/common/common.dart';
+import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/widgets/page/koorakick_page_builder.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,5 @@ class LiveScoresScreen extends StatelessWidget {
             ),
           ],
         ),
-      )
-      .build(context);
+      );
 }
