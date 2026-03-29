@@ -88,6 +88,18 @@ classDiagram
 
 ---
 
+## 📱 App Showcase
+
+| Landing (EN) | Language Select | Landing (AR) |
+| :--- | :--- | :--- |
+| ![S1](screenshots/s1.png) | ![S2](screenshots/s2.png) | ![S3](screenshots/s3.png) |
+
+| Login (EN) | Login (Keypad) |
+| :--- | :--- |
+| ![S4](screenshots/s4.png) | ![S5](screenshots/s5.png) |
+
+---
+
 ## 🌟 Upcoming Product Roadmap
 
 We are continuously evolving KooraKick to become the definitive destination for football fans.
