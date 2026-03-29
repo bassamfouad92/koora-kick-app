@@ -55,6 +55,102 @@ A smart image wrapper that handles:
 
 ---
 
+## 🏗️ Code Design Patterns
+
+### 🔗 Fluent Builder Pattern — Readable DSL
+
+Instead of passing 10 constructor arguments, we use a chained builder API across the entire UI layer. This keeps call sites clean, readable, and easy to change.
+
+**`AppRichTextBuilder`** — Composing complex inline text with links in one readable chain:
+```dart
+Widget termAndPrivacy(BuildContext context) => AppRichTextBuilder(context)
+    .add("auth_termAndPrivacy_agreeText".localized())
+    .space()
+    .link("auth_termAndPrivacy_termTitle".localized(), onTap: () {})
+    .space()
+    .add("global_and".localized())
+    .space()
+    .link("auth_termAndPrivacy_privacyTitle".localized(), onTap: () {})
+    .build(
+      textAlign: TextAlign.center,
+      baseStyle: AppTextStyle.textBody(13, textColor: AppColors.textSubtle),
+    );
+```
+
+**`AppImage`** — Smart image rendering with fluent styling:
+```dart
+// Simple asset icon with color
+AppImage.asset(AppAssets.icStar)
+    .setDimension(width: 24, height: 24)
+    .setStyle(AppImageStyle(color: Colors.amber))
+    .build()
+
+// Circular network avatar with loading placeholder
+AppImage.network(user.profileUrl)
+    .setDimension(width: 50, height: 50)
+    .setStyle(const AppImageStyle.circular())
+    .setPlaceholder(widget: const CircularProgressIndicator.adaptive())
+    .build()
+```
+
+**`KooraKickPageBuilder`** — Full-page layout DSL:
+```dart
+return KooraKickPageBuilder.noAppBar()
+    .centered()
+    .withBottomContent(PrimaryButton())
+    .content(FormWidgets())
+    .build(context);
+```
+> Every builder follows the same principle: **configure → chain → build**. No widget constructors with 12 named args scattered across the codebase.
+
+---
+
+### 🔒 Sealed State Pattern — Type-Safe UI States
+
+We use **Freezed sealed classes** to represent every possible screen state. This eliminates `isLoading` booleans, nullable error fields, and undefined in-between states.
+
+**State Definition:**
+```dart
+@freezed
+sealed class CreateAccountStatus with _$CreateAccountStatus {
+  const factory CreateAccountStatus.initial()                        = _Initial;
+  const factory CreateAccountStatus.loading()                        = _Loading;
+  const factory CreateAccountStatus.error(AppError error)            = _Error;
+  const factory CreateAccountStatus.success(UserSessionStatus status) = _Success;
+}
+```
+
+**ViewModel emits new state (Intent → Model):**
+```dart
+// Loading starts
+state = state.copyWith(createAccountStatus: const CreateAccountStatus.loading());
+
+// On success
+state = state.copyWith(
+  createAccountStatus: CreateAccountStatus.success(userSessionStatus),
+);
+
+// On failure
+state = state.copyWith(
+  createAccountStatus: CreateAccountStatus.error(AppError.api(message: msg)),
+);
+```
+
+**UI reacts exhaustively (Model → View):**
+```dart
+ref.listen(createAccountViewModelProvider, (_, state) {
+  state.createAccountStatus.when(
+    initial:  ()        => {},
+    loading:  ()        => showLoader(),
+    error:    (err)     => showSnackbar(err.message),
+    success:  (status)  => navigateToDashboard(),
+  );
+});
+```
+> Because `when` is **exhaustive** (compiler-enforced), it is impossible to forget handling any state — no silent null crashes, ever.
+
+---
+
 ## 🚀 Pro-Level Features
 
 ### 1. KooraKickPageBuilder (The UI Engine)
