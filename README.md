@@ -30,6 +30,31 @@ graph TD
 
 ---
 
+## 🎨 Premium Design Library
+
+KooraKick features a custom-built, semantic UI library that ensures design consistency across all screens. These components are fully theme-aware and support both Light and Dark modes out of the box.
+
+### 🔘 Buttons (`AppButton`)
+A versatile button system with multiple variants.
+-   **Primary**: High-emphasis green actions.
+-   **Secondary**: Subtle surface-based actions.
+-   **Text/Icon**: Low-emphasis interactive elements.
+-   **Loading State**: Integrated `CircularProgressIndicator` with smooth transitions.
+
+### ⌨️ Inputs (`AppTextField`)
+Enterprise-grade input fields with:
+-   **Theme-aware Borders**: Dynamic colors for focus, error, and idle states.
+-   **Prefix/Suffix Support**: Integrated icon and label management.
+-   **Native Feeling**: Optimized for iOS/Android feedback.
+
+### 🖼 Images (`AppImage`)
+A smart image wrapper that handles:
+-   **Assets, Network, and File** types transparently.
+-   **Color Filtering**: Automatic SVG coloring based on current theme context.
+-   **Placeholders**: Built-in loading and error state management.
+
+---
+
 ## 🚀 Pro-Level Features
 
 ### 1. KooraKickPageBuilder (The UI Engine)
