@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052887704163",
+    "project_id": "koorakick-e6161",
+    "storage_bucket": "koorakick-e6161.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052887704163:android:eb42ceb5ff80cd58d54e56",
+        "android_client_info": {
+          "package_name": "com.koorakick.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC35YAsTw6Nj_67m9ktr6c2ZRzlXN8J3JM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

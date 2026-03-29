@@ -1,0 +1,54 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Dart 3 idiomatic practices
+    prefer_final_locals: true
+    prefer_final_in_for_each: true
+    prefer_expression_function_bodies: true
+    unnecessary_lambdas: true
+    avoid_print: true
+    avoid_unnecessary_containers: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    use_super_parameters: true
+    sort_constructors_first: true
+    use_if_null_to_convert_nulls_to_bools: true
+    prefer_is_empty: true
+    prefer_collection_literals: true
+    always_use_package_imports: true
+
+    # Enforce sealed/final classes
+    type_annotate_public_apis: true
+    use_sealed_class: true
+    prefer_final_classes: true
+
+    # Spacing/style formatting
+    always_put_control_body_on_new_line: true
+    always_put_required_named_parameters_first: true
+    # Disable this to stop enforcing trailing commas
+    #require_trailing_commas: true
+    curly_braces_in_flow_control_structures: true
+
+    # Force idiomatic switch usage (when/where applicable)
+    exhaustive_cases: true
+
+analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+
+exclude:
+  - "**/*.g.dart"
+  - "**/*.freezed.dart"
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
