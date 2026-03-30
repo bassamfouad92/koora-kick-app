@@ -60,7 +60,7 @@ class _SessionReauthSheetState extends ConsumerState<SessionAuthGuardScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: dimensions.mediumH),
-            const AppImage(source: AppAssets.icLogout, type: ImageType.asset),
+            AppImage.asset(AppAssets.icLogout).build(),
             SizedBox(height: dimensions.largeH),
             Text(
               "Please log in again",

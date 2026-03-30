@@ -59,8 +59,7 @@ class _CityBottomSheetState extends ConsumerState<CityBottomSheet> {
             hintText: CreateAccountStrings.searchCity.localized(),
             actionButton: _searchQuery.isNotEmpty 
               ? InputFieldActionButton(
-                  icon: const AppImage(
-                      source: AppAssets.icClearCross, type: ImageType.asset),
+                  icon: AppImage.asset(AppAssets.icClearCross).build(),
                   onTap: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
@@ -87,10 +86,7 @@ class _CityBottomSheetState extends ConsumerState<CityBottomSheet> {
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(city.name ,style: context.typo.bodyMedium),
-                  trailing: city.isSelected
-                      ? const AppImage(
-                          source: AppAssets.icCheck, type: ImageType.asset)
-                      : null,
+                  trailing: city.isSelected ? AppImage.asset(AppAssets.icCheck).build() : null,
                   onTap: () {
                     Navigator.of(context).pop(city);
                   },

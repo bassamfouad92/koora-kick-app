@@ -23,11 +23,7 @@ class CircularBackButton extends ConsumerWidget {
         child: CircleAvatar(
           backgroundColor: context.colors.surface,
           child: AppButton.icon(
-            AppImage(
-              source: AppAssets.leftArrow,
-              type: ImageType.asset,
-              color: context.colors.textPrimary,
-            ),
+            AppImage.asset(AppAssets.leftArrow).setStyle(AppImageStyle(color: context.colors.textPrimary)).build(),
             onPressed: () => context.safePop(),
           ),
         ),

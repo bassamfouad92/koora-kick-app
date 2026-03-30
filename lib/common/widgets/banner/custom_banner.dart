@@ -123,10 +123,7 @@ class CustomBanner extends StatelessWidget {
         };
 
     final defaultLeading = switch (type) {
-      _BannerType.warning || _BannerType.danger => const AppImage(
-          source: AppAssets.warning,
-          type: ImageType.asset,
-        ),
+      _BannerType.warning || _BannerType.danger => AppImage.asset(AppAssets.warning).build(),
       _BannerType.info => null,
     };
 

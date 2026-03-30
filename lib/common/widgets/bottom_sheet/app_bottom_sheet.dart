@@ -64,10 +64,7 @@ class AppBottomSheet extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const AppImage(
-              source: AppAssets.bsLightIndicator,
-              type: ImageType.asset,
-            ),
+            AppImage.asset(AppAssets.bsLightIndicator).build(),
             title.let(
                   (title) => _title(context, title),
               orElse: () => const SizedBox.shrink(),

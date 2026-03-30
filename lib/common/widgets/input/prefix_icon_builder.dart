@@ -12,7 +12,7 @@ class PrefixIconBuilder {
     required this.dimensions,
     required this.typo,
     this.iconPath,
-    this.imageType = ImageType.asset,
+    this.imageType = AppImageType.asset,
     String? text,
     this.textStyle,
   })  : textValue = text,
@@ -20,7 +20,7 @@ class PrefixIconBuilder {
 
   final List<Widget> _children;
   final String? iconPath;
-  final ImageType imageType;
+  final AppImageType imageType;
   final String? textValue;
   final TextStyle? textStyle;
   final theme.AppColors colors;
@@ -30,7 +30,7 @@ class PrefixIconBuilder {
 
   PrefixIconBuilder withIcon() {
     if (iconPath.isPresent) {
-      _children.add(AppImage(source: iconPath!, type: imageType, height:dimensions.countryFlagHeight, width: dimensions.countryFlagWidth,));
+      _children.add(AppImage.asset(iconPath!).setDimension(width: dimensions.countryFlagWidth, height: dimensions.countryFlagHeight).build());
     }
     return this;
   }
@@ -57,7 +57,7 @@ class PrefixIconBuilder {
 
   PrefixIconBuilder withChevronIcon() {
     _children.add(
-        const AppImage(source: AppAssets.chevronDown, type: ImageType.asset));
+        AppImage.asset(AppAssets.chevronDown).build());
     return this;
   }
 

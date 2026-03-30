@@ -515,7 +515,7 @@ class _AppInputFieldState extends State<AppInputField> {
   );
 
   Widget get _clearButton => IconButton(
-    icon: const AppImage(source: AppAssets.icClearCross, type: ImageType.asset),
+    icon: AppImage.asset(AppAssets.icClearCross).build(),
     onPressed: () {
       if (!mounted) {
         return;
@@ -525,13 +525,13 @@ class _AppInputFieldState extends State<AppInputField> {
     },
   );
 
-  Widget get _searchIcon => const IconButton(
-    icon: AppImage(source: AppAssets.icSearch, type: ImageType.asset),
+  Widget get _searchIcon => IconButton(
+    icon: AppImage.asset(AppAssets.icSearch).build(),
     onPressed: null,
   );
 
-  Widget get _dropDownIcon => const IconButton(
-    icon: AppImage(source: AppAssets.chevronDown, type: ImageType.asset),
+  Widget get _dropDownIcon => IconButton(
+    icon: AppImage.asset(AppAssets.chevronDown).build(),
     onPressed: null,
   );
 }

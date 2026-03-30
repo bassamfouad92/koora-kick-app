@@ -27,11 +27,7 @@ class StatusScreenViewHolder {
   final AppButtonType buttonType;
 
   factory StatusScreenViewHolder.fake() => StatusScreenViewHolder(
-        icon: const AppImage(
-          source: AppAssets.success,
-          type: ImageType.asset,
-          height: 80,
-        ),
+        icon: AppImage.asset(AppAssets.success).setDimension(height: 80).build(),
         title: 'Success!',
         description: 'Your request has been processed successfully. You can now continue using the app.',
         buttonText: 'Continue',

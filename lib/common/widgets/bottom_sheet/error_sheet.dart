@@ -27,12 +27,8 @@ class ErrorSheet extends StatelessWidget {
     mainAxisSize: MainAxisSize.min,
     children: [
       if (icon != null)
-        AppImage(
-          source: icon!,
-          type: ImageType.asset,
-          width: context.dimensions.w(50),
-          height: context.dimensions.h(50),
-        ).withVerticalPadding(context.dimensions.mediumH),
+        AppImage.asset(icon!).setDimension(width: context.dimensions.w(50), height: context.dimensions.h(50)).build()
+            .withVerticalPadding(context.dimensions.mediumH),
       if (title != null)
         Text(
           title!,

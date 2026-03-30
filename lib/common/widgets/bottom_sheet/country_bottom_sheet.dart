@@ -54,9 +54,7 @@ class _CountryBottomSheetState extends ConsumerState<CountryBottomSheet> {
                 hintText: AuthStrings.searchCountryText.localized(),
                 actionButton: state.searchQuery.isNotEmpty
                     ? InputFieldActionButton(
-                        icon: const AppImage(
-                            source: AppAssets.icClearCross,
-                            type: ImageType.asset),
+                        icon: AppImage.asset(AppAssets.icClearCross).build(),
                         onTap: () {
                           _searchController.clear();
                           notifier.clearSearch();
@@ -85,12 +83,11 @@ class _CountryBottomSheetState extends ConsumerState<CountryBottomSheet> {
                     return ListTile(
                       contentPadding: EdgeInsets.zero,
                       dense: true,
-                      leading: AppImage(
-                        height: context.dimensions.countryFlagHeight,
-                        width: context.dimensions.countryFlagWidth,
-                        source: country.flag,
-                        type: country.imageType,
-                      ),
+                      leading: (country.imageType == AppImageType.network
+                          ? AppImage.network(country.flag)
+                          : AppImage.asset(country.flag))
+                          .setDimension(width: context.dimensions.countryFlagWidth, height: context.dimensions.countryFlagHeight)
+                          .build(),
                       title: Text(country.name, style: context.typo.bodyMedium),
                       trailing: Text(
                         country.displayCode,
