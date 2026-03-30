@@ -45,10 +45,7 @@ class ProfileViewModel extends _$ProfileViewModel {
     AppLanguage currentLanguage,
   ) => [
     ProfileMenuItem(
-      icon: const AppImage(
-  source: AppAssets.icGlobe,
-  type: ImageType.asset,
-  ),
+      icon: AppImage.asset(AppAssets.icGlobe).build(),
       title: ProfileStrings.language,
       type: ProfileMenuItemType.language,
       trailingText: currentLanguage == AppLanguage.english
@@ -56,19 +53,13 @@ class ProfileViewModel extends _$ProfileViewModel {
           : ProfileStrings.arabic,
       trailingTextColor: const Color(0xFF64748B),
     ),
-    const ProfileMenuItem(
-      icon: AppImage(
-    source: AppAssets.icSettings,
-  type: ImageType.asset,
-  ),
+    ProfileMenuItem(
+      icon: AppImage.asset(AppAssets.icSettings).build(),
       title: ProfileStrings.appPreferences,
       type: ProfileMenuItemType.appPreferences,
     ),
-    const ProfileMenuItem(
-      icon: AppImage(
-      source: AppAssets.icHelp,
-  type: ImageType.asset,
-  ),
+    ProfileMenuItem(
+      icon: AppImage.asset(AppAssets.icHelp).build(),
       title: ProfileStrings.helpSupport,
       type: ProfileMenuItemType.helpSupport,
     ),

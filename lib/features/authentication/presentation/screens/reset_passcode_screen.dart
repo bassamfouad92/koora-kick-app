@@ -59,10 +59,7 @@ class _ResetPasscodeScreenState extends ConsumerState<ResetPasscodeScreen> {
         subtext: error?.generalMessage ?? '',
         subTextTitleColor: context.colors.error,
       ),
-      leadingWidget: const AppImage(
-        source: AppAssets.redWaring,
-        type: ImageType.asset,
-      ),
+      leadingWidget: AppImage.asset(AppAssets.redWaring).build(),
     ).gapBottom(context.dimensions.large);
 
     return KooraKickPageBuilder.withAppBar()

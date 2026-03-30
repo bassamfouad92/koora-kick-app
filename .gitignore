@@ -48,3 +48,8 @@ app.*.map.json
 # Ignore environment variables files
 .env*
 /ios/Flutter/Env.xcconfig
+
+# Firebase config files
+Env.xcconfig
+GoogleService-Info.plist
+google-services.json

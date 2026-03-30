@@ -36,10 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
 
-  Widget _buildContent() => const Center(
-        child: AppImage(
-          source: AppAssets.koorakickLogo,
-          type: ImageType.asset,
-        ),
+  Widget _buildContent() => Center(
+        child: AppImage.asset(AppAssets.koorakickLogo).build(),
       );
 }

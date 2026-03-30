@@ -41,10 +41,7 @@ class _CreateNewPasscodeScreenState
         subtext: error?.generalMessage ?? '',
         subTextTitleColor: context.colors.error,
       ),
-      leadingWidget: const AppImage(
-        source: AppAssets.redWaring,
-        type: ImageType.asset,
-      ),
+      leadingWidget: AppImage.asset(AppAssets.redWaring).build(),
     );
 
     final Widget buildPasscodeField =
@@ -103,11 +100,9 @@ class _CreateNewPasscodeScreenState
               context.hideLoader();
               StatusRoute(
                 StatusScreenViewHolder(
-                  icon: AppImage(
-                    source: AppAssets.icSuccess,
-                    type: ImageType.asset,
-                    width: context.dimensions.h(80),
-                  ),
+                  icon: AppImage.asset(AppAssets.icSuccess)
+                      .setDimension(width: context.dimensions.h(80))
+                      .build(),
                   title: AuthStrings.successPasscodeTitle.localized(),
                   description: AuthStrings.successPasscodeDescription
                       .localized(),

@@ -83,7 +83,7 @@ class _CountryBottomSheetState extends ConsumerState<CountryBottomSheet> {
                     return ListTile(
                       contentPadding: EdgeInsets.zero,
                       dense: true,
-                      leading: (country.imageType == AppImageType.network
+                      leading: (country.imageType == ImageType.network
                           ? AppImage.network(country.flag)
                           : AppImage.asset(country.flag))
                           .setDimension(width: context.dimensions.countryFlagWidth, height: context.dimensions.countryFlagHeight)

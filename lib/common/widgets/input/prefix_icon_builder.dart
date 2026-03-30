@@ -12,7 +12,7 @@ class PrefixIconBuilder {
     required this.dimensions,
     required this.typo,
     this.iconPath,
-    this.imageType = AppImageType.asset,
+    this.imageType = ImageType.asset,
     String? text,
     this.textStyle,
   })  : textValue = text,
@@ -20,7 +20,7 @@ class PrefixIconBuilder {
 
   final List<Widget> _children;
   final String? iconPath;
-  final AppImageType imageType;
+  final ImageType imageType;
   final String? textValue;
   final TextStyle? textStyle;
   final theme.AppColors colors;

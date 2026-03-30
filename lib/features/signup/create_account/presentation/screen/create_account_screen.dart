@@ -62,10 +62,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
         subtext: error?.generalMessage ?? '',
         subTextTitleColor: context.colors.error,
       ),
-      leadingWidget: const AppImage(
-        source: AppAssets.redWaring,
-        type: ImageType.asset,
-      ),
+      leadingWidget: AppImage.asset(AppAssets.redWaring).build(),
     );
 
     final Widget buildPhoneNumberField =

@@ -98,11 +98,11 @@ class ProfileInfoWidget extends StatelessWidget {
         color: context.colors.primary.withOpacity(0.1),
       ),
       clipBehavior: Clip.antiAlias,
-      child: AppImage(
-        source: user.picture ?? AppAssets.icAvatar,
-        type: user.picture != null ? ImageType.network : ImageType.asset,
-        fit: BoxFit.cover,
-      ),
+      child: (user.picture != null
+              ? AppImage.network(user.picture!)
+              : AppImage.asset(AppAssets.icAvatar))
+          .setStyle(const AppImageStyle(fit: BoxFit.cover))
+          .build(),
     );
 
   Widget _buildTextContent(BuildContext context) {

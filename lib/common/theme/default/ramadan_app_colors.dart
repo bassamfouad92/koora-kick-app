@@ -17,12 +17,10 @@ class _RamadanBackgrounds implements AppBackgrounds {
   const _RamadanBackgrounds();
 
   @override
-  AppBackgroundProperty get primary => const AppBackgroundProperty.appImage(
-        AppImage(
-          source: AppAssets.splash,
-          type: ImageType.asset,
-          fit: BoxFit.cover,
-        ),
+  AppBackgroundProperty get primary => AppBackgroundProperty.appImage(
+        AppImage.asset(AppAssets.splash)
+            .setStyle(const AppImageStyle(fit: BoxFit.cover))
+            .build(),
       ); // Image background for Ramadan
 
   @override
@@ -35,12 +33,10 @@ class _RamadanBackgrounds implements AppBackgrounds {
   AppBackgroundProperty get surface => const AppBackgroundProperty.solid(Colors.white);
 
   @override
-  AppBackgroundProperty get splash => const AppBackgroundProperty.appImage(
-        AppImage(
-          source: AppAssets.splash,
-          type: ImageType.asset,
-          fit: BoxFit.cover,
-        ),
+  AppBackgroundProperty get splash => AppBackgroundProperty.appImage(
+        AppImage.asset(AppAssets.splash)
+            .setStyle(const AppImageStyle(fit: BoxFit.cover))
+            .build(),
       );
 
   @override

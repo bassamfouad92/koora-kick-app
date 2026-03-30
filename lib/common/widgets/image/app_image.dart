@@ -41,7 +41,7 @@ class AppImageBuilder {
   AppImageBuilder._(this.source, this.type);
 
   final AppImageSource source;
-  final AppImageType type;
+  final ImageType type;
 
   double? width;
   double? height;
@@ -88,7 +88,7 @@ class AppImageBuilder {
   );
 }
 
-enum AppImageType { asset, network, file, memory }
+enum ImageType { asset, network, file, memory, avatar }
 
 class AppImageSource {
   const AppImageSource.url(this.url)
@@ -120,76 +120,64 @@ class AppImageSource {
   bool get isSvg => stringSource.toLowerCase().endsWith('.svg');
 }
 
-/// A robust image widget supporting multiple sources (network, asset, file, memory)
-/// and a fluent builder pattern for styling.
-///
-/// ### Basic Examples:
-/// ```dart
-/// // Network Image
-/// AppImage.network(url).build()
-///
-/// // Asset Image
-/// AppImage.asset(path).build()
-/// ```
-///
-/// ### Styling Examples:
-/// ```dart
-/// // Circular Image with specific dimensions
-/// AppImage.network(url)
-///   .setDimension(width: 50, height: 50)
-///   .setStyle(const AppImageStyle.circular())
-///   .build()
-///
-/// // Rounded corners with custom fit
-/// AppImage.asset(path)
-///   .setStyle(AppImageStyle.rounded(
-///     borderRadius: BorderRadius.circular(12),
-///     fit: BoxFit.contain,
-///   ))
-///   .build()
-///
-/// // Colored icon with dimension
-/// AppImage.asset(AppAssets.icBack)
-///   .setDimension(width: 24, height: 24)
-///   .setStyle(AppImageStyle(color: Colors.blue))
-///   .build()
-/// ```
-///
-/// ### Utilities:
-/// ```dart
-/// // Custom Placeholder (Widget or Asset)
-/// AppImage.network(url)
-///   .setPlaceholder(widget: CircularProgressIndicator())
-///   .build()
-///
-/// // Default Placeholder (Spinner)
-/// AppImage.network(url)
-///   .setPlaceholder()
-///   .build()
-///
-/// // Custom Error Widget
-/// AppImage.network(url)
-///   .setErrorWidget(Icon(Icons.error))
-///   .build()
-/// ```
 abstract class AppImage extends StatelessWidget {
   const AppImage({super.key});
 
   String get source;
-  AppImageType get type;
+  ImageType get type;
   BoxFit get fit;
+  double? get width;
+  double? get height;
+  Color? get color;
+  AppImageShape get shape;
+  BorderRadius get borderRadius;
+  Widget? get placeholder;
+  Widget? get errorWidget;
 
   static AppImageBuilder network(String url) =>
-      AppImageBuilder._(AppImageSource.url(url), AppImageType.network);
+      AppImageBuilder._(AppImageSource.url(url), ImageType.network);
 
   static AppImageBuilder asset(String path) =>
-      AppImageBuilder._(AppImageSource.path(path), AppImageType.asset);
+      AppImageBuilder._(AppImageSource.path(path), ImageType.asset);
 
   static AppImageBuilder file(File file) =>
-      AppImageBuilder._(AppImageSource.file(file), AppImageType.file);
+      AppImageBuilder._(AppImageSource.file(file), ImageType.file);
 
   static AppImageBuilder memory(Uint8List bytes) =>
-      AppImageBuilder._(AppImageSource.memory(bytes), AppImageType.memory);
+      AppImageBuilder._(AppImageSource.memory(bytes), ImageType.memory);
+
+  AppImage copyWith({
+    String? source,
+    ImageType? type,
+    BoxFit? fit,
+    double? width,
+    double? height,
+    Color? color,
+    AppImageShape? shape,
+    BorderRadius? borderRadius,
+    Widget? placeholder,
+    Widget? errorWidget,
+  }) {
+    final builder = switch (type ?? this.type) {
+      ImageType.asset => AppImage.asset(source ?? this.source),
+      ImageType.network => AppImage.network(source ?? this.source),
+      ImageType.file => AppImage.file(File(source ?? this.source)),
+      ImageType.memory => AppImage.memory(Uint8List(0)), // This is a bit tricky for memory
+      ImageType.avatar => AppImage.asset(source ?? this.source),
+    };
+    
+    return builder
+        .setDimension(width: width ?? this.width, height: height ?? this.height)
+        .setStyle(AppImageStyle(
+          fit: fit ?? this.fit,
+          color: color ?? this.color,
+          shape: shape ?? this.shape,
+          borderRadius: borderRadius ?? this.borderRadius,
+        ))
+        .setPlaceholder(widget: placeholder ?? this.placeholder)
+        .setErrorWidget(errorWidget ?? this.errorWidget ?? const SizedBox.shrink())
+        .build();
+  }
 }
 
 class _AppImage extends AppImage {
@@ -208,19 +196,26 @@ class _AppImage extends AppImage {
 
   final AppImageSource sourceData;
   @override
-  final AppImageType type;
+  final ImageType type;
   @override
   final BoxFit fit;
 
   @override
   String get source => sourceData.stringSource;
 
+  @override
   final double? width;
+  @override
   final double? height;
+  @override
   final Color? color;
+  @override
   final AppImageShape shape;
+  @override
   final BorderRadius borderRadius;
+  @override
   final Widget? placeholder;
+  @override
   final Widget? errorWidget;
 
 
@@ -320,10 +315,11 @@ class _AppImage extends AppImage {
   @override
   Widget build(BuildContext context) => Consumer(builder: (context, ref, child) {
     final Widget image = switch (type) {
-      AppImageType.asset => buildAsset(context),
-      AppImageType.network => buildNetwork(context, ref),
-      AppImageType.file => buildFileImage(context),
-      AppImageType.memory => buildMemoryImage(context),
+      ImageType.asset => buildAsset(context),
+      ImageType.network => buildNetwork(context, ref),
+      ImageType.file => buildFileImage(context),
+      ImageType.memory => buildMemoryImage(context),
+      ImageType.avatar => buildAsset(context), // Default to asset for now if it's an avatar type in legacy code
     };
 
     return buildClip(image);

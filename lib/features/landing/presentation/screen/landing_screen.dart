@@ -81,13 +81,13 @@ class LandingScreen extends ConsumerWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                AppImage(
-                  source: AppAssets.icGlobe,
-                  type: ImageType.asset,
-                  width: context.dimensions.mediumW,
-                  height: context.dimensions.mediumH,
-                  color: context.colors.textPrimary,
-                ),
+                AppImage.asset(AppAssets.icGlobe)
+                    .setDimension(
+                      width: context.dimensions.mediumW,
+                      height: context.dimensions.mediumH,
+                    )
+                    .setStyle(AppImageStyle(color: context.colors.textPrimary))
+                    .build(),
                 SizedBox(width: context.dimensions.smallW),
                 Text(
                   language.localizedLabel(),
@@ -96,35 +96,33 @@ class LandingScreen extends ConsumerWidget {
                   ),
                 ),
                 SizedBox(width: context.dimensions.smallW),
-                AppImage(
-                  source: AppAssets.chevronDown,
-                  type: ImageType.asset,
-                  width: context.dimensions.mediumW,
-                  height: context.dimensions.mediumH,
-                  color: context.colors.textPrimary,
-                ),
+                AppImage.asset(AppAssets.chevronDown)
+                    .setDimension(
+                      width: context.dimensions.mediumW,
+                      height: context.dimensions.mediumH,
+                    )
+                    .setStyle(AppImageStyle(color: context.colors.textPrimary))
+                    .build(),
               ],
             ).withHorizontalPadding(context.dimensions.smallW),
           ),
     );
   }
 
-    Widget _buildLogoAndBanner(BuildContext context) => [
-      AppImage(
-        source: AppAssets.koorakickLogo,
-        type: ImageType.asset,
-        width: context.dimensions.w(120),
-      ).withPadding(
-        EdgeInsets.only(
-          top: context.dimensions.largeH,
-          left: context.dimensions.smallW,
-          right: context.dimensions.smallH
-        ),
-      ),
-      const AppImage(
-        source: AppAssets.landingBanner,
-        type: ImageType.asset,
-      ).withPadding(EdgeInsets.only(top: context.dimensions.h(52))),
+    Widget _buildLogoAndBanner(BuildContext context) => <Widget>[
+      AppImage.asset(AppAssets.koorakickLogo)
+          .setDimension(width: context.dimensions.w(120))
+          .build()
+          .withPadding(
+            EdgeInsets.only(
+              top: context.dimensions.largeH,
+              left: context.dimensions.smallW,
+              right: context.dimensions.smallH,
+            ),
+          ),
+      AppImage.asset(AppAssets.landingBanner)
+          .build()
+          .withPadding(EdgeInsets.only(top: context.dimensions.h(52))),
     ].column(crossAxisAlignment: CrossAxisAlignment.start);
 
     Widget _buildJoinButton(BuildContext context) =>
@@ -133,12 +131,10 @@ class LandingScreen extends ConsumerWidget {
           onPressed: () => const SignupRoute().push(context),
         )
             .withRightIcon(
-          AppImage(
-            source: AppAssets.rightArrow,
-            type: ImageType.asset,
-            color: context.colors.surface,
-          ),
-        )
+      AppImage.asset(AppAssets.rightArrow)
+          .setStyle(AppImageStyle(color: context.colors.surface))
+          .build(),
+    )
             .withHorizontalPadding(context.dimensions.mediumW)
             .withPadding(EdgeInsets.only(bottom: context.dimensions.largeH));
 
