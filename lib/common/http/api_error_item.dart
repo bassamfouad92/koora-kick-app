@@ -4,8 +4,11 @@ part 'api_error_item.g.dart';
 
 @freezed
 sealed class APIErrorItem with _$APIErrorItem {
+  const APIErrorItem._();
+
   const factory APIErrorItem({
     required String message,
+    String? field,
     String? key,
     String? value,
     String? schema,
@@ -13,4 +16,7 @@ sealed class APIErrorItem with _$APIErrorItem {
 
   factory APIErrorItem.fromJson(Map<String, dynamic> json) =>
       _$APIErrorItemFromJson(json);
+
+  /// Backend validation errors use `field`; legacy responses used `key`.
+  String? get fieldName => field ?? key;
 }

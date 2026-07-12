@@ -2,47 +2,43 @@ import 'package:koora_kick/common/http/http_types.dart';
 import 'package:koora_kick/common/http/request/http_request.dart';
 import 'package:koora_kick/common/http/request/request_body.dart';
 import 'package:koora_kick/common/mapper/data_mapper.dart';
-import 'package:koora_kick/features/authentication/data/response/login_response.dart';
+import 'package:koora_kick/features/authentication/data/mappers/auth_session_mapper.dart';
+import 'package:koora_kick/features/authentication/data/response/auth_session_response.dart';
 
-class LoginRequest extends HttpRequest<LoginResponse> {
+class LoginRequest extends HttpRequest<AuthSessionResponse> {
 
   LoginRequest({
-    required this.phoneNumber,
-    required this.passcode,
+    required this.email,
+    required this.password,
   });
-  final String phoneNumber;
-  final String passcode;
+  final String email;
+  final String password;
 
   @override
   HttpMethod get method => HttpMethod.post;
 
   @override
-  String get path => '/login';
+  String get path => '/auth/login';
 
   @override
-  RequestBody? get body => _LoginRequestBody(phoneNumber, passcode);
+  RequestBody? get body => _LoginRequestBody(email, password);
 
   @override
   bool get requiresAuth => false;
 
   @override
-  DataMapper<LoginResponse> get mapper => _LoginResponseMapper();
+  DataMapper<AuthSessionResponse> get mapper => AuthSessionMapper();
 }
 
 class _LoginRequestBody implements RequestBody {
 
-  _LoginRequestBody(this.phoneNumber, this.passcode);
-  final String phoneNumber;
-  final String passcode;
+  _LoginRequestBody(this.email, this.password);
+  final String email;
+  final String password;
 
   @override
   Map<String, dynamic> toJson() => {
-    'phone': phoneNumber,
-    'pin': passcode,
+    'email': email,
+    'password': password,
   };
-}
-
-class _LoginResponseMapper implements DataMapper<LoginResponse> {
-  @override
-  LoginResponse map(dynamic data) => LoginResponse.fromJson(data as Map<String, dynamic>);
 }

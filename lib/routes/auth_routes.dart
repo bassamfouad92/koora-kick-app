@@ -40,28 +40,33 @@ class SignupRoute extends AppRouteData {
   Widget build(BuildContext context, GoRouterState state) => const CreateAccountScreen();
 }
 
-class ResetPasscodeRoute extends AppRouteData {
-  const ResetPasscodeRoute();
+class ForgotPasswordRoute extends AppRouteData {
+  const ForgotPasswordRoute();
 
   @override
   RouteAccess get access => RouteAccess.public;
 
   @override
-  String get location => '/reset-passcode';
+  String get location => '/forgot-password';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const ResetPasscodeScreen();
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ForgotPasswordScreen();
 }
 
-class CreateNewPasscodeRoute extends AppRouteData {
-  const CreateNewPasscodeRoute();
+class ResetPasswordRoute extends AppRouteData {
+  const ResetPasswordRoute({this.token = ''});
+
+  /// Reset token forwarded from the email deep link (`?token=`).
+  final String token;
 
   @override
   RouteAccess get access => RouteAccess.public;
 
   @override
-  String get location => '/create-new-passcode';
+  String get location => '/reset-password';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const CreateNewPasscodeScreen();
+  Widget build(BuildContext context, GoRouterState state) =>
+      ResetPasswordScreen(token: token);
 }

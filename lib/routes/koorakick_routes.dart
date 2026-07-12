@@ -6,7 +6,8 @@ import 'package:koora_kick/utils/logger/app_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:koora_kick/common/widgets/screen/status_screen.dart';
 import 'package:koora_kick/features/authentication/presentation/screens/create_new_passcode_screen.dart';
-import 'package:koora_kick/features/authentication/presentation/screens/reset_passcode_screen.dart';
+import 'package:koora_kick/features/authentication/presentation/screens/forgot_password_screen.dart';
+import 'package:koora_kick/features/authentication/presentation/screens/reset_password_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/dashboard_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/channels_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/koora_map_screen.dart';
@@ -17,6 +18,9 @@ import 'package:koora_kick/features/profile/settings/presentation/screen/setting
 import 'package:koora_kick/features/profile/language/presentation/screen/language_screen.dart';
 import 'package:koora_kick/features/authentication/presentation/screens/login_screen.dart';
 import 'package:koora_kick/features/landing/presentation/screen/landing_screen.dart';
+import 'package:koora_kick/features/onboarding/presentation/screens/all_set_screen.dart';
+import 'package:koora_kick/features/onboarding/presentation/screens/interests_screen.dart';
+import 'package:koora_kick/features/onboarding/presentation/screens/watch_preference_screen.dart';
 import 'package:koora_kick/features/signup/create_account/presentation/screen/create_account_screen.dart';
 import 'package:koora_kick/features/verification/otp/presentation/screen/verify_phone_screen.dart';
 import 'package:koora_kick/common/storage/app_settings_store.dart';
@@ -33,6 +37,8 @@ part 'koorakick_routes.g.dart';
 part 'auth_routes.dart';
 
 part 'dashboard_routes.dart';
+
+part 'onboarding_routes.dart';
 
 enum RouteAccess { public, private }
 
@@ -53,12 +59,15 @@ abstract class AppRouteData extends GoRouteData {
         TypedGoRoute<LoginRoute>(path: 'login'),
         TypedGoRoute<VerifyRoute>(path: 'verify'),
         TypedGoRoute<SignupRoute>(path: 'signup'),
-        TypedGoRoute<ResetPasscodeRoute>(path: 'reset-passcode'),
-        TypedGoRoute<CreateNewPasscodeRoute>(path: 'create-new-passcode'),
+        TypedGoRoute<ForgotPasswordRoute>(path: 'forgot-password'),
+        TypedGoRoute<ResetPasswordRoute>(path: 'reset-password'),
       ],
     ),
     TypedGoRoute<StatusRoute>(path: '/status'),
     TypedGoRoute<TalkerRoute>(path: '/talker'),
+    TypedGoRoute<OnboardingInterestsRoute>(path: '/onboarding/interests'),
+    TypedGoRoute<WatchPreferenceRoute>(path: '/onboarding/watch-preference'),
+    TypedGoRoute<AllSetRoute>(path: '/onboarding/all-set'),
     TypedStatefulShellRoute<MainShellRouteData>(
       branches: [
         TypedStatefulShellBranch<DashboardBranchData>(
@@ -202,8 +211,11 @@ GoRouter goRouter(Ref ref) => GoRouter(
       StatusRoute(StatusScreenViewHolder.fake()),
       const TalkerRoute(),
       const VerifyRoute(),
-      const ResetPasscodeRoute(),
-      const CreateNewPasscodeRoute(),
+      const ForgotPasswordRoute(),
+      const ResetPasswordRoute(),
+      const OnboardingInterestsRoute(),
+      const WatchPreferenceRoute(),
+      const AllSetRoute(),
     ];
 
     final targetRoute = allRoutes.firstWhere(
@@ -236,16 +248,23 @@ Future<String?> _getAuthenticatedRedirect(
     const LoginRoute().location,
     const SignupRoute().location,
     const VerifyRoute().location,
-    const ResetPasscodeRoute().location,
-    const CreateNewPasscodeRoute().location,
+    const ForgotPasswordRoute().location,
+    const ResetPasswordRoute().location,
   ];
 
-  // If user is authenticated and trying to access auth pages, redirect to home
+  // If user is authenticated and trying to access auth pages, redirect to
+  // home — or into onboarding right after a fresh login/registration.
   if (authRoutes.contains(location)) {
     final pendingDeeplink = ref.read(deferredDeeplinkProvider);
     if (pendingDeeplink != null) {
       ref.read(deferredDeeplinkProvider.notifier).clear();
       return pendingDeeplink.location;
+    }
+
+    final isFirstTimeLogin =
+        await ref.read(appSettingsStoreProvider).isFirstTimeLogin();
+    if (isFirstTimeLogin) {
+      return const OnboardingInterestsRoute().location;
     }
     return const DashboardRoute().location;
   }

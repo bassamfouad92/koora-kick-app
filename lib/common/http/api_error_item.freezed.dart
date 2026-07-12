@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$APIErrorItem {
 
- String get message; String? get key; String? get value; String? get schema;
+ String get message; String? get field; String? get key; String? get value; String? get schema;
 /// Create a copy of APIErrorItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $APIErrorItemCopyWith<APIErrorItem> get copyWith => _$APIErrorItemCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is APIErrorItem&&(identical(other.message, message) || other.message == message)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.schema, schema) || other.schema == schema));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is APIErrorItem&&(identical(other.message, message) || other.message == message)&&(identical(other.field, field) || other.field == field)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.schema, schema) || other.schema == schema));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,message,key,value,schema);
+int get hashCode => Object.hash(runtimeType,message,field,key,value,schema);
 
 @override
 String toString() {
-  return 'APIErrorItem(message: $message, key: $key, value: $value, schema: $schema)';
+  return 'APIErrorItem(message: $message, field: $field, key: $key, value: $value, schema: $schema)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $APIErrorItemCopyWith<$Res>  {
   factory $APIErrorItemCopyWith(APIErrorItem value, $Res Function(APIErrorItem) _then) = _$APIErrorItemCopyWithImpl;
 @useResult
 $Res call({
- String message, String? key, String? value, String? schema
+ String message, String? field, String? key, String? value, String? schema
 });
 
 
@@ -65,10 +65,11 @@ class _$APIErrorItemCopyWithImpl<$Res>
 
 /// Create a copy of APIErrorItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? message = null,Object? key = freezed,Object? value = freezed,Object? schema = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? message = null,Object? field = freezed,Object? key = freezed,Object? value = freezed,Object? schema = freezed,}) {
   return _then(_self.copyWith(
 message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,field: freezed == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
+as String?,key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String?,schema: freezed == schema ? _self.schema : schema // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -153,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String message,  String? key,  String? value,  String? schema)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String message,  String? field,  String? key,  String? value,  String? schema)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _APIErrorItem() when $default != null:
-return $default(_that.message,_that.key,_that.value,_that.schema);case _:
+return $default(_that.message,_that.field,_that.key,_that.value,_that.schema);case _:
   return orElse();
 
 }
@@ -174,10 +175,10 @@ return $default(_that.message,_that.key,_that.value,_that.schema);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String message,  String? key,  String? value,  String? schema)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String message,  String? field,  String? key,  String? value,  String? schema)  $default,) {final _that = this;
 switch (_that) {
 case _APIErrorItem():
-return $default(_that.message,_that.key,_that.value,_that.schema);}
+return $default(_that.message,_that.field,_that.key,_that.value,_that.schema);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -191,10 +192,10 @@ return $default(_that.message,_that.key,_that.value,_that.schema);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String message,  String? key,  String? value,  String? schema)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String message,  String? field,  String? key,  String? value,  String? schema)?  $default,) {final _that = this;
 switch (_that) {
 case _APIErrorItem() when $default != null:
-return $default(_that.message,_that.key,_that.value,_that.schema);case _:
+return $default(_that.message,_that.field,_that.key,_that.value,_that.schema);case _:
   return null;
 
 }
@@ -205,11 +206,12 @@ return $default(_that.message,_that.key,_that.value,_that.schema);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _APIErrorItem implements APIErrorItem {
-  const _APIErrorItem({required this.message, this.key, this.value, this.schema});
+class _APIErrorItem extends APIErrorItem {
+  const _APIErrorItem({required this.message, this.field, this.key, this.value, this.schema}): super._();
   factory _APIErrorItem.fromJson(Map<String, dynamic> json) => _$APIErrorItemFromJson(json);
 
 @override final  String message;
+@override final  String? field;
 @override final  String? key;
 @override final  String? value;
 @override final  String? schema;
@@ -227,16 +229,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _APIErrorItem&&(identical(other.message, message) || other.message == message)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.schema, schema) || other.schema == schema));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _APIErrorItem&&(identical(other.message, message) || other.message == message)&&(identical(other.field, field) || other.field == field)&&(identical(other.key, key) || other.key == key)&&(identical(other.value, value) || other.value == value)&&(identical(other.schema, schema) || other.schema == schema));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,message,key,value,schema);
+int get hashCode => Object.hash(runtimeType,message,field,key,value,schema);
 
 @override
 String toString() {
-  return 'APIErrorItem(message: $message, key: $key, value: $value, schema: $schema)';
+  return 'APIErrorItem(message: $message, field: $field, key: $key, value: $value, schema: $schema)';
 }
 
 
@@ -247,7 +249,7 @@ abstract mixin class _$APIErrorItemCopyWith<$Res> implements $APIErrorItemCopyWi
   factory _$APIErrorItemCopyWith(_APIErrorItem value, $Res Function(_APIErrorItem) _then) = __$APIErrorItemCopyWithImpl;
 @override @useResult
 $Res call({
- String message, String? key, String? value, String? schema
+ String message, String? field, String? key, String? value, String? schema
 });
 
 
@@ -264,10 +266,11 @@ class __$APIErrorItemCopyWithImpl<$Res>
 
 /// Create a copy of APIErrorItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? key = freezed,Object? value = freezed,Object? schema = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? field = freezed,Object? key = freezed,Object? value = freezed,Object? schema = freezed,}) {
   return _then(_APIErrorItem(
 message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
+as String,field: freezed == field ? _self.field : field // ignore: cast_nullable_to_non_nullable
+as String?,key: freezed == key ? _self.key : key // ignore: cast_nullable_to_non_nullable
 as String?,value: freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String?,schema: freezed == schema ? _self.schema : schema // ignore: cast_nullable_to_non_nullable
 as String?,

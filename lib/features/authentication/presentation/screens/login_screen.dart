@@ -1,20 +1,17 @@
 import 'package:koora_kick/common/common.dart';
-import 'package:koora_kick/common/countries/domain/entities/country_model.dart';
 import 'package:koora_kick/common/errors/app_error.dart';
 import 'package:koora_kick/common/extensions/localization.dart';
 import 'package:koora_kick/common/extensions/null_check.dart';
-import 'package:koora_kick/common/extensions/string.dart';
 import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/managers/loader_manager.dart';
-import 'package:koora_kick/common/services/user_session_status.dart';
 import 'package:koora_kick/common/theme/app_typography.dart';
 
 import 'package:koora_kick/common/widgets/banner/banner_text.dart';
-import 'package:koora_kick/common/widgets/page/koorakick_page_builder.dart';
 import 'package:koora_kick/features/authentication/auth_strings.dart';
 import 'package:koora_kick/features/authentication/presentation/states/login_state.dart';
 
 import 'package:koora_kick/features/authentication/presentation/view_models/login_view_model.dart';
+import 'package:koora_kick/features/authentication/presentation/widget/social_login_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:koora_kick/routes/koorakick_routes.dart';
@@ -27,11 +24,14 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final _phoneNumberController = TextEditingController();
-  final _passcodeController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -39,44 +39,58 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final loginState = ref.watch(loginViewModelProvider);
 
-    final Widget buildPhoneNumberField =
-        AppInputField.phone(
-              country: loginState.country,
-              controller: _phoneNumberController,
-              hintText:
-                  loginState
-                      .country
-                      .exampleNumberMobileNational
-                      ?.withoutLeadingZero ??
-                  "",
+    final Widget buildEmailField =
+        AppInputField.text(
+              controller: _emailController,
+              hintText: AuthStrings.emailOrPhoneHint.localized(),
+              labelText: AuthStrings.emailOrPhoneLabel.localized(),
+              keyboardType: TextInputType.emailAddress,
             )
-            .withOnTap(() => _showCountryPicker(context))
             .withOnChanged(
-              (phoneNumber) => ref
+              (email) => ref
                   .read(loginViewModelProvider.notifier)
-                  .inputPhoneNumber(phoneNumber),
+                  .inputEmail(email),
             )
-            .withError(loginState.formErrors.phoneNumber);
+            .withError(loginState.formErrors.email);
 
     final Widget buildPasswordField =
         AppInputField.text(
-              controller: _passcodeController,
-              hintText: AuthStrings.globalPasscode.localized(),
-              // Keep localized key for now or update it
-              labelText: AuthStrings.globalPasscode.localized(),
-              obscureText: true,
+              controller: _passwordController,
+              hintText: AuthStrings.passwordHint.localized(),
+              labelText: AuthStrings.passwordLabel.localized(),
+              obscureText: _obscurePassword,
+              actionButton: InputFieldActionButton(
+                icon: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: context.colors.textSecondary,
+                ),
+                onTap: () =>
+                    setState(() => _obscurePassword = !_obscurePassword),
+              ),
             )
             .withOnChanged(
               (password) => ref
                   .read(loginViewModelProvider.notifier)
-                  .inputPasscode(password),
+                  .inputPassword(password),
             )
-            .withError(loginState.formErrors.passcode);
+            .withError(loginState.formErrors.password);
+
+    final forgotPasswordLink = Align(
+      alignment: AlignmentDirectional.centerEnd,
+      child: Text(
+        AuthStrings.forgotPasswordButton.localized(),
+        style: context.typo.bodyMedium.semiBold.copyWith(
+          color: context.colors.textLink,
+        ),
+      ).onTap(() => const ForgotPasswordRoute().push(context)),
+    );
 
     final loginButton = AppButton.primary(
-      AuthStrings.continueButton.localized(),
+      AuthStrings.logInButton.localized(),
       onPressed: _login,
-    ).withPadding(EdgeInsets.only(top: context.dimensions.mediumH));
+    );
 
     final error = loginState.loginStatus.mapOrNull(error: (e) => e.error);
 
@@ -88,34 +102,46 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ),
       leadingWidget: AppImage.asset(AppAssets.redWaring).build(),
     ).gapBottom(context.dimensions.large);
+
     return KooraKickPageBuilder.withAppBar()
         .title(
           Text(
-            AuthStrings.loginMainTitle.localized(),
+            AuthStrings.welcomeBackTitle.localized(),
             style: context.typo.headingLarge,
           ),
         )
+        .subtitle(
+          Text(
+            AuthStrings.loginSubtitle.localized(),
+            style: context.typo.bodyMedium.copyWith(
+              color: context.colors.textSecondary,
+            ),
+          ).withPadding(EdgeInsets.only(top: context.dimensions.smallH)),
+        )
         .content(
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (error.isPresent && error.generalMessage.isPresent)
                 errorBanner,
-              buildPhoneNumberField,
+              buildEmailField,
               SizedBox(height: context.dimensions.largeH),
               buildPasswordField,
-              Text(
-                    AuthStrings.forgotMyPassCodeButton.localized(),
-                    style: context.typo.bodyMedium.semiBold,
-                  )
-                  .onTap(() => const ResetPasscodeRoute().push(context))
-                  .withPadding(
-                    EdgeInsets.only(top: context.dimensions.mediumH),
-                  ),
+              forgotPasswordLink.withPadding(
+                EdgeInsets.only(top: context.dimensions.mediumH),
+              ),
+              loginButton.withPadding(
+                EdgeInsets.only(top: context.dimensions.xLargeH),
+              ),
+              SocialLoginButtons(
+                onPressed: (provider) => ref
+                    .read(loginViewModelProvider.notifier)
+                    .socialLogin(provider),
+              ).withPadding(EdgeInsets.only(top: context.dimensions.xLargeH)),
             ],
           ),
         )
-        .withBottomContent(loginButton)
+        .withBottomContent(_signUpPrompt(context))
         .alignTo(CrossAxisAlignment.start)
         .scrollable()
         .listen<LoginState>(loginViewModelProvider, (context, ref, prev, next) {
@@ -123,9 +149,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             loading: () => context.showLoader(),
             success: (userSessionStatus) {
               context.hideLoader();
-              if (userSessionStatus is UnverifiedStatus) {
-                const VerifyRoute().pushReplacement(context);
-              }
             },
             error: (error) {
               context.hideLoader();
@@ -137,20 +160,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         });
   }
 
+  Widget _signUpPrompt(BuildContext context) => [
+        Text(
+          AuthStrings.dontHaveAccount.localized(),
+          style: context.typo.bodyMedium.copyWith(
+            color: context.colors.textSecondary,
+          ),
+        ),
+        Text(
+          AuthStrings.signUp.localized(),
+          style: context.typo.bodyMedium.semiBold.copyWith(
+            color: context.colors.textLink,
+          ),
+        ).onTap(() => const SignupRoute().replace(context)),
+      ].row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: context.dimensions.smallW,
+      );
+
   void _login() {
     ref.read(loginViewModelProvider.notifier).login();
-  }
-
-  void _showCountryPicker(BuildContext context) async {
-    final pickedCountry = await AppBottomSheet.show<CountryModel>(
-      context: context,
-      title: AuthStrings.selectCountryCodeTitle.localized(),
-      child: const CountryBottomSheet(),
-    );
-
-    if (pickedCountry.isPresent) {
-      setState(_phoneNumberController.clear);
-      ref.read(loginViewModelProvider.notifier).inputCountry(pickedCountry!);
-    }
   }
 }

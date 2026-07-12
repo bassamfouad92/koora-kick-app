@@ -7,7 +7,7 @@ part of 'user_session_service.dart';
 // **************************************************************************
 
 String _$userSessionServiceHash() =>
-    r'8fe6a2a1bf326c4eeca2dac7ce8b5375229816a0';
+    r'25acbfec2c8c6deb1ecbbd44e2d53b3136f7f4ec';
 
 /// See also [UserSessionService].
 @ProviderFor(UserSessionService)

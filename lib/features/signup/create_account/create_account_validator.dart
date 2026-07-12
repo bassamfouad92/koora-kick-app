@@ -1,3 +1,5 @@
+import 'package:koora_kick/features/signup/create_account/create_account_strings.dart';
+import 'package:koora_kick/common/extensions/localization.dart';
 import 'package:koora_kick/features/signup/create_account/state/create_account_form_errors.dart';
 import 'package:koora_kick/features/signup/create_account/state/create_account_state.dart';
 import 'package:koora_kick/utils/validators/form_validator.dart';
@@ -19,9 +21,17 @@ class CreateAccountValidator {
   final PhoneNumberValidator _phoneValidator;
 
   Future<CreateAccountFormErrors> validate(CreateAccountState state) async {
+    final nameError = FormValidator.validate(state.fullName, [
+      RequiredRule(message: 'Name cannot be empty.'),
+    ]);
+
+    final emailError = FormValidator.validate(state.email.trim(), [
+      RequiredRule(message: 'Email cannot be empty.'),
+      EmailRule(),
+    ]);
+
     String? phoneNumberError = FormValidator.validate(state.phoneNumber.number, [
       RequiredRule(message: 'Phone number cannot be empty.'),
-      //MinLengthRule(9, message: 'Please enter a valid phone number.'),
     ]);
 
     if (phoneNumberError == null) {
@@ -35,34 +45,28 @@ class CreateAccountValidator {
       }
     }
 
-    final nameError = FormValidator.validate(state.fullName, [
-      RequiredRule(message: 'Name cannot be empty.'),
+    final passwordError = FormValidator.validate(state.password, [
+      RequiredRule(message: 'Password cannot be empty.'),
+      MinLengthRule(8, message: 'Password must be at least 8 characters.'),
     ]);
 
-    final cityError = FormValidator.validate(state.selectedCity.name, [
-      RequiredRule(message: 'City cannot be empty.'),
-    ]);
+    final countryError =
+        state.selectedLocationCountry == null ? 'Please select your country.' : null;
 
-    final passcodeError = FormValidator.validate(state.passcode, [
-      RequiredRule(message: 'Passcode cannot be empty.'),
-      MinLengthRule(4, message: 'Passcode must be at least 4 digits.'),
-    ]);
+    final cityError = state.selectedCity == null ? 'Please select your city.' : null;
 
-    String? confirmPasscodeError = FormValidator.validate(state.confirmPasscode, [
-      RequiredRule(message: 'Please confirm your passcode.'),
-    ]);
-
-    if (confirmPasscodeError == null && state.passcode != state.confirmPasscode) {
-      confirmPasscodeError = 'Passcodes do not match.';
-    }
+    final termsError = state.agreedToTerms
+        ? null
+        : CreateAccountStrings.agreeToTermsRequired.localized();
 
     return CreateAccountFormErrors(
-      phoneNumber: phoneNumberError,
       name: nameError,
+      email: emailError,
+      phoneNumber: phoneNumberError,
+      password: passwordError,
+      country: countryError,
       city: cityError,
-      passcode: passcodeError,
-      confirmPasscode: confirmPasscodeError,
+      terms: termsError,
     );
   }
 }
-

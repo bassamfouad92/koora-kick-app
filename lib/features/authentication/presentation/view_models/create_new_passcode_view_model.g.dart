@@ -7,7 +7,7 @@ part of 'create_new_passcode_view_model.dart';
 // **************************************************************************
 
 String _$createNewPasscodeViewModelHash() =>
-    r'd5d49aa19578dd8cb02ae44473b76f4e851531f4';
+    r'9f2ccf699c84ef0917e4d7b6990d01a8a282135b';
 
 /// See also [CreateNewPasscodeViewModel].
 @ProviderFor(CreateNewPasscodeViewModel)

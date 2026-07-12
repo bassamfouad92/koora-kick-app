@@ -8,6 +8,6 @@ sealed class UserSessionStatus with _$UserSessionStatus {
   const factory UserSessionStatus.initial() = InitialStatus;
   const factory UserSessionStatus.unauthenticated() = UnauthenticatedStatus;
   const factory UserSessionStatus.authenticated({required User user}) = AuthenticatedStatus;
-  const factory UserSessionStatus.unverified({required User user, required Token token}) = UnverifiedStatus;
-  const factory UserSessionStatus.resettingPasscode({required String phone, required Token token}) = ResettingPasscodeStatus;
+  const factory UserSessionStatus.unverified({required User user, required String token}) = UnverifiedStatus;
+  const factory UserSessionStatus.resettingPasscode({required String phone, required String token}) = ResettingPasscodeStatus;
 }

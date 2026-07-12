@@ -1,20 +1,20 @@
 import 'package:koora_kick/common/http/http_types.dart';
 import 'package:koora_kick/common/http/request/http_request.dart';
 import 'package:koora_kick/common/mapper/data_mapper.dart';
-import 'package:koora_kick/features/profile/data/models/profile_response.dart';
+import 'package:koora_kick/common/user/model/user.dart';
 
-class GetUserProfileRequest extends HttpRequest<ProfileResponse> {
+class GetUserProfileRequest extends HttpRequest<User> {
   @override
   HttpMethod get method => HttpMethod.get;
 
   @override
-  String get path => '/me';
+  String get path => '/users/profile';
 
   @override
-  DataMapper<ProfileResponse> get mapper => ProfileResponseMapper();
+  DataMapper<User> get mapper => UserProfileMapper();
 }
 
-class ProfileResponseMapper implements DataMapper<ProfileResponse> {
+class UserProfileMapper implements DataMapper<User> {
   @override
-  ProfileResponse map(dynamic data) => ProfileResponse.fromJson(data as Map<String, dynamic>);
+  User map(dynamic data) => User.fromJson(data as Map<String, dynamic>);
 }

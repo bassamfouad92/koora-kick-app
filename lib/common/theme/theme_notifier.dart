@@ -8,23 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ThemeNotifier extends Notifier<ThemeData> {
-  AppThemeMode _currentMode = const AppThemeMode.light();
+  AppThemeMode _currentMode = const AppThemeMode.dark();
   AppThemeMode get currentMode => _currentMode;
 
   @override
   ThemeData build() {
     final language = ref.watch(languageNotifierProvider).value ?? AppLanguage.english;
     final settings = ref.watch(appSettingsNotifierProvider).valueOrNull;
-    final mode = settings?.themeMode ?? 'light';
+    final mode = settings?.themeMode ?? 'dark';
 
     final languageCode = language.code;
-    
-    if (mode == 'dark') {
-      _currentMode = const AppThemeMode.dark();
-      return AppThemeManager.withDark(languageCode: languageCode).build();
-    } else {
+
+    if (mode == 'light') {
       _currentMode = const AppThemeMode.light();
       return AppThemeManager.withLight(languageCode: languageCode).build();
+    } else {
+      _currentMode = const AppThemeMode.dark();
+      return AppThemeManager.withDark(languageCode: languageCode).build();
     }
   }
 

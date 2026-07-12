@@ -8,6 +8,7 @@ import 'package:koora_kick/features/landing/landing_strings.dart';
 import 'package:koora_kick/features/landing/presentation/widget/language_bottom_sheet.dart';
 import 'package:koora_kick/features/profile/profile_strings.dart';
 import 'package:koora_kick/common/theme/app_background_property.dart';
+import 'package:koora_kick/common/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,54 +17,62 @@ class LandingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-      body: Container(
-        decoration: context.colors.backgrounds.splash.toBoxDecoration,
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: context.screenHeight -
-                    MediaQuery
-                        .of(context)
-                        .padding
-                        .top -
-                    MediaQuery
-                        .of(context)
-                        .padding
-                        .bottom,
-              ),
-              child: Stack(
-                children: [
-                  [
-                    [
-                      _buildLogoAndBanner(context),
-                      Text(
-                        LandingStrings.welcomeTitle.localized(),
-                        style: context.typo.headingLarge,
-                      ).withVerticalPadding(context.dimensions.largeH),
-                      _buildJoinButton(context),
-                      _buildLoginPromptRow(context),
-                    ].column(crossAxisAlignment: CrossAxisAlignment.center),
-                    _footerPrompt(context).withPadding(
-                      EdgeInsets.only(top: context.dimensions.xLargeH),
+        body: Container(
+          decoration: context.colors.backgrounds.splash.toBoxDecoration,
+          child: Stack(
+            children: [
+              _buildBackground(context),
+              SafeArea(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: context.screenHeight -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).padding.bottom,
                     ),
-                  ].column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: IntrinsicHeight(
+                      child: Stack(
+                        children: [
+                          [
+                            _buildBrandHeader(context),
+                            const Spacer(),
+                            [
+                              _buildJoinButton(context),
+                              _buildSignInButton(context),
+                              _buildTermsAndPrivacy(context),
+                            ].column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                            ),
+                          ].column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                          ),
+                          Positioned.directional(
+                            textDirection: Directionality.of(context),
+                            top: context.dimensions.h(12),
+                            end: context.dimensions.mediumW,
+                            child: buildLanguageTab(context, ref),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  Positioned.directional(
-                    textDirection: Directionality.of(context),
-                    top: context.dimensions.h(12),
-                    end: context.dimensions.mediumW,
-                    child: buildLanguageTab(context, ref),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
-      ),
-    );
+      );
+
+  Widget _buildBackground(BuildContext context) => AppImage.asset(AppAssets.landingBackground)
+        .setDimension(width: context.screenWidth)
+        .build();
+
+  Widget _buildBrandHeader(BuildContext context) => [
+        AppImage.asset(AppAssets.koorakickLogo)
+            .setDimension(width: context.dimensions.w(190))
+            .build()
+            .withPadding(EdgeInsets.only(top: context.dimensions.h(96))),
+      ].column(crossAxisAlignment: CrossAxisAlignment.center);
 
   Widget buildLanguageTab(BuildContext context, WidgetRef ref) {
     final language =
@@ -73,6 +82,7 @@ class LandingScreen extends ConsumerWidget {
       child: AppButton.outline(
         '',
         onPressed: () => _showLanguagePicker(context),
+        backgroundColor: Colors.transparent,
       )
           .copyWith(
             height: context.dimensions.h(36),
@@ -109,70 +119,57 @@ class LandingScreen extends ConsumerWidget {
     );
   }
 
-    Widget _buildLogoAndBanner(BuildContext context) => <Widget>[
-      AppImage.asset(AppAssets.koorakickLogo)
-          .setDimension(width: context.dimensions.w(120))
-          .build()
-          .withPadding(
-            EdgeInsets.only(
-              top: context.dimensions.largeH,
-              left: context.dimensions.smallW,
-              right: context.dimensions.smallH,
-            ),
-          ),
-      AppImage.asset(AppAssets.landingBanner)
-          .build()
-          .withPadding(EdgeInsets.only(top: context.dimensions.h(52))),
-    ].column(crossAxisAlignment: CrossAxisAlignment.start);
+  Widget _buildJoinButton(BuildContext context) => AppButton.primary(
+        LandingStrings.joinTheGame.localized(),
+        onPressed: () => const SignupRoute().push(context),
+      ).withHorizontalPadding(context.dimensions.mediumW);
 
-    Widget _buildJoinButton(BuildContext context) =>
-        AppButton.primary(
-          LandingStrings.joinToKick.localized(),
-          onPressed: () => const SignupRoute().push(context),
-        )
-            .withRightIcon(
-      AppImage.asset(AppAssets.rightArrow)
-          .setStyle(AppImageStyle(color: context.colors.surface))
-          .build(),
-    )
-            .withHorizontalPadding(context.dimensions.mediumW)
-            .withPadding(EdgeInsets.only(bottom: context.dimensions.largeH));
+  Widget _buildSignInButton(BuildContext context) => AppButton.outline(
+        LandingStrings.signIn.localized(),
+        onPressed: () => const LoginRoute().push(context),
+        backgroundColor: Colors.transparent,
+      )
+          .withHorizontalPadding(context.dimensions.mediumW)
+          .withPadding(EdgeInsets.only(top: context.dimensions.mediumH));
 
-    Widget _buildLoginPromptRow(BuildContext context) =>
-        [
-          Text(
-            LandingStrings.alreadyHaveAnAccount.localized(),
-            style: context.typo.bodySmall.copyWith(
-              color: context.colors.textPrimary,
-            ),
-          ),
-          Text(
-            LandingStrings.login.localized(),
-            style: context.typo.bodySmall.copyWith(
-              fontWeight: FontWeight.bold,
-              color: context.colors.textPrimary,
-            ),
-          ).onTap(() => const LoginRoute().push(context)),
-        ].row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: context.dimensions.smallW,
-        );
-
-    Widget _footerPrompt(BuildContext context) =>
-        Text(
-          LandingStrings.footerSubTitle.localized(),
-          textAlign: TextAlign.center,
-          style: context.typo.bodySmall.copyWith(
-            color: context.colors.textSecondary,
-          ),
-        );
-
-    void _showLanguagePicker(BuildContext context) {
-      AppBottomSheet.show(
-        context: context,
-        title: ProfileStrings.selectLanguage.localized(),
-        child: const LanguageBottomSheet(),
+  Widget _buildTermsAndPrivacy(BuildContext context) => AppRichTextBuilder(context)
+      .add('${LandingStrings.agreeText.localized()}\n')
+      .link(
+        LandingStrings.termsOfService.localized(),
+        style: context.typo.bodySmall.semiBold.copyWith(
+          color: context.colors.textLink,
+        ),
+        onTap: () {},
+      )
+      .space()
+      .add(LandingStrings.and.localized())
+      .space()
+      .link(
+        LandingStrings.privacyPolicy.localized(),
+        style: context.typo.bodySmall.semiBold.copyWith(
+          color: context.colors.textLink,
+        ),
+        onTap: () {},
+      )
+      .build(
+        textAlign: TextAlign.center,
+        baseStyle: context.typo.bodySmall.copyWith(
+          color: context.colors.textSecondary,
+          height: 1.6,
+        ),
+      )
+      .withPadding(
+        EdgeInsets.only(
+          top: context.dimensions.largeH,
+          bottom: context.dimensions.mediumH,
+        ),
       );
-    }
-  }
 
+  void _showLanguagePicker(BuildContext context) {
+    AppBottomSheet.show(
+      context: context,
+      title: ProfileStrings.selectLanguage.localized(),
+      child: const LanguageBottomSheet(),
+    );
+  }
+}

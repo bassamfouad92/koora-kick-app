@@ -1,43 +1,42 @@
-import 'package:koora_kick/common/common.dart' hide AppColors;
-import 'package:koora_kick/common/constants/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:koora_kick/common/theme/app_colors.dart';
 import 'package:koora_kick/common/theme/app_background_property.dart';
-import 'package:koora_kick/common/constants/app_colors.dart' as constants;
+
 class DarkAppColors extends AppColors {
   // --- Primitives ---
-  static const _brandYellow = Color(0xFFE6B800); // Slightly darker Yellow
-  static const _brandRed = Color(0xFFFC153B); // Keep for some elements if needed, but Primary is Yellow now.
-  
+  /// Brand green sampled from the KooraKick logo.
+  static const _brandGreen = Color(0xFF30A058);
+  static const _brandGreenBright = Color(0xFF3EBC6B);
+
   // Text Colors (Inverted for Dark Mode)
-  static const _textPrimary = Color(0xFFEEEEEE); // High emphasis - Brighter Gray/White
-  static const _textSecondary = Color(0xFFB0B0B0); // Medium emphasis
-  static const _textTertiary = Color(0xFF757575); // Disabled/Low emphasis
-  static const _textInverse = Color(0xFF121212); // Text on primary (which is now Yellow, so Black text is good)
-  
+  static const _textPrimary = Color(0xFFF2F5F3); // High emphasis
+  static const _textSecondary = Color(0xFFADB8B1); // Medium emphasis
+  static const _textTertiary = Color(0xFF6F7A74); // Disabled/Low emphasis
+  static const _textInverse = Color(0xFF0A130D); // Text on light surfaces
+
   // Status Colors
-  static const _successGreen = Color(0xFF03CAA6); 
-  static const _errorRed = Color(0xFFCF6679); 
+  static const _successGreen = Color(0xFF03CAA6);
+  static const _errorRed = Color(0xFFCF6679);
   static const _warningOrange = Color(0xFFFFB74D);
   static const _infoBlue = Color(0xFF64B5F6);
   static const _summaryBlue = Color(0xFF2C3E50); // Darker blue for summary
-  static const _border = Color(0xFF333333);
-  static const _darkBackground = Color(0xFF121212);
-  static const _darkSurface = Color(0xFF1E1E1E);
+  static const _border = Color(0xFF33403A); // Subtle green-gray outline
+  static const _darkBackground = Color(0xFF0A130D); // Green-tinted near black
+  static const _darkSurface = Color(0xFF16211A);
   static const _darkOverlay = Colors.white24;
-  static const _buttonDisabledColor = Color(0xFF555555); // Darker disabled
+  static const _buttonDisabledColor = Color(0xFF3C4A42);
 
   // --- Implementation ---
 
   @override
-  Color get primary => _brandYellow; 
+  Color get primary => _brandGreen;
 
   @override
-  Color get secondary => _brandYellow; 
+  Color get secondary => _darkSurface;
 
   @override
   Color get tertiary => _infoBlue;
-  
+
   @override
   Color get quaternary => const Color(0xFF969696);
 
@@ -58,9 +57,9 @@ class DarkAppColors extends AppColors {
 
   @override
   Color get textDisabled => _textTertiary;
-  
+
   @override
-  Color get textLink => _brandYellow; // Yellow links on dark
+  Color get textLink => _brandGreenBright;
 
   @override
   Color get success => _successGreen;
@@ -79,18 +78,18 @@ class DarkAppColors extends AppColors {
 
   @override
   Color get divider => _border;
-  
-  @override
-  Color get buttonPrimaryText => _textInverse;
 
   @override
-  Color get inputBorder => _brandYellow; // User requested Yellow
+  Color get buttonPrimaryText => Colors.white;
 
   @override
-  Color get inputBorderFocused => _brandYellow;
-  
+  Color get inputBorder => _border;
+
   @override
-  Color get errorSubTitle => _brandYellow;
+  Color get inputBorderFocused => _brandGreen;
+
+  @override
+  Color get errorSubTitle => _errorRed.withOpacity(0.1);
 
   @override
   Color get bannerBackgroundWarning => _warningOrange.withOpacity(0.1);
@@ -129,13 +128,13 @@ class DarkAppColors extends AppColors {
   Color get cardBackground => _darkSurface;
 
   @override
-  Color get route => _brandYellow;
+  Color get route => _brandGreen;
 
   @override
-  Color get navigation => Colors.deepPurple;
+  Color get navigation => _brandGreen;
 
   @override
-  Color get progressFilled => const Color(0xFFab8902);
+  Color get progressFilled => _brandGreen;
 }
 
 
@@ -143,12 +142,12 @@ class _DarkBackgrounds implements AppBackgrounds {
   const _DarkBackgrounds();
 
   static const _splashGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     colors: [
-      Color(0xFF101010),
-      Color(0xFF2C3E50),
-      Color(0xFF000000),
+      Color(0xFF101B13),
+      Color(0xFF0A130D),
+      Color(0xFF060C08),
     ],
   );
 
@@ -160,13 +159,13 @@ class _DarkBackgrounds implements AppBackgrounds {
 
   @override
   AppBackgroundProperty get scaffold => const AppBackgroundProperty.solid(DarkAppColors._darkBackground);
-  
+
   @override
   AppBackgroundProperty get surface => const AppBackgroundProperty.solid(DarkAppColors._darkSurface);
 
   @override
   AppBackgroundProperty get splash => const AppBackgroundProperty.gradient(_splashGradient);
-  
+
   @override
   AppBackgroundProperty get overlay => const AppBackgroundProperty.solid(DarkAppColors._darkOverlay);
 }

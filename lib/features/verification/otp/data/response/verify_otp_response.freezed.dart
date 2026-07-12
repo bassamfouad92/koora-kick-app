@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$VerifyOtpResponse {
 
- Token get token;
+ String get token;
 /// Create a copy of VerifyOtpResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $VerifyOtpResponseCopyWith<$Res>  {
   factory $VerifyOtpResponseCopyWith(VerifyOtpResponse value, $Res Function(VerifyOtpResponse) _then) = _$VerifyOtpResponseCopyWithImpl;
 @useResult
 $Res call({
- Token token
+ String token
 });
 
 
-$TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -68,19 +68,10 @@ class _$VerifyOtpResponseCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? token = null,}) {
   return _then(_self.copyWith(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
-/// Create a copy of VerifyOtpResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 
@@ -159,7 +150,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Token token)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String token)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VerifyOtpResponse() when $default != null:
 return $default(_that.token);case _:
@@ -180,7 +171,7 @@ return $default(_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Token token)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String token)  $default,) {final _that = this;
 switch (_that) {
 case _VerifyOtpResponse():
 return $default(_that.token);}
@@ -197,7 +188,7 @@ return $default(_that.token);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Token token)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String token)?  $default,) {final _that = this;
 switch (_that) {
 case _VerifyOtpResponse() when $default != null:
 return $default(_that.token);case _:
@@ -215,7 +206,7 @@ class _VerifyOtpResponse implements VerifyOtpResponse {
   const _VerifyOtpResponse({required this.token});
   factory _VerifyOtpResponse.fromJson(Map<String, dynamic> json) => _$VerifyOtpResponseFromJson(json);
 
-@override final  Token token;
+@override final  String token;
 
 /// Create a copy of VerifyOtpResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -250,11 +241,11 @@ abstract mixin class _$VerifyOtpResponseCopyWith<$Res> implements $VerifyOtpResp
   factory _$VerifyOtpResponseCopyWith(_VerifyOtpResponse value, $Res Function(_VerifyOtpResponse) _then) = __$VerifyOtpResponseCopyWithImpl;
 @override @useResult
 $Res call({
- Token token
+ String token
 });
 
 
-@override $TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -270,20 +261,11 @@ class __$VerifyOtpResponseCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? token = null,}) {
   return _then(_VerifyOtpResponse(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
 
-/// Create a copy of VerifyOtpResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 // dart format on

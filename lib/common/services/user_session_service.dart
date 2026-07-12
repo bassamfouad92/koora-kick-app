@@ -1,11 +1,9 @@
 import 'package:koora_kick/common/http/response/result.dart';
 import 'package:koora_kick/common/repositories/token_repository.dart';
-import 'package:koora_kick/common/services/jwt_parser_service.dart';
 import 'package:koora_kick/common/storage/user_store.dart';
 import 'package:koora_kick/common/user/model/user.dart';
 import 'package:koora_kick/common/user/respository/user_repository.dart';
 import 'package:koora_kick/common/services/user_session_status.dart';
-import 'package:koora_kick/common/extensions/null_check.dart';
 import 'package:koora_kick/common/storage/storage_providers.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
@@ -18,20 +16,31 @@ class UserSessionService extends _$UserSessionService {
   late final TokenRepository _tokenRepository = ref.read(tokenRepositoryProvider);
   late final UserRepository _userRepository = ref.read(userRepositoryProvider);
   late final UserStore _userStore = ref.read(userStoreProvider);
-  late final JwtParserService _tokenParser = ref.read(jwtParserServiceProvider);
 
   @override
   FutureOr<UserSessionStatus> build() async {
     final token = await _tokenRepository.fetchToken();
-    return token.let(
-      _resolveStatus,
-      orElse: () => const UserSessionStatus.unauthenticated(),
-    );
+    if (token == null) {
+      return const UserSessionStatus.unauthenticated();
+    }
+    return _resolveStatus(token);
   }
 
-  Future<UserSessionStatus> saveToken(Token token, {String? phoneNumber}) async {
+  /// Persists [token] as the active session. Pass [user] when it is already
+  /// known (register/login/social callback all return it alongside the
+  /// token) to skip an extra profile fetch; otherwise the user is loaded
+  /// via [_resolveStatus].
+  Future<UserSessionStatus> saveToken(String token, {User? user}) async {
     await _tokenRepository.saveToken(token);
-    final status = await _resolveStatus(token);
+
+    final UserSessionStatus status;
+    if (user != null) {
+      await _userStore.save(user);
+      status = _statusFor(user, token);
+    } else {
+      status = await _resolveStatus(token);
+    }
+
     state = AsyncValue.data(status);
     return status;
   }
@@ -41,7 +50,7 @@ class UserSessionService extends _$UserSessionService {
     state = AsyncValue.data(UserSessionStatus.authenticated(user: user));
   }
 
-  void resetPasscode(Token token, {required String phone}) {
+  void resetPasscode(String token, {required String phone}) {
     state = AsyncValue.data(UserSessionStatus.resettingPasscode(phone: phone, token: token));
   }
 
@@ -64,33 +73,27 @@ class UserSessionService extends _$UserSessionService {
     state = const AsyncValue.data(UserSessionStatus.unauthenticated());
   }
 
-  Future<UserSessionStatus> _resolveStatus(Token token) async {
-    final partialUser = token.user ?? _tokenParser.parseUser(token.raw!);
-    return partialUser.let(
-      (user) async {
-        if (user.verified ?? false) {
-          return _fetchUser(user);
-        }
-        return UserSessionStatus.unverified(user: user, token: token);
-      },
-      orElse: () => const UserSessionStatus.unauthenticated(),
-    );
-  }
-
-  Future<UserSessionStatus> _fetchUser(User partialUser) async {
-    final user = await _userStore.fetch();
-    if (user != null) {
-      return UserSessionStatus.authenticated(user: user);
+  Future<UserSessionStatus> _resolveStatus(String token) async {
+    final cachedUser = await _userStore.fetch();
+    if (cachedUser != null) {
+      return _statusFor(cachedUser, token);
     }
+
     final result = await _userRepository.getMe();
     return result.when(
       success: (user) async {
         await _userStore.save(user);
-        return UserSessionStatus.authenticated(user: user);
+        return _statusFor(user, token);
       },
-      error: (exception) async => const UserSessionStatus.unauthenticated(),
+      error: (_) async => const UserSessionStatus.unauthenticated(),
     );
   }
+
+  /// A user must verify their email before the session counts as fully
+  /// authenticated.
+  UserSessionStatus _statusFor(User user, String token) => user.emailVerified
+      ? UserSessionStatus.authenticated(user: user)
+      : UserSessionStatus.unverified(user: user, token: token);
 
   UserSessionStatus? get currentStatus => state.value;
 }

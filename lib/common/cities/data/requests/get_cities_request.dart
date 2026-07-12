@@ -13,7 +13,10 @@ class GetCitiesRequest extends HttpRequest<List<CityModel>> {
   HttpMethod get method => HttpMethod.get;
 
   @override
-  String get path => '/country/$countryId/cities';
+  String get path => '/locations/cities';
+
+  @override
+  Map<String, dynamic>? get queryParams => {'countryId': countryId};
 
   @override
   bool get requiresAuth => false;

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CreateAccountFormErrors {
 
- String? get phoneNumber; String? get name; String? get city; String? get passcode; String? get confirmPasscode;
+ String? get name; String? get email; String? get phoneNumber; String? get password; String? get country; String? get city; String? get terms;
 /// Create a copy of CreateAccountFormErrors
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CreateAccountFormErrorsCopyWith<CreateAccountFormErrors> get copyWith => _$Crea
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateAccountFormErrors&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.city, city) || other.city == city)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.confirmPasscode, confirmPasscode) || other.confirmPasscode == confirmPasscode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateAccountFormErrors&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.password, password) || other.password == password)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.terms, terms) || other.terms == terms));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,name,city,passcode,confirmPasscode);
+int get hashCode => Object.hash(runtimeType,name,email,phoneNumber,password,country,city,terms);
 
 @override
 String toString() {
-  return 'CreateAccountFormErrors(phoneNumber: $phoneNumber, name: $name, city: $city, passcode: $passcode, confirmPasscode: $confirmPasscode)';
+  return 'CreateAccountFormErrors(name: $name, email: $email, phoneNumber: $phoneNumber, password: $password, country: $country, city: $city, terms: $terms)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CreateAccountFormErrorsCopyWith<$Res>  {
   factory $CreateAccountFormErrorsCopyWith(CreateAccountFormErrors value, $Res Function(CreateAccountFormErrors) _then) = _$CreateAccountFormErrorsCopyWithImpl;
 @useResult
 $Res call({
- String? phoneNumber, String? name, String? city, String? passcode, String? confirmPasscode
+ String? name, String? email, String? phoneNumber, String? password, String? country, String? city, String? terms
 });
 
 
@@ -62,13 +62,15 @@ class _$CreateAccountFormErrorsCopyWithImpl<$Res>
 
 /// Create a copy of CreateAccountFormErrors
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phoneNumber = freezed,Object? name = freezed,Object? city = freezed,Object? passcode = freezed,Object? confirmPasscode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? password = freezed,Object? country = freezed,Object? city = freezed,Object? terms = freezed,}) {
   return _then(_self.copyWith(
-phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as String?,passcode: freezed == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String?,confirmPasscode: freezed == confirmPasscode ? _self.confirmPasscode : confirmPasscode // ignore: cast_nullable_to_non_nullable
+as String?,terms: freezed == terms ? _self.terms : terms // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -151,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? phoneNumber,  String? name,  String? city,  String? passcode,  String? confirmPasscode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? name,  String? email,  String? phoneNumber,  String? password,  String? country,  String? city,  String? terms)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CreateAccountFormErrors() when $default != null:
-return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.confirmPasscode);case _:
+return $default(_that.name,_that.email,_that.phoneNumber,_that.password,_that.country,_that.city,_that.terms);case _:
   return orElse();
 
 }
@@ -172,10 +174,10 @@ return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.con
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? phoneNumber,  String? name,  String? city,  String? passcode,  String? confirmPasscode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? name,  String? email,  String? phoneNumber,  String? password,  String? country,  String? city,  String? terms)  $default,) {final _that = this;
 switch (_that) {
 case _CreateAccountFormErrors():
-return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.confirmPasscode);}
+return $default(_that.name,_that.email,_that.phoneNumber,_that.password,_that.country,_that.city,_that.terms);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -189,10 +191,10 @@ return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.con
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? phoneNumber,  String? name,  String? city,  String? passcode,  String? confirmPasscode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? name,  String? email,  String? phoneNumber,  String? password,  String? country,  String? city,  String? terms)?  $default,) {final _that = this;
 switch (_that) {
 case _CreateAccountFormErrors() when $default != null:
-return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.confirmPasscode);case _:
+return $default(_that.name,_that.email,_that.phoneNumber,_that.password,_that.country,_that.city,_that.terms);case _:
   return null;
 
 }
@@ -204,14 +206,16 @@ return $default(_that.phoneNumber,_that.name,_that.city,_that.passcode,_that.con
 
 
 class _CreateAccountFormErrors extends CreateAccountFormErrors {
-  const _CreateAccountFormErrors({this.phoneNumber, this.name, this.city, this.passcode, this.confirmPasscode}): super._();
+  const _CreateAccountFormErrors({this.name, this.email, this.phoneNumber, this.password, this.country, this.city, this.terms}): super._();
   
 
-@override final  String? phoneNumber;
 @override final  String? name;
+@override final  String? email;
+@override final  String? phoneNumber;
+@override final  String? password;
+@override final  String? country;
 @override final  String? city;
-@override final  String? passcode;
-@override final  String? confirmPasscode;
+@override final  String? terms;
 
 /// Create a copy of CreateAccountFormErrors
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +227,16 @@ _$CreateAccountFormErrorsCopyWith<_CreateAccountFormErrors> get copyWith => __$C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateAccountFormErrors&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.city, city) || other.city == city)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.confirmPasscode, confirmPasscode) || other.confirmPasscode == confirmPasscode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateAccountFormErrors&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.password, password) || other.password == password)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.terms, terms) || other.terms == terms));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,name,city,passcode,confirmPasscode);
+int get hashCode => Object.hash(runtimeType,name,email,phoneNumber,password,country,city,terms);
 
 @override
 String toString() {
-  return 'CreateAccountFormErrors(phoneNumber: $phoneNumber, name: $name, city: $city, passcode: $passcode, confirmPasscode: $confirmPasscode)';
+  return 'CreateAccountFormErrors(name: $name, email: $email, phoneNumber: $phoneNumber, password: $password, country: $country, city: $city, terms: $terms)';
 }
 
 
@@ -243,7 +247,7 @@ abstract mixin class _$CreateAccountFormErrorsCopyWith<$Res> implements $CreateA
   factory _$CreateAccountFormErrorsCopyWith(_CreateAccountFormErrors value, $Res Function(_CreateAccountFormErrors) _then) = __$CreateAccountFormErrorsCopyWithImpl;
 @override @useResult
 $Res call({
- String? phoneNumber, String? name, String? city, String? passcode, String? confirmPasscode
+ String? name, String? email, String? phoneNumber, String? password, String? country, String? city, String? terms
 });
 
 
@@ -260,13 +264,15 @@ class __$CreateAccountFormErrorsCopyWithImpl<$Res>
 
 /// Create a copy of CreateAccountFormErrors
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phoneNumber = freezed,Object? name = freezed,Object? city = freezed,Object? passcode = freezed,Object? confirmPasscode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? password = freezed,Object? country = freezed,Object? city = freezed,Object? terms = freezed,}) {
   return _then(_CreateAccountFormErrors(
-phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as String?,passcode: freezed == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String?,confirmPasscode: freezed == confirmPasscode ? _self.confirmPasscode : confirmPasscode // ignore: cast_nullable_to_non_nullable
+as String?,terms: freezed == terms ? _self.terms : terms // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

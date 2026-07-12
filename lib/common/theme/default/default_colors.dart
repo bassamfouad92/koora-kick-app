@@ -4,7 +4,8 @@ import 'package:koora_kick/common/theme/app_background_property.dart';
 import 'package:koora_kick/common/constants/app_colors.dart' as constants;
 
 class DefaultAppColors extends AppColors {
-  static const _brandGreen = Color(0xFF1DB954);
+  /// Brand green sampled from the KooraKick logo.
+  static const _brandGreen = Color(0xFF30A058);
   static const _neutral900 = Color(0xFF1F2937);
   static const _neutral800 = Color(0xFF374151);
   static const _neutral600 = Color(0xFF6B7280);

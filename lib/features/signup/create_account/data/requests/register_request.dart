@@ -2,53 +2,47 @@ import 'package:koora_kick/common/http/http_types.dart';
 import 'package:koora_kick/common/http/request/http_request.dart';
 import 'package:koora_kick/common/http/request/request_body.dart';
 import 'package:koora_kick/common/mapper/data_mapper.dart';
-import 'package:koora_kick/common/user/mapper/user_mapper.dart';
-import 'package:koora_kick/common/user/model/user.dart';
-import 'package:koora_kick/features/signup/create_account/data/mappers/register_mapper.dart';
-import 'package:koora_kick/features/signup/create_account/data/models/register_response.dart';
+import 'package:koora_kick/features/authentication/data/mappers/auth_session_mapper.dart';
+import 'package:koora_kick/features/authentication/data/response/auth_session_response.dart';
 
-class RegisterRequest extends HttpRequest<RegisterResponse> {
+class RegisterRequest extends HttpRequest<AuthSessionResponse> {
 
   RegisterRequest({
-    required this.phoneNumber,
     required this.name,
-    required this.city,
-    required this.passcode,
+    required this.email,
+    required this.password,
   });
-  final String phoneNumber;
   final String name;
-  final String city;
-  final String passcode;
+  final String email;
+  final String password;
 
   @override
   HttpMethod get method => HttpMethod.post;
 
   @override
-  String get path => '/register';
+  String get path => '/auth/register';
 
   @override
-  RequestBody? get body => _RegisterRequestBody(phoneNumber, name, city, passcode);
+  RequestBody? get body => _RegisterRequestBody(name, email, password);
 
   @override
   bool get requiresAuth => false;
 
   @override
-  DataMapper<RegisterResponse> get mapper => RegisterMapper();
+  DataMapper<AuthSessionResponse> get mapper => AuthSessionMapper();
 }
 
 class _RegisterRequestBody implements RequestBody {
 
-  _RegisterRequestBody(this.phoneNumber, this.name, this.city, this.passcode);
-  final String phoneNumber;
+  _RegisterRequestBody(this.name, this.email, this.password);
   final String name;
-  final String city;
-  final String passcode;
+  final String email;
+  final String password;
 
   @override
   Map<String, dynamic> toJson() => {
-    'phone': phoneNumber,
     'name': name,
-    'city': city,
-    'pin': passcode,
+    'email': email,
+    'password': password,
   };
 }

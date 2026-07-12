@@ -19,13 +19,15 @@ Map<String, dynamic> _$CitiesResponseToJson(_CitiesResponse instance) =>
     <String, dynamic>{'data': instance.data};
 
 _City _$CityFromJson(Map<String, dynamic> json) => _City(
-  id: json['_id'] as String?,
+  id: json['id'] as String?,
   name: json['name'] as String?,
+  countryId: json['countryId'] as String?,
   active: json['active'] as bool?,
 );
 
 Map<String, dynamic> _$CityToJson(_City instance) => <String, dynamic>{
-  '_id': instance.id,
+  'id': instance.id,
   'name': instance.name,
+  'countryId': instance.countryId,
   'active': instance.active,
 };

@@ -400,7 +400,7 @@ $UserSessionStatusCopyWith<$Res> get status {
 /// @nodoc
 mixin _$LoginFormErrors {
 
- String? get phoneNumber; String? get passcode;
+ String? get email; String? get password;
 /// Create a copy of LoginFormErrors
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -411,16 +411,16 @@ $LoginFormErrorsCopyWith<LoginFormErrors> get copyWith => _$LoginFormErrorsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginFormErrors&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.passcode, passcode) || other.passcode == passcode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginFormErrors&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,passcode);
+int get hashCode => Object.hash(runtimeType,email,password);
 
 @override
 String toString() {
-  return 'LoginFormErrors(phoneNumber: $phoneNumber, passcode: $passcode)';
+  return 'LoginFormErrors(email: $email, password: $password)';
 }
 
 
@@ -431,7 +431,7 @@ abstract mixin class $LoginFormErrorsCopyWith<$Res>  {
   factory $LoginFormErrorsCopyWith(LoginFormErrors value, $Res Function(LoginFormErrors) _then) = _$LoginFormErrorsCopyWithImpl;
 @useResult
 $Res call({
- String? phoneNumber, String? passcode
+ String? email, String? password
 });
 
 
@@ -448,10 +448,10 @@ class _$LoginFormErrorsCopyWithImpl<$Res>
 
 /// Create a copy of LoginFormErrors
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phoneNumber = freezed,Object? passcode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = freezed,Object? password = freezed,}) {
   return _then(_self.copyWith(
-phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,passcode: freezed == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
+email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -534,10 +534,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? phoneNumber,  String? passcode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? email,  String? password)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginFormErrors() when $default != null:
-return $default(_that.phoneNumber,_that.passcode);case _:
+return $default(_that.email,_that.password);case _:
   return orElse();
 
 }
@@ -555,10 +555,10 @@ return $default(_that.phoneNumber,_that.passcode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? phoneNumber,  String? passcode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? email,  String? password)  $default,) {final _that = this;
 switch (_that) {
 case _LoginFormErrors():
-return $default(_that.phoneNumber,_that.passcode);}
+return $default(_that.email,_that.password);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -572,10 +572,10 @@ return $default(_that.phoneNumber,_that.passcode);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? phoneNumber,  String? passcode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? email,  String? password)?  $default,) {final _that = this;
 switch (_that) {
 case _LoginFormErrors() when $default != null:
-return $default(_that.phoneNumber,_that.passcode);case _:
+return $default(_that.email,_that.password);case _:
   return null;
 
 }
@@ -587,11 +587,11 @@ return $default(_that.phoneNumber,_that.passcode);case _:
 
 
 class _LoginFormErrors extends LoginFormErrors {
-  const _LoginFormErrors({this.phoneNumber = null, this.passcode = null}): super._();
+  const _LoginFormErrors({this.email = null, this.password = null}): super._();
   
 
-@override@JsonKey() final  String? phoneNumber;
-@override@JsonKey() final  String? passcode;
+@override@JsonKey() final  String? email;
+@override@JsonKey() final  String? password;
 
 /// Create a copy of LoginFormErrors
 /// with the given fields replaced by the non-null parameter values.
@@ -603,16 +603,16 @@ _$LoginFormErrorsCopyWith<_LoginFormErrors> get copyWith => __$LoginFormErrorsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginFormErrors&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.passcode, passcode) || other.passcode == passcode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginFormErrors&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phoneNumber,passcode);
+int get hashCode => Object.hash(runtimeType,email,password);
 
 @override
 String toString() {
-  return 'LoginFormErrors(phoneNumber: $phoneNumber, passcode: $passcode)';
+  return 'LoginFormErrors(email: $email, password: $password)';
 }
 
 
@@ -623,7 +623,7 @@ abstract mixin class _$LoginFormErrorsCopyWith<$Res> implements $LoginFormErrors
   factory _$LoginFormErrorsCopyWith(_LoginFormErrors value, $Res Function(_LoginFormErrors) _then) = __$LoginFormErrorsCopyWithImpl;
 @override @useResult
 $Res call({
- String? phoneNumber, String? passcode
+ String? email, String? password
 });
 
 
@@ -640,10 +640,10 @@ class __$LoginFormErrorsCopyWithImpl<$Res>
 
 /// Create a copy of LoginFormErrors
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phoneNumber = freezed,Object? passcode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? password = freezed,}) {
   return _then(_LoginFormErrors(
-phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,passcode: freezed == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
+email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -654,7 +654,7 @@ as String?,
 /// @nodoc
 mixin _$LoginState {
 
- LoginStatus get loginStatus; PhoneNumber get phoneNumber; String get passcode; CountryModel get country; LoginFormErrors get formErrors;
+ LoginStatus get loginStatus; String get email; String get password; LoginFormErrors get formErrors;
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -665,16 +665,16 @@ $LoginStateCopyWith<LoginState> get copyWith => _$LoginStateCopyWithImpl<LoginSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginState&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.country, country) || other.country == country)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginState&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,loginStatus,phoneNumber,passcode,country,formErrors);
+int get hashCode => Object.hash(runtimeType,loginStatus,email,password,formErrors);
 
 @override
 String toString() {
-  return 'LoginState(loginStatus: $loginStatus, phoneNumber: $phoneNumber, passcode: $passcode, country: $country, formErrors: $formErrors)';
+  return 'LoginState(loginStatus: $loginStatus, email: $email, password: $password, formErrors: $formErrors)';
 }
 
 
@@ -685,11 +685,11 @@ abstract mixin class $LoginStateCopyWith<$Res>  {
   factory $LoginStateCopyWith(LoginState value, $Res Function(LoginState) _then) = _$LoginStateCopyWithImpl;
 @useResult
 $Res call({
- LoginStatus loginStatus, PhoneNumber phoneNumber, String passcode, CountryModel country, LoginFormErrors formErrors
+ LoginStatus loginStatus, String email, String password, LoginFormErrors formErrors
 });
 
 
-$LoginStatusCopyWith<$Res> get loginStatus;$PhoneNumberCopyWith<$Res> get phoneNumber;$CountryModelCopyWith<$Res> get country;$LoginFormErrorsCopyWith<$Res> get formErrors;
+$LoginStatusCopyWith<$Res> get loginStatus;$LoginFormErrorsCopyWith<$Res> get formErrors;
 
 }
 /// @nodoc
@@ -702,13 +702,12 @@ class _$LoginStateCopyWithImpl<$Res>
 
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? loginStatus = null,Object? phoneNumber = null,Object? passcode = null,Object? country = null,Object? formErrors = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? loginStatus = null,Object? email = null,Object? password = null,Object? formErrors = null,}) {
   return _then(_self.copyWith(
 loginStatus: null == loginStatus ? _self.loginStatus : loginStatus // ignore: cast_nullable_to_non_nullable
-as LoginStatus,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as PhoneNumber,passcode: null == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as CountryModel,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
+as LoginStatus,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
 as LoginFormErrors,
   ));
 }
@@ -720,24 +719,6 @@ $LoginStatusCopyWith<$Res> get loginStatus {
   
   return $LoginStatusCopyWith<$Res>(_self.loginStatus, (value) {
     return _then(_self.copyWith(loginStatus: value));
-  });
-}/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PhoneNumberCopyWith<$Res> get phoneNumber {
-  
-  return $PhoneNumberCopyWith<$Res>(_self.phoneNumber, (value) {
-    return _then(_self.copyWith(phoneNumber: value));
-  });
-}/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$CountryModelCopyWith<$Res> get country {
-  
-  return $CountryModelCopyWith<$Res>(_self.country, (value) {
-    return _then(_self.copyWith(country: value));
   });
 }/// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
@@ -827,10 +808,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LoginStatus loginStatus,  PhoneNumber phoneNumber,  String passcode,  CountryModel country,  LoginFormErrors formErrors)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( LoginStatus loginStatus,  String email,  String password,  LoginFormErrors formErrors)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginState() when $default != null:
-return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country,_that.formErrors);case _:
+return $default(_that.loginStatus,_that.email,_that.password,_that.formErrors);case _:
   return orElse();
 
 }
@@ -848,10 +829,10 @@ return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LoginStatus loginStatus,  PhoneNumber phoneNumber,  String passcode,  CountryModel country,  LoginFormErrors formErrors)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( LoginStatus loginStatus,  String email,  String password,  LoginFormErrors formErrors)  $default,) {final _that = this;
 switch (_that) {
 case _LoginState():
-return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country,_that.formErrors);}
+return $default(_that.loginStatus,_that.email,_that.password,_that.formErrors);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -865,10 +846,10 @@ return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LoginStatus loginStatus,  PhoneNumber phoneNumber,  String passcode,  CountryModel country,  LoginFormErrors formErrors)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( LoginStatus loginStatus,  String email,  String password,  LoginFormErrors formErrors)?  $default,) {final _that = this;
 switch (_that) {
 case _LoginState() when $default != null:
-return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country,_that.formErrors);case _:
+return $default(_that.loginStatus,_that.email,_that.password,_that.formErrors);case _:
   return null;
 
 }
@@ -880,13 +861,12 @@ return $default(_that.loginStatus,_that.phoneNumber,_that.passcode,_that.country
 
 
 class _LoginState extends LoginState {
-  const _LoginState({this.loginStatus = const LoginStatus.initial(), this.phoneNumber = const PhoneNumber(number: '', countryCode: '20'), this.passcode = emptyString, this.country = CountryModel.defaultCountry, this.formErrors = const LoginFormErrors()}): super._();
+  const _LoginState({this.loginStatus = const LoginStatus.initial(), this.email = emptyString, this.password = emptyString, this.formErrors = const LoginFormErrors()}): super._();
   
 
 @override@JsonKey() final  LoginStatus loginStatus;
-@override@JsonKey() final  PhoneNumber phoneNumber;
-@override@JsonKey() final  String passcode;
-@override@JsonKey() final  CountryModel country;
+@override@JsonKey() final  String email;
+@override@JsonKey() final  String password;
 @override@JsonKey() final  LoginFormErrors formErrors;
 
 /// Create a copy of LoginState
@@ -899,16 +879,16 @@ _$LoginStateCopyWith<_LoginState> get copyWith => __$LoginStateCopyWithImpl<_Log
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginState&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.country, country) || other.country == country)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginState&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,loginStatus,phoneNumber,passcode,country,formErrors);
+int get hashCode => Object.hash(runtimeType,loginStatus,email,password,formErrors);
 
 @override
 String toString() {
-  return 'LoginState(loginStatus: $loginStatus, phoneNumber: $phoneNumber, passcode: $passcode, country: $country, formErrors: $formErrors)';
+  return 'LoginState(loginStatus: $loginStatus, email: $email, password: $password, formErrors: $formErrors)';
 }
 
 
@@ -919,11 +899,11 @@ abstract mixin class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$
   factory _$LoginStateCopyWith(_LoginState value, $Res Function(_LoginState) _then) = __$LoginStateCopyWithImpl;
 @override @useResult
 $Res call({
- LoginStatus loginStatus, PhoneNumber phoneNumber, String passcode, CountryModel country, LoginFormErrors formErrors
+ LoginStatus loginStatus, String email, String password, LoginFormErrors formErrors
 });
 
 
-@override $LoginStatusCopyWith<$Res> get loginStatus;@override $PhoneNumberCopyWith<$Res> get phoneNumber;@override $CountryModelCopyWith<$Res> get country;@override $LoginFormErrorsCopyWith<$Res> get formErrors;
+@override $LoginStatusCopyWith<$Res> get loginStatus;@override $LoginFormErrorsCopyWith<$Res> get formErrors;
 
 }
 /// @nodoc
@@ -936,13 +916,12 @@ class __$LoginStateCopyWithImpl<$Res>
 
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? loginStatus = null,Object? phoneNumber = null,Object? passcode = null,Object? country = null,Object? formErrors = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? loginStatus = null,Object? email = null,Object? password = null,Object? formErrors = null,}) {
   return _then(_LoginState(
 loginStatus: null == loginStatus ? _self.loginStatus : loginStatus // ignore: cast_nullable_to_non_nullable
-as LoginStatus,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as PhoneNumber,passcode: null == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as CountryModel,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
+as LoginStatus,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
 as LoginFormErrors,
   ));
 }
@@ -955,24 +934,6 @@ $LoginStatusCopyWith<$Res> get loginStatus {
   
   return $LoginStatusCopyWith<$Res>(_self.loginStatus, (value) {
     return _then(_self.copyWith(loginStatus: value));
-  });
-}/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PhoneNumberCopyWith<$Res> get phoneNumber {
-  
-  return $PhoneNumberCopyWith<$Res>(_self.phoneNumber, (value) {
-    return _then(_self.copyWith(phoneNumber: value));
-  });
-}/// Create a copy of LoginState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$CountryModelCopyWith<$Res> get country {
-  
-  return $CountryModelCopyWith<$Res>(_self.country, (value) {
-    return _then(_self.copyWith(country: value));
   });
 }/// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.

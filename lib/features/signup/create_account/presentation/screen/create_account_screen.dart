@@ -1,28 +1,20 @@
-import 'package:koora_kick/common/cities/domain/entities/city_model.dart';
-import 'package:koora_kick/common/constants/app_assets.dart';
-import 'package:koora_kick/common/countries/domain/entities/country_model.dart';
 import 'package:koora_kick/common/common.dart';
 import 'package:koora_kick/common/errors/app_error.dart';
 import 'package:koora_kick/common/extensions/localization.dart';
-import 'package:koora_kick/common/extensions/null_check.dart';
-import 'package:koora_kick/common/extensions/string.dart';
 import 'package:koora_kick/common/managers/loader_manager.dart';
 
 import 'package:koora_kick/common/extensions/theme_context_extension.dart';
-import 'package:koora_kick/common/services/user_session_status.dart';
-import 'package:koora_kick/common/utils/snack_bar_utils.dart';
+import 'package:koora_kick/common/theme/app_typography.dart';
 
 import 'package:koora_kick/common/widgets/banner/banner_text.dart';
-import 'package:koora_kick/common/widgets/bottom_sheet/city_bottom_sheet.dart';
-import 'package:koora_kick/common/widgets/page/koorakick_page_builder.dart';
-import 'package:koora_kick/features/authentication/auth_strings.dart';
-import 'package:koora_kick/features/authentication/presentation/widget/term_and_privacy_widget.dart';
-import 'package:koora_kick/features/landing/landing_strings.dart';
+import 'package:koora_kick/common/utils/snack_bar_utils.dart';
+import 'package:koora_kick/features/authentication/presentation/widget/social_login_buttons.dart';
 import 'package:koora_kick/features/signup/create_account/create_account_strings.dart';
+import 'package:koora_kick/features/signup/create_account/presentation/widget/city_bottom_sheet.dart';
+import 'package:koora_kick/features/signup/create_account/presentation/widget/location_country_bottom_sheet.dart';
+import 'package:koora_kick/utils/focus_helper.dart';
 import 'package:koora_kick/features/signup/create_account/state/create_account_state.dart';
 import 'package:koora_kick/features/signup/create_account/view_model/create_account_view_model.dart';
-import 'package:koora_kick/routes/koorakick_routes.dart';
-import 'package:koora_kick/utils/focus_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,21 +27,25 @@ class CreateAccountScreen extends ConsumerStatefulWidget {
 }
 
 class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
-  final _phoneController = TextEditingController();
   final _nameController = TextEditingController();
-  final _passcodeController = TextEditingController();
-  final _confirmPasscodeController = TextEditingController();
-
-  bool isCityError = false;
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final createAccountState = ref.watch(createAccountViewModelProvider);
+    final notifier = ref.read(createAccountViewModelProvider.notifier);
 
     final error = createAccountState.createAccountStatus.maybeWhen(
       error: (e) => e,
@@ -65,97 +61,125 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
       leadingWidget: AppImage.asset(AppAssets.redWaring).build(),
     );
 
-    final Widget buildPhoneNumberField =
-        AppInputField.phone(
-              controller: _phoneController,
-              country: createAccountState.country,
-              hintText: createAccountState
-                  .country
-                  .exampleNumberMobileNational?.withoutLeadingZero??"",
-            )
-            .withOnTap(() => _showCountryPicker(context))
-            .withOnChanged(
-              (phoneNumber) => ref
-                  .read(createAccountViewModelProvider.notifier)
-                  .inputPhoneNumber(phoneNumber),
-            )
-            .withError(createAccountState.formErrors.phoneNumber);
-
     final Widget buildNameField =
         AppInputField.text(
               controller: _nameController,
-              hintText: CreateAccountStrings.profileEnterFullName.localized(),
-              labelText: CreateAccountStrings.globalName.localized(),
+              hintText: CreateAccountStrings.fullNameHint.localized(),
+              labelText: CreateAccountStrings.fullNameLabel.localized(),
+              actionButton: InputFieldActionButton(
+                icon: Icon(
+                  Icons.person_outline,
+                  color: context.colors.textSecondary,
+                ),
+                onTap: () {},
+                isEnabled: false,
+              ),
             )
-            .withOnChanged(
-              (fullName) => ref
-                  .read(createAccountViewModelProvider.notifier)
-                  .inputFullName(fullName),
-            )
+            .withOnChanged(notifier.inputFullName)
             .withError(createAccountState.formErrors.name);
+
+    final Widget buildEmailField =
+        AppInputField.text(
+              controller: _emailController,
+              hintText: CreateAccountStrings.emailHint.localized(),
+              labelText: CreateAccountStrings.emailLabel.localized(),
+              keyboardType: TextInputType.emailAddress,
+              actionButton: InputFieldActionButton(
+                icon: Icon(
+                  Icons.mail_outline,
+                  color: context.colors.textSecondary,
+                ),
+                onTap: () {},
+                isEnabled: false,
+              ),
+            )
+            .withOnChanged(notifier.inputEmail)
+            .withError(createAccountState.formErrors.email);
+
+    final Widget buildCountryDropdown =
+        AppInputField.itemPicker(
+              itemPickerSelectedValue:
+                  createAccountState.selectedLocationCountry?.name,
+              hintText: CreateAccountStrings.selectYourCountry.localized(),
+              labelText: CreateAccountStrings.countryLabel.localized(),
+            )
+            .withOnTap(() => _showLocationCountryPicker(context))
+            .withError(createAccountState.formErrors.country);
 
     final Widget buildCityDropdown =
         AppInputField.itemPicker(
-              itemPickerSelectedValue: createAccountState.selectedCity.name,
-              hintText: CreateAccountStrings.profileSelectYourCity.localized(),
-              labelText: CreateAccountStrings.globalCity.localized(),
+              itemPickerSelectedValue: createAccountState.selectedCity?.name,
+              hintText: CreateAccountStrings.selectYourCity.localized(),
+              labelText: CreateAccountStrings.cityLabel.localized(),
             )
             .withOnTap(() => _showCityPicker(context))
             .withError(createAccountState.formErrors.city);
 
     final Widget buildPasswordField =
         AppInputField.text(
-              controller: _passcodeController,
-              hintText: CreateAccountStrings.globalPasscode.localized(),
-              labelText: CreateAccountStrings.globalPasscode.localized(),
-              obscureText: true,
+              controller: _passwordController,
+              hintText: CreateAccountStrings.passwordHint.localized(),
+              labelText: CreateAccountStrings.passwordLabel.localized(),
+              obscureText: _obscurePassword,
+              actionButton: InputFieldActionButton(
+                icon: Icon(
+                  _obscurePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: context.colors.textSecondary,
+                ),
+                onTap: () =>
+                    setState(() => _obscurePassword = !_obscurePassword),
+              ),
             )
-            .withOnChanged(
-              (password) => ref
-                  .read(createAccountViewModelProvider.notifier)
-                  .inputPasscode(password),
-            )
-            .withError(createAccountState.formErrors.passcode);
+            .withOnChanged(notifier.inputPassword)
+            .withError(createAccountState.formErrors.password);
 
-    final Widget buildConfirmPasswordFieldSection =
-        AppInputField.text(
-              controller: _confirmPasscodeController,
-              hintText: CreateAccountStrings.globalConfirmPasscode.localized(),
-              labelText: CreateAccountStrings.globalConfirmPasscode.localized(),
-              obscureText: true,
-            )
-            .withOnChanged(
-              (confirmPassword) => ref
-                  .read(createAccountViewModelProvider.notifier)
-                  .inputConfirmPasscode(confirmPassword),
-            )
-            .withError(createAccountState.formErrors.confirmPasscode);
-
-    return KooraKickPageBuilder.withPinnedTitleAppBar(
-          largeTitle: CreateAccountStrings.createYourKooraKickAccountTitle // Should probably rename this string late
-              .localized(),
-          pinnedTitle: CreateAccountStrings.createAccountTitle.localized(),
+    return KooraKickPageBuilder.withAppBar()
+        .title(
+          Text(
+            CreateAccountStrings.createYourAccountTitle.localized(),
+            style: context.typo.headingLarge,
+          ),
         )
-        .rightButton(LandingStrings.login.localized(), () {
-          const LoginRoute().replace(context);
-        })
+        .subtitle(
+          Text(
+            CreateAccountStrings.createAccountSubtitle.localized(),
+            style: context.typo.bodyMedium.copyWith(
+              color: context.colors.textSecondary,
+            ),
+          ).withPadding(EdgeInsets.only(top: context.dimensions.smallH)),
+        )
         .content(
-          [
-            if (error != null && error.generalMessage.isNotEmpty) errorBanner,
-            buildPhoneNumberField,
-            buildPasswordField,
-            buildConfirmPasswordFieldSection,
-            buildNameField,
-            buildCityDropdown,
-          ].column(spacing: context.dimensions.mediumH),
-        )
-        .withBottomContent(
-          [
-            _buildCreateAccountButton(context),
-            termAndPrivacy(context),
-          ].column(spacing: context.dimensions.small),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (error != null && error.generalMessage.isNotEmpty)
+                errorBanner.gapBottom(context.dimensions.large),
+              [
+                buildNameField,
+                buildEmailField,
+                buildCountryDropdown,
+                buildCityDropdown,
+                buildPasswordField,
+              ].column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: context.dimensions.mediumH,
+              ),
+              _buildAgreeToTerms(context, createAccountState),
+              AppButton.primary(
+                CreateAccountStrings.signUpButton.localized(),
+                onPressed: notifier.register,
+              ).withPadding(EdgeInsets.only(top: context.dimensions.mediumH)),
+              SocialLoginButtons(
+                axis: Axis.horizontal,
+                onPressed: notifier.socialLogin,
+              ).withPadding(EdgeInsets.only(top: context.dimensions.xLargeH)),
+            ],
+          ),
         )
         .alignTo(CrossAxisAlignment.start)
+        .scrollable()
         .listen<CreateAccountState>(createAccountViewModelProvider, (
           context,
           ref,
@@ -167,9 +191,6 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
             loading: () => context.showLoader(),
             success: (userSessionStatus) {
               context.hideLoader();
-              if (userSessionStatus  is UnverifiedStatus) {
-                const VerifyRoute().pushReplacement(context);
-              }
             },
             error: (error) {
               context.hideLoader();
@@ -178,45 +199,106 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
         });
   }
 
-  Widget _buildCreateAccountButton(BuildContext context) => AppButton.primary(
-    CreateAccountStrings.createAccountButtonText.localized(),
-    onPressed: () {
-      ref.read(createAccountViewModelProvider.notifier).register();
-    },
-  );
+  Widget _buildAgreeToTerms(
+    BuildContext context,
+    CreateAccountState state,
+  ) {
+    final notifier = ref.read(createAccountViewModelProvider.notifier);
 
-  void _showCountryPicker(BuildContext context) async {
-    final pickedCountry = await AppBottomSheet.show<CountryModel>(
-      context: context,
-      title: AuthStrings.selectCountryCodeTitle.localized(),
-      child: const CountryBottomSheet(),
+    final agreeRow = [
+      SizedBox(
+        width: context.dimensions.iconSizeMedium,
+        height: context.dimensions.iconSizeMedium,
+        child: Checkbox(
+          value: state.agreedToTerms,
+          onChanged: (_) => notifier.toggleAgreedToTerms(),
+          activeColor: context.colors.primary,
+          checkColor: context.colors.buttonPrimaryText,
+          side: BorderSide(color: context.colors.border),
+        ),
+      ),
+      Expanded(
+        child: AppRichTextBuilder(context)
+            .add(CreateAccountStrings.agreePrefix.localized())
+            .space()
+            .link(
+              'auth_termAndPrivacy_termTitle'.localized(),
+              style: context.typo.bodySmall.semiBold.copyWith(
+                color: context.colors.textLink,
+              ),
+              onTap: () {},
+            )
+            .space()
+            .add('global_and'.localized())
+            .space()
+            .link(
+              'auth_termAndPrivacy_privacyTitle'.localized(),
+              style: context.typo.bodySmall.semiBold.copyWith(
+                color: context.colors.textLink,
+              ),
+              onTap: () {},
+            )
+            .build(
+              baseStyle: context.typo.bodySmall.copyWith(
+                color: context.colors.textSecondary,
+              ),
+            ),
+      ),
+    ].row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: context.dimensions.smallW,
     );
-    if (pickedCountry.isPresent) {
-      ref
-          .read(createAccountViewModelProvider.notifier)
-          .inputCountry(pickedCountry!);
-    }
+
+    return [
+      agreeRow,
+      if (state.formErrors.terms != null)
+        Text(
+          state.formErrors.terms!,
+          style: context.typo.errorMessage,
+        ).withPadding(EdgeInsets.only(top: context.dimensions.xSmallH)),
+    ]
+        .column(crossAxisAlignment: CrossAxisAlignment.start)
+        .withPadding(EdgeInsets.only(top: context.dimensions.largeH));
+  }
+
+  void _showLocationCountryPicker(BuildContext context) {
+    FocusHelper.unfocus(context);
+    final state = ref.read(createAccountViewModelProvider);
+
+    AppBottomSheet.show<void>(
+      context: context,
+      title: CreateAccountStrings.selectYourCountry.localized(),
+      child: LocationCountryBottomSheet(
+        selectedCountryId: state.selectedLocationCountry?.id,
+        onCountrySelected:
+            ref.read(createAccountViewModelProvider.notifier).inputLocationCountry,
+      ),
+    );
   }
 
   void _showCityPicker(BuildContext context) async {
     FocusHelper.unfocus(context);
     final state = ref.read(createAccountViewModelProvider);
 
-    if (state.cities.isEmpty && !state.isCitiesLoading) {
-      SnackBarUtils.showError('No cities found');
+    final selectedCountry = state.selectedLocationCountry;
+    if (selectedCountry == null) {
+      SnackBarUtils.showError(
+        CreateAccountStrings.selectCountryFirst.localized(),
+      );
       return;
     }
 
-    final pickedCity = await AppBottomSheet.show<CityModel>(
+    await AppBottomSheet.show<void>(
       context: context,
       title: CreateAccountStrings.selectCity.localized(),
-      child: const CityBottomSheet(),
+      child: CityBottomSheet(
+        countryId: selectedCountry.id,
+        selectedCityId: state.selectedCity?.id,
+        onCitySelected: ref.read(createAccountViewModelProvider.notifier).inputCity,
+      ),
     );
-    if (pickedCity.isPresent) {
-      ref.read(createAccountViewModelProvider.notifier).inputCity(pickedCity!);
-      if (context.mounted) {
-        FocusHelper.unfocusWithDelay(context);
-      }
+    if (context.mounted) {
+      FocusHelper.unfocusWithDelay(context);
     }
   }
 }

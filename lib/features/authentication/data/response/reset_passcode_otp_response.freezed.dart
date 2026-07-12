@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ResetPasscodeOtpResponse {
 
- Token get token;
+ String get token;
 /// Create a copy of ResetPasscodeOtpResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,11 +48,11 @@ abstract mixin class $ResetPasscodeOtpResponseCopyWith<$Res>  {
   factory $ResetPasscodeOtpResponseCopyWith(ResetPasscodeOtpResponse value, $Res Function(ResetPasscodeOtpResponse) _then) = _$ResetPasscodeOtpResponseCopyWithImpl;
 @useResult
 $Res call({
- Token token
+ String token
 });
 
 
-$TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -68,19 +68,10 @@ class _$ResetPasscodeOtpResponseCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') @override $Res call({Object? token = null,}) {
   return _then(_self.copyWith(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
-/// Create a copy of ResetPasscodeOtpResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 
@@ -159,7 +150,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Token token)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String token)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ResetPasscodeOtpResponse() when $default != null:
 return $default(_that.token);case _:
@@ -180,7 +171,7 @@ return $default(_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Token token)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String token)  $default,) {final _that = this;
 switch (_that) {
 case _ResetPasscodeOtpResponse():
 return $default(_that.token);}
@@ -197,7 +188,7 @@ return $default(_that.token);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Token token)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String token)?  $default,) {final _that = this;
 switch (_that) {
 case _ResetPasscodeOtpResponse() when $default != null:
 return $default(_that.token);case _:
@@ -215,7 +206,7 @@ class _ResetPasscodeOtpResponse implements ResetPasscodeOtpResponse {
   const _ResetPasscodeOtpResponse({required this.token});
   factory _ResetPasscodeOtpResponse.fromJson(Map<String, dynamic> json) => _$ResetPasscodeOtpResponseFromJson(json);
 
-@override final  Token token;
+@override final  String token;
 
 /// Create a copy of ResetPasscodeOtpResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -250,11 +241,11 @@ abstract mixin class _$ResetPasscodeOtpResponseCopyWith<$Res> implements $ResetP
   factory _$ResetPasscodeOtpResponseCopyWith(_ResetPasscodeOtpResponse value, $Res Function(_ResetPasscodeOtpResponse) _then) = __$ResetPasscodeOtpResponseCopyWithImpl;
 @override @useResult
 $Res call({
- Token token
+ String token
 });
 
 
-@override $TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -270,20 +261,11 @@ class __$ResetPasscodeOtpResponseCopyWithImpl<$Res>
 @override @pragma('vm:prefer-inline') $Res call({Object? token = null,}) {
   return _then(_ResetPasscodeOtpResponse(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
 
-/// Create a copy of ResetPasscodeOtpResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 // dart format on

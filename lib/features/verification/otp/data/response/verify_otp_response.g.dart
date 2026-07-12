@@ -7,9 +7,7 @@ part of 'verify_otp_response.dart';
 // **************************************************************************
 
 _VerifyOtpResponse _$VerifyOtpResponseFromJson(Map<String, dynamic> json) =>
-    _VerifyOtpResponse(
-      token: Token.fromJson(json['token'] as Map<String, dynamic>),
-    );
+    _VerifyOtpResponse(token: json['token'] as String);
 
 Map<String, dynamic> _$VerifyOtpResponseToJson(_VerifyOtpResponse instance) =>
     <String, dynamic>{'token': instance.token};

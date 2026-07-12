@@ -16,8 +16,9 @@ sealed class CitiesResponse with _$CitiesResponse {
 @freezed
 sealed class City with _$City {
   const factory City({
-    @JsonKey(name: '_id') String? id,
+    String? id,
     String? name,
+    String? countryId,
     bool? active,
   }) = _City;
 

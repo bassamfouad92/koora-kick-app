@@ -58,11 +58,16 @@ class AppButton extends StatelessWidget {
         type: AppButtonType.secondary,
       );
 
-  factory AppButton.outline(String text, {required VoidCallback onPressed}) =>
+  factory AppButton.outline(
+    String text, {
+    required VoidCallback onPressed,
+    Color? backgroundColor,
+  }) =>
       AppButton._(
         text: text,
         onPressed: onPressed,
         type: AppButtonType.outline,
+        backgroundColor: backgroundColor,
       );
 
   factory AppButton.text({String? text, required VoidCallback onPressed}) =>
@@ -147,6 +152,7 @@ class AppButton extends StatelessWidget {
     double? height,
     Widget? textWidget,
     bool? isDisabled,
+    Color? backgroundColor,
   }) => AppButton._(
     text: text,
     onPressed: onPressed,
@@ -157,6 +163,10 @@ class AppButton extends StatelessWidget {
     height: height ?? this.height,
     textWidget: textWidget ?? this.textWidget,
     isDisabled: isDisabled ?? this.isDisabled,
+    backgroundColor: backgroundColor ?? this.backgroundColor,
+    opacity: opacity,
+    iconColor: iconColor,
+    border: border,
   );
 
   @override

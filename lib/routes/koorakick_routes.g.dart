@@ -32,14 +32,14 @@ RouteBase get $appShellRoute => ShellRouteData.$route(
           factory: $SignupRouteExtension._fromState,
         ),
         GoRouteData.$route(
-          path: 'reset-passcode',
+          path: 'forgot-password',
 
-          factory: $ResetPasscodeRouteExtension._fromState,
+          factory: $ForgotPasswordRouteExtension._fromState,
         ),
         GoRouteData.$route(
-          path: 'create-new-passcode',
+          path: 'reset-password',
 
-          factory: $CreateNewPasscodeRouteExtension._fromState,
+          factory: $ResetPasswordRouteExtension._fromState,
         ),
       ],
     ),
@@ -52,6 +52,21 @@ RouteBase get $appShellRoute => ShellRouteData.$route(
       path: '/talker',
 
       factory: $TalkerRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/interests',
+
+      factory: $OnboardingInterestsRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/watch-preference',
+
+      factory: $WatchPreferenceRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/onboarding/all-set',
+
+      factory: $AllSetRouteExtension._fromState,
     ),
     StatefulShellRouteData.$route(
       factory: $MainShellRouteDataExtension._fromState,
@@ -182,11 +197,11 @@ extension $SignupRouteExtension on SignupRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ResetPasscodeRouteExtension on ResetPasscodeRoute {
-  static ResetPasscodeRoute _fromState(GoRouterState state) =>
-      const ResetPasscodeRoute();
+extension $ForgotPasswordRouteExtension on ForgotPasswordRoute {
+  static ForgotPasswordRoute _fromState(GoRouterState state) =>
+      const ForgotPasswordRoute();
 
-  String get location => GoRouteData.$location('/reset-passcode');
+  String get location => GoRouteData.$location('/forgot-password');
 
   void go(BuildContext context) => context.go(location);
 
@@ -198,11 +213,14 @@ extension $ResetPasscodeRouteExtension on ResetPasscodeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $CreateNewPasscodeRouteExtension on CreateNewPasscodeRoute {
-  static CreateNewPasscodeRoute _fromState(GoRouterState state) =>
-      const CreateNewPasscodeRoute();
+extension $ResetPasswordRouteExtension on ResetPasswordRoute {
+  static ResetPasswordRoute _fromState(GoRouterState state) =>
+      ResetPasswordRoute(token: state.uri.queryParameters['token'] ?? '');
 
-  String get location => GoRouteData.$location('/create-new-passcode');
+  String get location => GoRouteData.$location(
+    '/reset-password',
+    queryParams: {if (token != '') 'token': token},
+  );
 
   void go(BuildContext context) => context.go(location);
 
@@ -236,6 +254,53 @@ extension $TalkerRouteExtension on TalkerRoute {
   static TalkerRoute _fromState(GoRouterState state) => const TalkerRoute();
 
   String get location => GoRouteData.$location('/talker');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $OnboardingInterestsRouteExtension on OnboardingInterestsRoute {
+  static OnboardingInterestsRoute _fromState(GoRouterState state) =>
+      const OnboardingInterestsRoute();
+
+  String get location => GoRouteData.$location('/onboarding/interests');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $WatchPreferenceRouteExtension on WatchPreferenceRoute {
+  static WatchPreferenceRoute _fromState(GoRouterState state) =>
+      const WatchPreferenceRoute();
+
+  String get location => GoRouteData.$location('/onboarding/watch-preference');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AllSetRouteExtension on AllSetRoute {
+  static AllSetRoute _fromState(GoRouterState state) => const AllSetRoute();
+
+  String get location => GoRouteData.$location('/onboarding/all-set');
 
   void go(BuildContext context) => context.go(location);
 
@@ -383,7 +448,7 @@ extension $SplashRouteExtension on SplashRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'9e7aff367177b1a1246c29db1eb15e64ba140fdc';
+String _$goRouterHash() => r'f54c31334e7a7b7341627712aaa7d4031e0931bd';
 
 /// See also [goRouter].
 @ProviderFor(goRouter)

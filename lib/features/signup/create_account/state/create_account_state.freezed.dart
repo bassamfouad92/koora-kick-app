@@ -400,7 +400,9 @@ $UserSessionStatusCopyWith<$Res> get status {
 /// @nodoc
 mixin _$CreateAccountState {
 
- CreateAccountStatus get createAccountStatus; PhoneNumber get phoneNumber; String get fullName; CityModel get selectedCity; String get passcode; String get confirmPasscode; CountryModel get country; List<CityModel> get cities; bool get isCitiesLoading; CreateAccountFormErrors get formErrors; AppError? get error;
+ CreateAccountStatus get createAccountStatus; String get fullName; String get email; PhoneNumber get phoneNumber; CountryModel get country; String get password; bool get agreedToTerms;// Location selection, pushed to the profile after register. The lists
+// themselves live in locationCountriesProvider / citiesProvider.
+ LocationCountryModel? get selectedLocationCountry; CityModel? get selectedCity; CreateAccountFormErrors get formErrors; AppError? get error;
 /// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -411,16 +413,16 @@ $CreateAccountStateCopyWith<CreateAccountState> get copyWith => _$CreateAccountS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateAccountState&&(identical(other.createAccountStatus, createAccountStatus) || other.createAccountStatus == createAccountStatus)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.selectedCity, selectedCity) || other.selectedCity == selectedCity)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.confirmPasscode, confirmPasscode) || other.confirmPasscode == confirmPasscode)&&(identical(other.country, country) || other.country == country)&&const DeepCollectionEquality().equals(other.cities, cities)&&(identical(other.isCitiesLoading, isCitiesLoading) || other.isCitiesLoading == isCitiesLoading)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreateAccountState&&(identical(other.createAccountStatus, createAccountStatus) || other.createAccountStatus == createAccountStatus)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.country, country) || other.country == country)&&(identical(other.password, password) || other.password == password)&&(identical(other.agreedToTerms, agreedToTerms) || other.agreedToTerms == agreedToTerms)&&(identical(other.selectedLocationCountry, selectedLocationCountry) || other.selectedLocationCountry == selectedLocationCountry)&&(identical(other.selectedCity, selectedCity) || other.selectedCity == selectedCity)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,createAccountStatus,phoneNumber,fullName,selectedCity,passcode,confirmPasscode,country,const DeepCollectionEquality().hash(cities),isCitiesLoading,formErrors,error);
+int get hashCode => Object.hash(runtimeType,createAccountStatus,fullName,email,phoneNumber,country,password,agreedToTerms,selectedLocationCountry,selectedCity,formErrors,error);
 
 @override
 String toString() {
-  return 'CreateAccountState(createAccountStatus: $createAccountStatus, phoneNumber: $phoneNumber, fullName: $fullName, selectedCity: $selectedCity, passcode: $passcode, confirmPasscode: $confirmPasscode, country: $country, cities: $cities, isCitiesLoading: $isCitiesLoading, formErrors: $formErrors, error: $error)';
+  return 'CreateAccountState(createAccountStatus: $createAccountStatus, fullName: $fullName, email: $email, phoneNumber: $phoneNumber, country: $country, password: $password, agreedToTerms: $agreedToTerms, selectedLocationCountry: $selectedLocationCountry, selectedCity: $selectedCity, formErrors: $formErrors, error: $error)';
 }
 
 
@@ -431,11 +433,11 @@ abstract mixin class $CreateAccountStateCopyWith<$Res>  {
   factory $CreateAccountStateCopyWith(CreateAccountState value, $Res Function(CreateAccountState) _then) = _$CreateAccountStateCopyWithImpl;
 @useResult
 $Res call({
- CreateAccountStatus createAccountStatus, PhoneNumber phoneNumber, String fullName, CityModel selectedCity, String passcode, String confirmPasscode, CountryModel country, List<CityModel> cities, bool isCitiesLoading, CreateAccountFormErrors formErrors, AppError? error
+ CreateAccountStatus createAccountStatus, String fullName, String email, PhoneNumber phoneNumber, CountryModel country, String password, bool agreedToTerms, LocationCountryModel? selectedLocationCountry, CityModel? selectedCity, CreateAccountFormErrors formErrors, AppError? error
 });
 
 
-$CreateAccountStatusCopyWith<$Res> get createAccountStatus;$PhoneNumberCopyWith<$Res> get phoneNumber;$CityModelCopyWith<$Res> get selectedCity;$CountryModelCopyWith<$Res> get country;$CreateAccountFormErrorsCopyWith<$Res> get formErrors;$AppErrorCopyWith<$Res>? get error;
+$CreateAccountStatusCopyWith<$Res> get createAccountStatus;$PhoneNumberCopyWith<$Res> get phoneNumber;$CountryModelCopyWith<$Res> get country;$LocationCountryModelCopyWith<$Res>? get selectedLocationCountry;$CityModelCopyWith<$Res>? get selectedCity;$CreateAccountFormErrorsCopyWith<$Res> get formErrors;$AppErrorCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -448,18 +450,18 @@ class _$CreateAccountStateCopyWithImpl<$Res>
 
 /// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? createAccountStatus = null,Object? phoneNumber = null,Object? fullName = null,Object? selectedCity = null,Object? passcode = null,Object? confirmPasscode = null,Object? country = null,Object? cities = null,Object? isCitiesLoading = null,Object? formErrors = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? createAccountStatus = null,Object? fullName = null,Object? email = null,Object? phoneNumber = null,Object? country = null,Object? password = null,Object? agreedToTerms = null,Object? selectedLocationCountry = freezed,Object? selectedCity = freezed,Object? formErrors = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 createAccountStatus: null == createAccountStatus ? _self.createAccountStatus : createAccountStatus // ignore: cast_nullable_to_non_nullable
-as CreateAccountStatus,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as PhoneNumber,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,selectedCity: null == selectedCity ? _self.selectedCity : selectedCity // ignore: cast_nullable_to_non_nullable
-as CityModel,passcode: null == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String,confirmPasscode: null == confirmPasscode ? _self.confirmPasscode : confirmPasscode // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as CountryModel,cities: null == cities ? _self.cities : cities // ignore: cast_nullable_to_non_nullable
-as List<CityModel>,isCitiesLoading: null == isCitiesLoading ? _self.isCitiesLoading : isCitiesLoading // ignore: cast_nullable_to_non_nullable
-as bool,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
+as CreateAccountStatus,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as PhoneNumber,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
+as CountryModel,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,agreedToTerms: null == agreedToTerms ? _self.agreedToTerms : agreedToTerms // ignore: cast_nullable_to_non_nullable
+as bool,selectedLocationCountry: freezed == selectedLocationCountry ? _self.selectedLocationCountry : selectedLocationCountry // ignore: cast_nullable_to_non_nullable
+as LocationCountryModel?,selectedCity: freezed == selectedCity ? _self.selectedCity : selectedCity // ignore: cast_nullable_to_non_nullable
+as CityModel?,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
 as CreateAccountFormErrors,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,
   ));
@@ -486,19 +488,34 @@ $PhoneNumberCopyWith<$Res> get phoneNumber {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CityModelCopyWith<$Res> get selectedCity {
+$CountryModelCopyWith<$Res> get country {
   
-  return $CityModelCopyWith<$Res>(_self.selectedCity, (value) {
-    return _then(_self.copyWith(selectedCity: value));
+  return $CountryModelCopyWith<$Res>(_self.country, (value) {
+    return _then(_self.copyWith(country: value));
   });
 }/// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CountryModelCopyWith<$Res> get country {
-  
-  return $CountryModelCopyWith<$Res>(_self.country, (value) {
-    return _then(_self.copyWith(country: value));
+$LocationCountryModelCopyWith<$Res>? get selectedLocationCountry {
+    if (_self.selectedLocationCountry == null) {
+    return null;
+  }
+
+  return $LocationCountryModelCopyWith<$Res>(_self.selectedLocationCountry!, (value) {
+    return _then(_self.copyWith(selectedLocationCountry: value));
+  });
+}/// Create a copy of CreateAccountState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CityModelCopyWith<$Res>? get selectedCity {
+    if (_self.selectedCity == null) {
+    return null;
+  }
+
+  return $CityModelCopyWith<$Res>(_self.selectedCity!, (value) {
+    return _then(_self.copyWith(selectedCity: value));
   });
 }/// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
@@ -600,10 +617,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CreateAccountStatus createAccountStatus,  PhoneNumber phoneNumber,  String fullName,  CityModel selectedCity,  String passcode,  String confirmPasscode,  CountryModel country,  List<CityModel> cities,  bool isCitiesLoading,  CreateAccountFormErrors formErrors,  AppError? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CreateAccountStatus createAccountStatus,  String fullName,  String email,  PhoneNumber phoneNumber,  CountryModel country,  String password,  bool agreedToTerms,  LocationCountryModel? selectedLocationCountry,  CityModel? selectedCity,  CreateAccountFormErrors formErrors,  AppError? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CreateAccountState() when $default != null:
-return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that.selectedCity,_that.passcode,_that.confirmPasscode,_that.country,_that.cities,_that.isCitiesLoading,_that.formErrors,_that.error);case _:
+return $default(_that.createAccountStatus,_that.fullName,_that.email,_that.phoneNumber,_that.country,_that.password,_that.agreedToTerms,_that.selectedLocationCountry,_that.selectedCity,_that.formErrors,_that.error);case _:
   return orElse();
 
 }
@@ -621,10 +638,10 @@ return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CreateAccountStatus createAccountStatus,  PhoneNumber phoneNumber,  String fullName,  CityModel selectedCity,  String passcode,  String confirmPasscode,  CountryModel country,  List<CityModel> cities,  bool isCitiesLoading,  CreateAccountFormErrors formErrors,  AppError? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CreateAccountStatus createAccountStatus,  String fullName,  String email,  PhoneNumber phoneNumber,  CountryModel country,  String password,  bool agreedToTerms,  LocationCountryModel? selectedLocationCountry,  CityModel? selectedCity,  CreateAccountFormErrors formErrors,  AppError? error)  $default,) {final _that = this;
 switch (_that) {
 case _CreateAccountState():
-return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that.selectedCity,_that.passcode,_that.confirmPasscode,_that.country,_that.cities,_that.isCitiesLoading,_that.formErrors,_that.error);}
+return $default(_that.createAccountStatus,_that.fullName,_that.email,_that.phoneNumber,_that.country,_that.password,_that.agreedToTerms,_that.selectedLocationCountry,_that.selectedCity,_that.formErrors,_that.error);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -638,10 +655,10 @@ return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CreateAccountStatus createAccountStatus,  PhoneNumber phoneNumber,  String fullName,  CityModel selectedCity,  String passcode,  String confirmPasscode,  CountryModel country,  List<CityModel> cities,  bool isCitiesLoading,  CreateAccountFormErrors formErrors,  AppError? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CreateAccountStatus createAccountStatus,  String fullName,  String email,  PhoneNumber phoneNumber,  CountryModel country,  String password,  bool agreedToTerms,  LocationCountryModel? selectedLocationCountry,  CityModel? selectedCity,  CreateAccountFormErrors formErrors,  AppError? error)?  $default,) {final _that = this;
 switch (_that) {
 case _CreateAccountState() when $default != null:
-return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that.selectedCity,_that.passcode,_that.confirmPasscode,_that.country,_that.cities,_that.isCitiesLoading,_that.formErrors,_that.error);case _:
+return $default(_that.createAccountStatus,_that.fullName,_that.email,_that.phoneNumber,_that.country,_that.password,_that.agreedToTerms,_that.selectedLocationCountry,_that.selectedCity,_that.formErrors,_that.error);case _:
   return null;
 
 }
@@ -653,24 +670,20 @@ return $default(_that.createAccountStatus,_that.phoneNumber,_that.fullName,_that
 
 
 class _CreateAccountState extends CreateAccountState {
-  const _CreateAccountState({this.createAccountStatus = const CreateAccountStatus.initial(), this.phoneNumber = const PhoneNumber(number: '', countryCode: '20'), this.fullName = emptyString, this.selectedCity = defaultCity, this.passcode = emptyString, this.confirmPasscode = emptyString, this.country = CountryModel.defaultCountry, final  List<CityModel> cities = const [], this.isCitiesLoading = false, this.formErrors = const CreateAccountFormErrors(), this.error}): _cities = cities,super._();
+  const _CreateAccountState({this.createAccountStatus = const CreateAccountStatus.initial(), this.fullName = emptyString, this.email = emptyString, this.phoneNumber = const PhoneNumber(number: '', countryCode: '966'), this.country = CountryModel.defaultCountry, this.password = emptyString, this.agreedToTerms = false, this.selectedLocationCountry, this.selectedCity, this.formErrors = const CreateAccountFormErrors(), this.error}): super._();
   
 
 @override@JsonKey() final  CreateAccountStatus createAccountStatus;
-@override@JsonKey() final  PhoneNumber phoneNumber;
 @override@JsonKey() final  String fullName;
-@override@JsonKey() final  CityModel selectedCity;
-@override@JsonKey() final  String passcode;
-@override@JsonKey() final  String confirmPasscode;
+@override@JsonKey() final  String email;
+@override@JsonKey() final  PhoneNumber phoneNumber;
 @override@JsonKey() final  CountryModel country;
- final  List<CityModel> _cities;
-@override@JsonKey() List<CityModel> get cities {
-  if (_cities is EqualUnmodifiableListView) return _cities;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_cities);
-}
-
-@override@JsonKey() final  bool isCitiesLoading;
+@override@JsonKey() final  String password;
+@override@JsonKey() final  bool agreedToTerms;
+// Location selection, pushed to the profile after register. The lists
+// themselves live in locationCountriesProvider / citiesProvider.
+@override final  LocationCountryModel? selectedLocationCountry;
+@override final  CityModel? selectedCity;
 @override@JsonKey() final  CreateAccountFormErrors formErrors;
 @override final  AppError? error;
 
@@ -684,16 +697,16 @@ _$CreateAccountStateCopyWith<_CreateAccountState> get copyWith => __$CreateAccou
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateAccountState&&(identical(other.createAccountStatus, createAccountStatus) || other.createAccountStatus == createAccountStatus)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.selectedCity, selectedCity) || other.selectedCity == selectedCity)&&(identical(other.passcode, passcode) || other.passcode == passcode)&&(identical(other.confirmPasscode, confirmPasscode) || other.confirmPasscode == confirmPasscode)&&(identical(other.country, country) || other.country == country)&&const DeepCollectionEquality().equals(other._cities, _cities)&&(identical(other.isCitiesLoading, isCitiesLoading) || other.isCitiesLoading == isCitiesLoading)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreateAccountState&&(identical(other.createAccountStatus, createAccountStatus) || other.createAccountStatus == createAccountStatus)&&(identical(other.fullName, fullName) || other.fullName == fullName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.country, country) || other.country == country)&&(identical(other.password, password) || other.password == password)&&(identical(other.agreedToTerms, agreedToTerms) || other.agreedToTerms == agreedToTerms)&&(identical(other.selectedLocationCountry, selectedLocationCountry) || other.selectedLocationCountry == selectedLocationCountry)&&(identical(other.selectedCity, selectedCity) || other.selectedCity == selectedCity)&&(identical(other.formErrors, formErrors) || other.formErrors == formErrors)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,createAccountStatus,phoneNumber,fullName,selectedCity,passcode,confirmPasscode,country,const DeepCollectionEquality().hash(_cities),isCitiesLoading,formErrors,error);
+int get hashCode => Object.hash(runtimeType,createAccountStatus,fullName,email,phoneNumber,country,password,agreedToTerms,selectedLocationCountry,selectedCity,formErrors,error);
 
 @override
 String toString() {
-  return 'CreateAccountState(createAccountStatus: $createAccountStatus, phoneNumber: $phoneNumber, fullName: $fullName, selectedCity: $selectedCity, passcode: $passcode, confirmPasscode: $confirmPasscode, country: $country, cities: $cities, isCitiesLoading: $isCitiesLoading, formErrors: $formErrors, error: $error)';
+  return 'CreateAccountState(createAccountStatus: $createAccountStatus, fullName: $fullName, email: $email, phoneNumber: $phoneNumber, country: $country, password: $password, agreedToTerms: $agreedToTerms, selectedLocationCountry: $selectedLocationCountry, selectedCity: $selectedCity, formErrors: $formErrors, error: $error)';
 }
 
 
@@ -704,11 +717,11 @@ abstract mixin class _$CreateAccountStateCopyWith<$Res> implements $CreateAccoun
   factory _$CreateAccountStateCopyWith(_CreateAccountState value, $Res Function(_CreateAccountState) _then) = __$CreateAccountStateCopyWithImpl;
 @override @useResult
 $Res call({
- CreateAccountStatus createAccountStatus, PhoneNumber phoneNumber, String fullName, CityModel selectedCity, String passcode, String confirmPasscode, CountryModel country, List<CityModel> cities, bool isCitiesLoading, CreateAccountFormErrors formErrors, AppError? error
+ CreateAccountStatus createAccountStatus, String fullName, String email, PhoneNumber phoneNumber, CountryModel country, String password, bool agreedToTerms, LocationCountryModel? selectedLocationCountry, CityModel? selectedCity, CreateAccountFormErrors formErrors, AppError? error
 });
 
 
-@override $CreateAccountStatusCopyWith<$Res> get createAccountStatus;@override $PhoneNumberCopyWith<$Res> get phoneNumber;@override $CityModelCopyWith<$Res> get selectedCity;@override $CountryModelCopyWith<$Res> get country;@override $CreateAccountFormErrorsCopyWith<$Res> get formErrors;@override $AppErrorCopyWith<$Res>? get error;
+@override $CreateAccountStatusCopyWith<$Res> get createAccountStatus;@override $PhoneNumberCopyWith<$Res> get phoneNumber;@override $CountryModelCopyWith<$Res> get country;@override $LocationCountryModelCopyWith<$Res>? get selectedLocationCountry;@override $CityModelCopyWith<$Res>? get selectedCity;@override $CreateAccountFormErrorsCopyWith<$Res> get formErrors;@override $AppErrorCopyWith<$Res>? get error;
 
 }
 /// @nodoc
@@ -721,18 +734,18 @@ class __$CreateAccountStateCopyWithImpl<$Res>
 
 /// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? createAccountStatus = null,Object? phoneNumber = null,Object? fullName = null,Object? selectedCity = null,Object? passcode = null,Object? confirmPasscode = null,Object? country = null,Object? cities = null,Object? isCitiesLoading = null,Object? formErrors = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? createAccountStatus = null,Object? fullName = null,Object? email = null,Object? phoneNumber = null,Object? country = null,Object? password = null,Object? agreedToTerms = null,Object? selectedLocationCountry = freezed,Object? selectedCity = freezed,Object? formErrors = null,Object? error = freezed,}) {
   return _then(_CreateAccountState(
 createAccountStatus: null == createAccountStatus ? _self.createAccountStatus : createAccountStatus // ignore: cast_nullable_to_non_nullable
-as CreateAccountStatus,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as PhoneNumber,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
-as String,selectedCity: null == selectedCity ? _self.selectedCity : selectedCity // ignore: cast_nullable_to_non_nullable
-as CityModel,passcode: null == passcode ? _self.passcode : passcode // ignore: cast_nullable_to_non_nullable
-as String,confirmPasscode: null == confirmPasscode ? _self.confirmPasscode : confirmPasscode // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as CountryModel,cities: null == cities ? _self._cities : cities // ignore: cast_nullable_to_non_nullable
-as List<CityModel>,isCitiesLoading: null == isCitiesLoading ? _self.isCitiesLoading : isCitiesLoading // ignore: cast_nullable_to_non_nullable
-as bool,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
+as CreateAccountStatus,fullName: null == fullName ? _self.fullName : fullName // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,phoneNumber: null == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as PhoneNumber,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
+as CountryModel,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,agreedToTerms: null == agreedToTerms ? _self.agreedToTerms : agreedToTerms // ignore: cast_nullable_to_non_nullable
+as bool,selectedLocationCountry: freezed == selectedLocationCountry ? _self.selectedLocationCountry : selectedLocationCountry // ignore: cast_nullable_to_non_nullable
+as LocationCountryModel?,selectedCity: freezed == selectedCity ? _self.selectedCity : selectedCity // ignore: cast_nullable_to_non_nullable
+as CityModel?,formErrors: null == formErrors ? _self.formErrors : formErrors // ignore: cast_nullable_to_non_nullable
 as CreateAccountFormErrors,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as AppError?,
   ));
@@ -760,19 +773,34 @@ $PhoneNumberCopyWith<$Res> get phoneNumber {
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CityModelCopyWith<$Res> get selectedCity {
+$CountryModelCopyWith<$Res> get country {
   
-  return $CityModelCopyWith<$Res>(_self.selectedCity, (value) {
-    return _then(_self.copyWith(selectedCity: value));
+  return $CountryModelCopyWith<$Res>(_self.country, (value) {
+    return _then(_self.copyWith(country: value));
   });
 }/// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$CountryModelCopyWith<$Res> get country {
-  
-  return $CountryModelCopyWith<$Res>(_self.country, (value) {
-    return _then(_self.copyWith(country: value));
+$LocationCountryModelCopyWith<$Res>? get selectedLocationCountry {
+    if (_self.selectedLocationCountry == null) {
+    return null;
+  }
+
+  return $LocationCountryModelCopyWith<$Res>(_self.selectedLocationCountry!, (value) {
+    return _then(_self.copyWith(selectedLocationCountry: value));
+  });
+}/// Create a copy of CreateAccountState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CityModelCopyWith<$Res>? get selectedCity {
+    if (_self.selectedCity == null) {
+    return null;
+  }
+
+  return $CityModelCopyWith<$Res>(_self.selectedCity!, (value) {
+    return _then(_self.copyWith(selectedCity: value));
   });
 }/// Create a copy of CreateAccountState
 /// with the given fields replaced by the non-null parameter values.

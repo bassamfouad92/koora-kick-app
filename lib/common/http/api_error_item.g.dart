@@ -9,6 +9,7 @@ part of 'api_error_item.dart';
 _APIErrorItem _$APIErrorItemFromJson(Map<String, dynamic> json) =>
     _APIErrorItem(
       message: json['message'] as String,
+      field: json['field'] as String?,
       key: json['key'] as String?,
       value: json['value'] as String?,
       schema: json['schema'] as String?,
@@ -17,6 +18,7 @@ _APIErrorItem _$APIErrorItemFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$APIErrorItemToJson(_APIErrorItem instance) =>
     <String, dynamic>{
       'message': instance.message,
+      'field': instance.field,
       'key': instance.key,
       'value': instance.value,
       'schema': instance.schema,

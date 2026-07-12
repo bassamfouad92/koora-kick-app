@@ -22,7 +22,7 @@ AppSettingsData _$AppSettingsDataFromJson(
 /// @nodoc
 mixin _$AppSettingsData {
 
- bool get biometricEnabled; bool get isFirstTimeLogin; String get timeFormat; String get distanceUnit; String get themeMode;
+ bool get biometricEnabled; bool get isFirstTimeLogin; String get timeFormat; String get distanceUnit; String get themeMode; String get watchPreference; List<String> get favoriteTopics;
 /// Create a copy of AppSettingsData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -35,16 +35,16 @@ $AppSettingsDataCopyWith<AppSettingsData> get copyWith => _$AppSettingsDataCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettingsData&&(identical(other.biometricEnabled, biometricEnabled) || other.biometricEnabled == biometricEnabled)&&(identical(other.isFirstTimeLogin, isFirstTimeLogin) || other.isFirstTimeLogin == isFirstTimeLogin)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.distanceUnit, distanceUnit) || other.distanceUnit == distanceUnit)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettingsData&&(identical(other.biometricEnabled, biometricEnabled) || other.biometricEnabled == biometricEnabled)&&(identical(other.isFirstTimeLogin, isFirstTimeLogin) || other.isFirstTimeLogin == isFirstTimeLogin)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.distanceUnit, distanceUnit) || other.distanceUnit == distanceUnit)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.watchPreference, watchPreference) || other.watchPreference == watchPreference)&&const DeepCollectionEquality().equals(other.favoriteTopics, favoriteTopics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,biometricEnabled,isFirstTimeLogin,timeFormat,distanceUnit,themeMode);
+int get hashCode => Object.hash(runtimeType,biometricEnabled,isFirstTimeLogin,timeFormat,distanceUnit,themeMode,watchPreference,const DeepCollectionEquality().hash(favoriteTopics));
 
 @override
 String toString() {
-  return 'AppSettingsData(biometricEnabled: $biometricEnabled, isFirstTimeLogin: $isFirstTimeLogin, timeFormat: $timeFormat, distanceUnit: $distanceUnit, themeMode: $themeMode)';
+  return 'AppSettingsData(biometricEnabled: $biometricEnabled, isFirstTimeLogin: $isFirstTimeLogin, timeFormat: $timeFormat, distanceUnit: $distanceUnit, themeMode: $themeMode, watchPreference: $watchPreference, favoriteTopics: $favoriteTopics)';
 }
 
 
@@ -55,7 +55,7 @@ abstract mixin class $AppSettingsDataCopyWith<$Res>  {
   factory $AppSettingsDataCopyWith(AppSettingsData value, $Res Function(AppSettingsData) _then) = _$AppSettingsDataCopyWithImpl;
 @useResult
 $Res call({
- bool biometricEnabled, bool isFirstTimeLogin, String timeFormat, String distanceUnit, String themeMode
+ bool biometricEnabled, bool isFirstTimeLogin, String timeFormat, String distanceUnit, String themeMode, String watchPreference, List<String> favoriteTopics
 });
 
 
@@ -72,14 +72,16 @@ class _$AppSettingsDataCopyWithImpl<$Res>
 
 /// Create a copy of AppSettingsData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? biometricEnabled = null,Object? isFirstTimeLogin = null,Object? timeFormat = null,Object? distanceUnit = null,Object? themeMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? biometricEnabled = null,Object? isFirstTimeLogin = null,Object? timeFormat = null,Object? distanceUnit = null,Object? themeMode = null,Object? watchPreference = null,Object? favoriteTopics = null,}) {
   return _then(_self.copyWith(
 biometricEnabled: null == biometricEnabled ? _self.biometricEnabled : biometricEnabled // ignore: cast_nullable_to_non_nullable
 as bool,isFirstTimeLogin: null == isFirstTimeLogin ? _self.isFirstTimeLogin : isFirstTimeLogin // ignore: cast_nullable_to_non_nullable
 as bool,timeFormat: null == timeFormat ? _self.timeFormat : timeFormat // ignore: cast_nullable_to_non_nullable
 as String,distanceUnit: null == distanceUnit ? _self.distanceUnit : distanceUnit // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as String,
+as String,watchPreference: null == watchPreference ? _self.watchPreference : watchPreference // ignore: cast_nullable_to_non_nullable
+as String,favoriteTopics: null == favoriteTopics ? _self.favoriteTopics : favoriteTopics // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -161,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode,  String watchPreference,  List<String> favoriteTopics)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode);case _:
+return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode,_that.watchPreference,_that.favoriteTopics);case _:
   return orElse();
 
 }
@@ -182,10 +184,10 @@ return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode,  String watchPreference,  List<String> favoriteTopics)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode);}
+return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode,_that.watchPreference,_that.favoriteTopics);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -199,10 +201,10 @@ return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool biometricEnabled,  bool isFirstTimeLogin,  String timeFormat,  String distanceUnit,  String themeMode,  String watchPreference,  List<String> favoriteTopics)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode);case _:
+return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_that.distanceUnit,_that.themeMode,_that.watchPreference,_that.favoriteTopics);case _:
   return null;
 
 }
@@ -214,7 +216,7 @@ return $default(_that.biometricEnabled,_that.isFirstTimeLogin,_that.timeFormat,_
 @JsonSerializable()
 
 class _AppSettings implements AppSettingsData {
-  const _AppSettings({this.biometricEnabled = false, this.isFirstTimeLogin = true, this.timeFormat = '12h', this.distanceUnit = 'km', this.themeMode = 'light'});
+  const _AppSettings({this.biometricEnabled = false, this.isFirstTimeLogin = true, this.timeFormat = '12h', this.distanceUnit = 'km', this.themeMode = 'dark', this.watchPreference = '', final  List<String> favoriteTopics = const []}): _favoriteTopics = favoriteTopics;
   factory _AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 
 @override@JsonKey() final  bool biometricEnabled;
@@ -222,6 +224,14 @@ class _AppSettings implements AppSettingsData {
 @override@JsonKey() final  String timeFormat;
 @override@JsonKey() final  String distanceUnit;
 @override@JsonKey() final  String themeMode;
+@override@JsonKey() final  String watchPreference;
+ final  List<String> _favoriteTopics;
+@override@JsonKey() List<String> get favoriteTopics {
+  if (_favoriteTopics is EqualUnmodifiableListView) return _favoriteTopics;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_favoriteTopics);
+}
+
 
 /// Create a copy of AppSettingsData
 /// with the given fields replaced by the non-null parameter values.
@@ -236,16 +246,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.biometricEnabled, biometricEnabled) || other.biometricEnabled == biometricEnabled)&&(identical(other.isFirstTimeLogin, isFirstTimeLogin) || other.isFirstTimeLogin == isFirstTimeLogin)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.distanceUnit, distanceUnit) || other.distanceUnit == distanceUnit)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.biometricEnabled, biometricEnabled) || other.biometricEnabled == biometricEnabled)&&(identical(other.isFirstTimeLogin, isFirstTimeLogin) || other.isFirstTimeLogin == isFirstTimeLogin)&&(identical(other.timeFormat, timeFormat) || other.timeFormat == timeFormat)&&(identical(other.distanceUnit, distanceUnit) || other.distanceUnit == distanceUnit)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.watchPreference, watchPreference) || other.watchPreference == watchPreference)&&const DeepCollectionEquality().equals(other._favoriteTopics, _favoriteTopics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,biometricEnabled,isFirstTimeLogin,timeFormat,distanceUnit,themeMode);
+int get hashCode => Object.hash(runtimeType,biometricEnabled,isFirstTimeLogin,timeFormat,distanceUnit,themeMode,watchPreference,const DeepCollectionEquality().hash(_favoriteTopics));
 
 @override
 String toString() {
-  return 'AppSettingsData(biometricEnabled: $biometricEnabled, isFirstTimeLogin: $isFirstTimeLogin, timeFormat: $timeFormat, distanceUnit: $distanceUnit, themeMode: $themeMode)';
+  return 'AppSettingsData(biometricEnabled: $biometricEnabled, isFirstTimeLogin: $isFirstTimeLogin, timeFormat: $timeFormat, distanceUnit: $distanceUnit, themeMode: $themeMode, watchPreference: $watchPreference, favoriteTopics: $favoriteTopics)';
 }
 
 
@@ -256,7 +266,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsDataCopy
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- bool biometricEnabled, bool isFirstTimeLogin, String timeFormat, String distanceUnit, String themeMode
+ bool biometricEnabled, bool isFirstTimeLogin, String timeFormat, String distanceUnit, String themeMode, String watchPreference, List<String> favoriteTopics
 });
 
 
@@ -273,14 +283,16 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettingsData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? biometricEnabled = null,Object? isFirstTimeLogin = null,Object? timeFormat = null,Object? distanceUnit = null,Object? themeMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? biometricEnabled = null,Object? isFirstTimeLogin = null,Object? timeFormat = null,Object? distanceUnit = null,Object? themeMode = null,Object? watchPreference = null,Object? favoriteTopics = null,}) {
   return _then(_AppSettings(
 biometricEnabled: null == biometricEnabled ? _self.biometricEnabled : biometricEnabled // ignore: cast_nullable_to_non_nullable
 as bool,isFirstTimeLogin: null == isFirstTimeLogin ? _self.isFirstTimeLogin : isFirstTimeLogin // ignore: cast_nullable_to_non_nullable
 as bool,timeFormat: null == timeFormat ? _self.timeFormat : timeFormat // ignore: cast_nullable_to_non_nullable
 as String,distanceUnit: null == distanceUnit ? _self.distanceUnit : distanceUnit // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as String,
+as String,watchPreference: null == watchPreference ? _self.watchPreference : watchPreference // ignore: cast_nullable_to_non_nullable
+as String,favoriteTopics: null == favoriteTopics ? _self._favoriteTopics : favoriteTopics // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

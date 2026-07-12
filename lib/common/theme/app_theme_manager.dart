@@ -24,17 +24,20 @@ class AppThemeManager {
     required AppFontSizes fontSizes,
     required AppDimensions dimensions,
     AppBorders? borders,
+    Brightness brightness = Brightness.light,
   })  : _colors = colors,
         _typo = typo,
         _fontSizes = fontSizes,
         _dimensions = dimensions,
-        _borders = borders;
+        _borders = borders,
+        _brightness = brightness;
 
   final AppColors _colors;
   final AppTypography _typo;
   final AppFontSizes _fontSizes;
   final AppDimensions _dimensions;
   final AppBorders? _borders;
+  final Brightness _brightness;
 
   static AppThemeManager withLight({String languageCode = 'en'}) {
     final colors = DefaultAppColors();
@@ -73,6 +76,7 @@ class AppThemeManager {
       fontSizes: ScaledFontSizes(fontSizes),
       dimensions: dimensions,
       borders: borders,
+      brightness: Brightness.dark,
     );
   }
 
@@ -131,7 +135,7 @@ class AppThemeManager {
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme(
-        brightness: Brightness.light,
+        brightness: _brightness,
         primary: _colors.primary,
         onPrimary: _colors.textInverse,
         secondary: _colors.secondary,

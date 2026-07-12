@@ -17,10 +17,17 @@ class AppAssets {
   static const String icNavigation = 'assets/images/icons/ic_navigation.svg';
   static const String icCheckMarkCircleFilled = 'assets/images/icons/ic_checkmark_circle.svg';
   static const String icLogout = 'assets/images/icons/ic_logout.svg';
+  static const String icGoogle = 'assets/images/icons/ic_google.svg';
   /// Landing
   static const String koorakickLogo = 'assets/images/koorakick_logo.png';
   static const String splash = 'assets/images/koorakick_logo.png';
-  static const String landingBanner = 'assets/images/football_fan_landing.png';
+  static const String landingSkylineDark = 'assets/images/landing_dark.PNG';
+  static const String landingSkylineLight = 'assets/images/landing_light.PNG';
+  static const String landingBackground = 'assets/images/landing_bg.png';
+
+  /// Animations
+  static const String celebrationAnimation =
+      'assets/animations/celebration_animation.json';
   static const String onboardBg = 'assets/images/onboarding_bg.png';
 
   /// Country flags
@@ -68,6 +75,7 @@ class AppAssets {
   static const String icCalenderRemove = 'assets/images/workload/ic_calendar_remove.svg';
 
   ///Dashboard
+  static const String koorakickTextLogo = 'assets/images/koorakick_text_logo.png';
   static const String icCoin = 'assets/images/icons/ic_coin.svg';
   static const String icAvatar = 'assets/images/icons/ic_avatar.png';
 

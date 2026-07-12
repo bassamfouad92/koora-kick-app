@@ -14,22 +14,22 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DashboardSection {
 
- Object get data;
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardSection&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardSection);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardSection(data: $data)';
+  return 'DashboardSection()';
 }
 
 
@@ -55,12 +55,15 @@ extension DashboardSectionPatterns on DashboardSection {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( DashboardBannerSection value)?  banner,TResult Function( DashboardAlertSection value)?  alert,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( DashboardHeaderSection value)?  header,TResult Function( DashboardLauncherSection value)?  launcher,TResult Function( DashboardChannelsSection value)?  channels,TResult Function( DashboardMatchUpdatesSection value)?  matchUpdates,TResult Function( DashboardNewsSection value)?  news,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case DashboardBannerSection() when banner != null:
-return banner(_that);case DashboardAlertSection() when alert != null:
-return alert(_that);case _:
+case DashboardHeaderSection() when header != null:
+return header(_that);case DashboardLauncherSection() when launcher != null:
+return launcher(_that);case DashboardChannelsSection() when channels != null:
+return channels(_that);case DashboardMatchUpdatesSection() when matchUpdates != null:
+return matchUpdates(_that);case DashboardNewsSection() when news != null:
+return news(_that);case _:
   return orElse();
 
 }
@@ -78,12 +81,15 @@ return alert(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( DashboardBannerSection value)  banner,required TResult Function( DashboardAlertSection value)  alert,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( DashboardHeaderSection value)  header,required TResult Function( DashboardLauncherSection value)  launcher,required TResult Function( DashboardChannelsSection value)  channels,required TResult Function( DashboardMatchUpdatesSection value)  matchUpdates,required TResult Function( DashboardNewsSection value)  news,}){
 final _that = this;
 switch (_that) {
-case DashboardBannerSection():
-return banner(_that);case DashboardAlertSection():
-return alert(_that);}
+case DashboardHeaderSection():
+return header(_that);case DashboardLauncherSection():
+return launcher(_that);case DashboardChannelsSection():
+return channels(_that);case DashboardMatchUpdatesSection():
+return matchUpdates(_that);case DashboardNewsSection():
+return news(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -97,12 +103,15 @@ return alert(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( DashboardBannerSection value)?  banner,TResult? Function( DashboardAlertSection value)?  alert,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( DashboardHeaderSection value)?  header,TResult? Function( DashboardLauncherSection value)?  launcher,TResult? Function( DashboardChannelsSection value)?  channels,TResult? Function( DashboardMatchUpdatesSection value)?  matchUpdates,TResult? Function( DashboardNewsSection value)?  news,}){
 final _that = this;
 switch (_that) {
-case DashboardBannerSection() when banner != null:
-return banner(_that);case DashboardAlertSection() when alert != null:
-return alert(_that);case _:
+case DashboardHeaderSection() when header != null:
+return header(_that);case DashboardLauncherSection() when launcher != null:
+return launcher(_that);case DashboardChannelsSection() when channels != null:
+return channels(_that);case DashboardMatchUpdatesSection() when matchUpdates != null:
+return matchUpdates(_that);case DashboardNewsSection() when news != null:
+return news(_that);case _:
   return null;
 
 }
@@ -119,11 +128,14 @@ return alert(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DashboardBanner data)?  banner,TResult Function( AlertModel data,  String? title)?  alert,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  header,TResult Function()?  launcher,TResult Function( List<ChannelModel> channels)?  channels,TResult Function( List<MatchModel> matches)?  matchUpdates,TResult Function( List<NewsItem> items)?  news,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case DashboardBannerSection() when banner != null:
-return banner(_that.data);case DashboardAlertSection() when alert != null:
-return alert(_that.data,_that.title);case _:
+case DashboardHeaderSection() when header != null:
+return header();case DashboardLauncherSection() when launcher != null:
+return launcher();case DashboardChannelsSection() when channels != null:
+return channels(_that.channels);case DashboardMatchUpdatesSection() when matchUpdates != null:
+return matchUpdates(_that.matches);case DashboardNewsSection() when news != null:
+return news(_that.items);case _:
   return orElse();
 
 }
@@ -141,11 +153,14 @@ return alert(_that.data,_that.title);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DashboardBanner data)  banner,required TResult Function( AlertModel data,  String? title)  alert,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  header,required TResult Function()  launcher,required TResult Function( List<ChannelModel> channels)  channels,required TResult Function( List<MatchModel> matches)  matchUpdates,required TResult Function( List<NewsItem> items)  news,}) {final _that = this;
 switch (_that) {
-case DashboardBannerSection():
-return banner(_that.data);case DashboardAlertSection():
-return alert(_that.data,_that.title);}
+case DashboardHeaderSection():
+return header();case DashboardLauncherSection():
+return launcher();case DashboardChannelsSection():
+return channels(_that.channels);case DashboardMatchUpdatesSection():
+return matchUpdates(_that.matches);case DashboardNewsSection():
+return news(_that.items);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +174,14 @@ return alert(_that.data,_that.title);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DashboardBanner data)?  banner,TResult? Function( AlertModel data,  String? title)?  alert,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  header,TResult? Function()?  launcher,TResult? Function( List<ChannelModel> channels)?  channels,TResult? Function( List<MatchModel> matches)?  matchUpdates,TResult? Function( List<NewsItem> items)?  news,}) {final _that = this;
 switch (_that) {
-case DashboardBannerSection() when banner != null:
-return banner(_that.data);case DashboardAlertSection() when alert != null:
-return alert(_that.data,_that.title);case _:
+case DashboardHeaderSection() when header != null:
+return header();case DashboardLauncherSection() when launcher != null:
+return launcher();case DashboardChannelsSection() when channels != null:
+return channels(_that.channels);case DashboardMatchUpdatesSection() when matchUpdates != null:
+return matchUpdates(_that.matches);case DashboardNewsSection() when news != null:
+return news(_that.items);case _:
   return null;
 
 }
@@ -174,119 +192,185 @@ return alert(_that.data,_that.title);case _:
 /// @nodoc
 
 
-class DashboardBannerSection implements DashboardSection {
-  const DashboardBannerSection({required this.data});
+class DashboardHeaderSection implements DashboardSection {
+  const DashboardHeaderSection();
   
 
-@override final  DashboardBanner data;
 
-/// Create a copy of DashboardSection
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$DashboardBannerSectionCopyWith<DashboardBannerSection> get copyWith => _$DashboardBannerSectionCopyWithImpl<DashboardBannerSection>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardBannerSection&&(identical(other.data, data) || other.data == data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardHeaderSection);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,data);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardSection.banner(data: $data)';
+  return 'DashboardSection.header()';
 }
 
 
 }
+
+
+
 
 /// @nodoc
-abstract mixin class $DashboardBannerSectionCopyWith<$Res> implements $DashboardSectionCopyWith<$Res> {
-  factory $DashboardBannerSectionCopyWith(DashboardBannerSection value, $Res Function(DashboardBannerSection) _then) = _$DashboardBannerSectionCopyWithImpl;
-@useResult
-$Res call({
- DashboardBanner data
-});
 
 
-$DashboardBannerCopyWith<$Res> get data;
+class DashboardLauncherSection implements DashboardSection {
+  const DashboardLauncherSection();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardLauncherSection);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DashboardSection.launcher()';
+}
+
 
 }
-/// @nodoc
-class _$DashboardBannerSectionCopyWithImpl<$Res>
-    implements $DashboardBannerSectionCopyWith<$Res> {
-  _$DashboardBannerSectionCopyWithImpl(this._self, this._then);
 
-  final DashboardBannerSection _self;
-  final $Res Function(DashboardBannerSection) _then;
+
+
+
+/// @nodoc
+
+
+class DashboardChannelsSection implements DashboardSection {
+  const DashboardChannelsSection({required final  List<ChannelModel> channels}): _channels = channels;
+  
+
+ final  List<ChannelModel> _channels;
+ List<ChannelModel> get channels {
+  if (_channels is EqualUnmodifiableListView) return _channels;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_channels);
+}
+
 
 /// Create a copy of DashboardSection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
-  return _then(DashboardBannerSection(
-data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as DashboardBanner,
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DashboardChannelsSectionCopyWith<DashboardChannelsSection> get copyWith => _$DashboardChannelsSectionCopyWithImpl<DashboardChannelsSection>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardChannelsSection&&const DeepCollectionEquality().equals(other._channels, _channels));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_channels));
+
+@override
+String toString() {
+  return 'DashboardSection.channels(channels: $channels)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DashboardChannelsSectionCopyWith<$Res> implements $DashboardSectionCopyWith<$Res> {
+  factory $DashboardChannelsSectionCopyWith(DashboardChannelsSection value, $Res Function(DashboardChannelsSection) _then) = _$DashboardChannelsSectionCopyWithImpl;
+@useResult
+$Res call({
+ List<ChannelModel> channels
+});
+
+
+
+
+}
+/// @nodoc
+class _$DashboardChannelsSectionCopyWithImpl<$Res>
+    implements $DashboardChannelsSectionCopyWith<$Res> {
+  _$DashboardChannelsSectionCopyWithImpl(this._self, this._then);
+
+  final DashboardChannelsSection _self;
+  final $Res Function(DashboardChannelsSection) _then;
+
+/// Create a copy of DashboardSection
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? channels = null,}) {
+  return _then(DashboardChannelsSection(
+channels: null == channels ? _self._channels : channels // ignore: cast_nullable_to_non_nullable
+as List<ChannelModel>,
   ));
 }
 
-/// Create a copy of DashboardSection
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$DashboardBannerCopyWith<$Res> get data {
-  
-  return $DashboardBannerCopyWith<$Res>(_self.data, (value) {
-    return _then(_self.copyWith(data: value));
-  });
-}
+
 }
 
 /// @nodoc
 
 
-class DashboardAlertSection implements DashboardSection {
-  const DashboardAlertSection({required this.data, this.title});
+class DashboardMatchUpdatesSection implements DashboardSection {
+  const DashboardMatchUpdatesSection({required final  List<MatchModel> matches}): _matches = matches;
   
 
-@override final  AlertModel data;
- final  String? title;
+ final  List<MatchModel> _matches;
+ List<MatchModel> get matches {
+  if (_matches is EqualUnmodifiableListView) return _matches;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_matches);
+}
+
 
 /// Create a copy of DashboardSection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$DashboardAlertSectionCopyWith<DashboardAlertSection> get copyWith => _$DashboardAlertSectionCopyWithImpl<DashboardAlertSection>(this, _$identity);
+$DashboardMatchUpdatesSectionCopyWith<DashboardMatchUpdatesSection> get copyWith => _$DashboardMatchUpdatesSectionCopyWithImpl<DashboardMatchUpdatesSection>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardAlertSection&&(identical(other.data, data) || other.data == data)&&(identical(other.title, title) || other.title == title));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardMatchUpdatesSection&&const DeepCollectionEquality().equals(other._matches, _matches));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,data,title);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_matches));
 
 @override
 String toString() {
-  return 'DashboardSection.alert(data: $data, title: $title)';
+  return 'DashboardSection.matchUpdates(matches: $matches)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $DashboardAlertSectionCopyWith<$Res> implements $DashboardSectionCopyWith<$Res> {
-  factory $DashboardAlertSectionCopyWith(DashboardAlertSection value, $Res Function(DashboardAlertSection) _then) = _$DashboardAlertSectionCopyWithImpl;
+abstract mixin class $DashboardMatchUpdatesSectionCopyWith<$Res> implements $DashboardSectionCopyWith<$Res> {
+  factory $DashboardMatchUpdatesSectionCopyWith(DashboardMatchUpdatesSection value, $Res Function(DashboardMatchUpdatesSection) _then) = _$DashboardMatchUpdatesSectionCopyWithImpl;
 @useResult
 $Res call({
- AlertModel data, String? title
+ List<MatchModel> matches
 });
 
 
@@ -294,20 +378,91 @@ $Res call({
 
 }
 /// @nodoc
-class _$DashboardAlertSectionCopyWithImpl<$Res>
-    implements $DashboardAlertSectionCopyWith<$Res> {
-  _$DashboardAlertSectionCopyWithImpl(this._self, this._then);
+class _$DashboardMatchUpdatesSectionCopyWithImpl<$Res>
+    implements $DashboardMatchUpdatesSectionCopyWith<$Res> {
+  _$DashboardMatchUpdatesSectionCopyWithImpl(this._self, this._then);
 
-  final DashboardAlertSection _self;
-  final $Res Function(DashboardAlertSection) _then;
+  final DashboardMatchUpdatesSection _self;
+  final $Res Function(DashboardMatchUpdatesSection) _then;
 
 /// Create a copy of DashboardSection
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = null,Object? title = freezed,}) {
-  return _then(DashboardAlertSection(
-data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as AlertModel,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String?,
+@pragma('vm:prefer-inline') $Res call({Object? matches = null,}) {
+  return _then(DashboardMatchUpdatesSection(
+matches: null == matches ? _self._matches : matches // ignore: cast_nullable_to_non_nullable
+as List<MatchModel>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DashboardNewsSection implements DashboardSection {
+  const DashboardNewsSection({required final  List<NewsItem> items}): _items = items;
+  
+
+ final  List<NewsItem> _items;
+ List<NewsItem> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+
+/// Create a copy of DashboardSection
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DashboardNewsSectionCopyWith<DashboardNewsSection> get copyWith => _$DashboardNewsSectionCopyWithImpl<DashboardNewsSection>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardNewsSection&&const DeepCollectionEquality().equals(other._items, _items));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items));
+
+@override
+String toString() {
+  return 'DashboardSection.news(items: $items)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DashboardNewsSectionCopyWith<$Res> implements $DashboardSectionCopyWith<$Res> {
+  factory $DashboardNewsSectionCopyWith(DashboardNewsSection value, $Res Function(DashboardNewsSection) _then) = _$DashboardNewsSectionCopyWithImpl;
+@useResult
+$Res call({
+ List<NewsItem> items
+});
+
+
+
+
+}
+/// @nodoc
+class _$DashboardNewsSectionCopyWithImpl<$Res>
+    implements $DashboardNewsSectionCopyWith<$Res> {
+  _$DashboardNewsSectionCopyWithImpl(this._self, this._then);
+
+  final DashboardNewsSection _self;
+  final $Res Function(DashboardNewsSection) _then;
+
+/// Create a copy of DashboardSection
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? items = null,}) {
+  return _then(DashboardNewsSection(
+items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<NewsItem>,
   ));
 }
 

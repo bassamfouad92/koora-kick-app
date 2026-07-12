@@ -32,6 +32,7 @@ class AppInputField extends StatefulWidget {
     required String labelText,
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
+    InputFieldActionButton? actionButton,
   }) => AppInputField._(
     type: AppInputTextType.text,
     controller: controller,
@@ -39,6 +40,7 @@ class AppInputField extends StatefulWidget {
     labelText: labelText,
     keyboardType: keyboardType,
     obscureText: obscureText,
+    actionButton: actionButton,
   );
 
   factory AppInputField.search({
@@ -133,6 +135,9 @@ class AppInputField extends StatefulWidget {
   }
 
   AppInputField withOnTap(VoidCallback? onTap) => copyWith(onTap: onTap);
+
+  AppInputField withActionButton(InputFieldActionButton? actionButton) =>
+      copyWith(actionButton: actionButton);
 
   AppInputField withKeyboardType(TextInputType type) =>
       copyWith(keyboardType: type);
@@ -274,6 +279,11 @@ class _AppInputFieldState extends State<AppInputField> {
         decoration: InputDecoration(
           hintStyle: style.hintStyle,
           hintText: widget.hintText,
+          suffixIcon: widget.actionButton != null ? _effectiveSuffixIcon : null,
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
           contentPadding: style.padding,
           filled: style.backgroundColor != null,
           fillColor: style.backgroundColor,

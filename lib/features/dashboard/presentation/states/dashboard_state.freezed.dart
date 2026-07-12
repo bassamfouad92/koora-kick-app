@@ -12,7 +12,7 @@ part of 'dashboard_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$DashboardState {
+mixin _$DashboardStatus {
 
 
 
@@ -20,7 +20,7 @@ mixin _$DashboardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardStatus);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardState()';
+  return 'DashboardStatus()';
 }
 
 
 }
 
 /// @nodoc
-class $DashboardStateCopyWith<$Res>  {
-$DashboardStateCopyWith(DashboardState _, $Res Function(DashboardState) __);
+class $DashboardStatusCopyWith<$Res>  {
+$DashboardStatusCopyWith(DashboardStatus _, $Res Function(DashboardStatus) __);
 }
 
 
-/// Adds pattern-matching-related methods to [DashboardState].
-extension DashboardStatePatterns on DashboardState {
+/// Adds pattern-matching-related methods to [DashboardStatus].
+extension DashboardStatusPatterns on DashboardStatus {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -125,12 +125,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<DashboardSectionItem> sections,  ProfileStatus profileStatus)?  loaded,TResult Function( AppError? error)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  loaded,TResult Function( AppError error)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.sections,_that.profileStatus);case _Error() when error != null:
+return loaded();case _Error() when error != null:
 return error(_that.error);case _:
   return orElse();
 
@@ -149,12 +149,12 @@ return error(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<DashboardSectionItem> sections,  ProfileStatus profileStatus)  loaded,required TResult Function( AppError? error)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  loaded,required TResult Function( AppError error)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.sections,_that.profileStatus);case _Error():
+return loaded();case _Error():
 return error(_that.error);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -169,12 +169,12 @@ return error(_that.error);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<DashboardSectionItem> sections,  ProfileStatus profileStatus)?  loaded,TResult? Function( AppError? error)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  loaded,TResult? Function( AppError error)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.sections,_that.profileStatus);case _Error() when error != null:
+return loaded();case _Error() when error != null:
 return error(_that.error);case _:
   return null;
 
@@ -186,7 +186,7 @@ return error(_that.error);case _:
 /// @nodoc
 
 
-class _Initial implements DashboardState {
+class _Initial implements DashboardStatus {
   const _Initial();
   
 
@@ -206,7 +206,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardState.initial()';
+  return 'DashboardStatus.initial()';
 }
 
 
@@ -218,7 +218,7 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements DashboardState {
+class _Loading implements DashboardStatus {
   const _Loading();
   
 
@@ -238,7 +238,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardState.loading()';
+  return 'DashboardStatus.loading()';
 }
 
 
@@ -250,96 +250,45 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements DashboardState {
-  const _Loaded({required final  List<DashboardSectionItem> sections, this.profileStatus = const ProfileStatus.loading()}): _sections = sections;
+class _Loaded implements DashboardStatus {
+  const _Loaded();
   
 
- final  List<DashboardSectionItem> _sections;
- List<DashboardSectionItem> get sections {
-  if (_sections is EqualUnmodifiableListView) return _sections;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_sections);
-}
 
-@JsonKey() final  ProfileStatus profileStatus;
 
-/// Create a copy of DashboardState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._sections, _sections)&&(identical(other.profileStatus, profileStatus) || other.profileStatus == profileStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),profileStatus);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DashboardState.loaded(sections: $sections, profileStatus: $profileStatus)';
+  return 'DashboardStatus.loaded()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$LoadedCopyWith<$Res> implements $DashboardStateCopyWith<$Res> {
-  factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
-@useResult
-$Res call({
- List<DashboardSectionItem> sections, ProfileStatus profileStatus
-});
 
 
-$ProfileStatusCopyWith<$Res> get profileStatus;
-
-}
-/// @nodoc
-class __$LoadedCopyWithImpl<$Res>
-    implements _$LoadedCopyWith<$Res> {
-  __$LoadedCopyWithImpl(this._self, this._then);
-
-  final _Loaded _self;
-  final $Res Function(_Loaded) _then;
-
-/// Create a copy of DashboardState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? sections = null,Object? profileStatus = null,}) {
-  return _then(_Loaded(
-sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
-as List<DashboardSectionItem>,profileStatus: null == profileStatus ? _self.profileStatus : profileStatus // ignore: cast_nullable_to_non_nullable
-as ProfileStatus,
-  ));
-}
-
-/// Create a copy of DashboardState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ProfileStatusCopyWith<$Res> get profileStatus {
-  
-  return $ProfileStatusCopyWith<$Res>(_self.profileStatus, (value) {
-    return _then(_self.copyWith(profileStatus: value));
-  });
-}
-}
 
 /// @nodoc
 
 
-class _Error implements DashboardState {
-  const _Error([this.error]);
+class _Error implements DashboardStatus {
+  const _Error(this.error);
   
 
- final  AppError? error;
+ final  AppError error;
 
-/// Create a copy of DashboardState
+/// Create a copy of DashboardStatus
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -358,22 +307,22 @@ int get hashCode => Object.hash(runtimeType,error);
 
 @override
 String toString() {
-  return 'DashboardState.error(error: $error)';
+  return 'DashboardStatus.error(error: $error)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $DashboardStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $DashboardStatusCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
- AppError? error
+ AppError error
 });
 
 
-$AppErrorCopyWith<$Res>? get error;
+$AppErrorCopyWith<$Res> get error;
 
 }
 /// @nodoc
@@ -384,12 +333,290 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
+/// Create a copy of DashboardStatus
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
+  return _then(_Error(
+null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as AppError,
+  ));
+}
+
+/// Create a copy of DashboardStatus
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AppErrorCopyWith<$Res> get error {
+  
+  return $AppErrorCopyWith<$Res>(_self.error, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
+}
+
+/// @nodoc
+mixin _$DashboardState {
+
+ DashboardStatus get status; List<DashboardSection> get sections;
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? error = freezed,}) {
-  return _then(_Error(
-freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
-as AppError?,
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DashboardStateCopyWith<DashboardState> get copyWith => _$DashboardStateCopyWithImpl<DashboardState>(this as DashboardState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.sections, sections));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(sections));
+
+@override
+String toString() {
+  return 'DashboardState(status: $status, sections: $sections)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DashboardStateCopyWith<$Res>  {
+  factory $DashboardStateCopyWith(DashboardState value, $Res Function(DashboardState) _then) = _$DashboardStateCopyWithImpl;
+@useResult
+$Res call({
+ DashboardStatus status, List<DashboardSection> sections
+});
+
+
+$DashboardStatusCopyWith<$Res> get status;
+
+}
+/// @nodoc
+class _$DashboardStateCopyWithImpl<$Res>
+    implements $DashboardStateCopyWith<$Res> {
+  _$DashboardStateCopyWithImpl(this._self, this._then);
+
+  final DashboardState _self;
+  final $Res Function(DashboardState) _then;
+
+/// Create a copy of DashboardState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? sections = null,}) {
+  return _then(_self.copyWith(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as DashboardStatus,sections: null == sections ? _self.sections : sections // ignore: cast_nullable_to_non_nullable
+as List<DashboardSection>,
+  ));
+}
+/// Create a copy of DashboardState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$DashboardStatusCopyWith<$Res> get status {
+  
+  return $DashboardStatusCopyWith<$Res>(_self.status, (value) {
+    return _then(_self.copyWith(status: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [DashboardState].
+extension DashboardStatePatterns on DashboardState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DashboardState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DashboardState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DashboardState value)  $default,){
+final _that = this;
+switch (_that) {
+case _DashboardState():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DashboardState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DashboardState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DashboardStatus status,  List<DashboardSection> sections)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DashboardState() when $default != null:
+return $default(_that.status,_that.sections);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DashboardStatus status,  List<DashboardSection> sections)  $default,) {final _that = this;
+switch (_that) {
+case _DashboardState():
+return $default(_that.status,_that.sections);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DashboardStatus status,  List<DashboardSection> sections)?  $default,) {final _that = this;
+switch (_that) {
+case _DashboardState() when $default != null:
+return $default(_that.status,_that.sections);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _DashboardState implements DashboardState {
+  const _DashboardState({this.status = const DashboardStatus.initial(), final  List<DashboardSection> sections = const []}): _sections = sections;
+  
+
+@override@JsonKey() final  DashboardStatus status;
+ final  List<DashboardSection> _sections;
+@override@JsonKey() List<DashboardSection> get sections {
+  if (_sections is EqualUnmodifiableListView) return _sections;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sections);
+}
+
+
+/// Create a copy of DashboardState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DashboardStateCopyWith<_DashboardState> get copyWith => __$DashboardStateCopyWithImpl<_DashboardState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._sections, _sections));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_sections));
+
+@override
+String toString() {
+  return 'DashboardState(status: $status, sections: $sections)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DashboardStateCopyWith<$Res> implements $DashboardStateCopyWith<$Res> {
+  factory _$DashboardStateCopyWith(_DashboardState value, $Res Function(_DashboardState) _then) = __$DashboardStateCopyWithImpl;
+@override @useResult
+$Res call({
+ DashboardStatus status, List<DashboardSection> sections
+});
+
+
+@override $DashboardStatusCopyWith<$Res> get status;
+
+}
+/// @nodoc
+class __$DashboardStateCopyWithImpl<$Res>
+    implements _$DashboardStateCopyWith<$Res> {
+  __$DashboardStateCopyWithImpl(this._self, this._then);
+
+  final _DashboardState _self;
+  final $Res Function(_DashboardState) _then;
+
+/// Create a copy of DashboardState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? sections = null,}) {
+  return _then(_DashboardState(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as DashboardStatus,sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
+as List<DashboardSection>,
   ));
 }
 
@@ -397,13 +624,10 @@ as AppError?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AppErrorCopyWith<$Res>? get error {
-    if (_self.error == null) {
-    return null;
-  }
-
-  return $AppErrorCopyWith<$Res>(_self.error!, (value) {
-    return _then(_self.copyWith(error: value));
+$DashboardStatusCopyWith<$Res> get status {
+  
+  return $DashboardStatusCopyWith<$Res>(_self.status, (value) {
+    return _then(_self.copyWith(status: value));
   });
 }
 }

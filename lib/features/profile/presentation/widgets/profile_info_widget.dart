@@ -125,31 +125,14 @@ class ProfileInfoWidget extends StatelessWidget {
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: infoOrientation == ProfileInfoOrientation.vertical 
-          ? CrossAxisAlignment.center 
+      crossAxisAlignment: infoOrientation == ProfileInfoOrientation.vertical
+          ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       children: [
         nameWidget,
-        if (infoOrientation == ProfileInfoOrientation.vertical && showDetails)
-          _buildRatingBadge(context).withPadding(EdgeInsets.only(top: context.dimensions.xSmall))
       ],
     );
   }
-
-  Widget _buildRatingBadge(BuildContext context) => Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.star, size: 20, color: context.colors.tertiary),
-        SizedBox(width: context.dimensions.xSmallW),
-        Text(
-          user.rating.toStringAsFixed(1),
-          style: context.typo.bodyMedium.copyWith(
-            fontWeight: FontWeight.w500,
-            color: context.colors.textPrimary,
-          ),
-        ),
-      ],
-    );
 }
 
 extension ProfileInfoOrientationX on ProfileInfoOrientation {

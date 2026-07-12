@@ -20,7 +20,9 @@ sealed class AppSettingsData with _$AppSettingsData {
     @Default(true) bool isFirstTimeLogin,
     @Default('12h') String timeFormat,
     @Default('km') String distanceUnit,
-    @Default('light') String themeMode,
+    @Default('dark') String themeMode,
+    @Default('') String watchPreference,
+    @Default([]) List<String> favoriteTopics,
   }) = _AppSettings;
 
   factory AppSettingsData.fromJson(Map<String, dynamic> json) =>

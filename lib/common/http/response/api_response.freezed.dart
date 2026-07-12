@@ -207,11 +207,11 @@ return $default(_that.status,_that.message,_that.data,_that.errors,_that.correla
 @JsonSerializable(genericArgumentFactories: true)
 
 class _ApiResponse<T> implements ApiResponse<T> {
-  const _ApiResponse({required this.status, required this.message, this.data, final  List<APIErrorItem> errors = const [], @JsonKey(name: 'correlation_id') this.correlationId}): _errors = errors;
+  const _ApiResponse({required this.status, this.message = '', this.data, final  List<APIErrorItem> errors = const [], @JsonKey(name: 'correlation_id') this.correlationId}): _errors = errors;
   factory _ApiResponse.fromJson(Map<String, dynamic> json,T Function(Object?) fromJsonT) => _$ApiResponseFromJson(json,fromJsonT);
 
 @override final  int status;
-@override final  String message;
+@override@JsonKey() final  String message;
 @override final  T? data;
  final  List<APIErrorItem> _errors;
 @override@JsonKey() List<APIErrorItem> get errors {

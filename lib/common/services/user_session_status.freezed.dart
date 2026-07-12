@@ -128,7 +128,7 @@ return resettingPasscode(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  unauthenticated,TResult Function( User user)?  authenticated,TResult Function( User user,  Token token)?  unverified,TResult Function( String phone,  Token token)?  resettingPasscode,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  unauthenticated,TResult Function( User user)?  authenticated,TResult Function( User user,  String token)?  unverified,TResult Function( String phone,  String token)?  resettingPasscode,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case InitialStatus() when initial != null:
 return initial();case UnauthenticatedStatus() when unauthenticated != null:
@@ -153,7 +153,7 @@ return resettingPasscode(_that.phone,_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  unauthenticated,required TResult Function( User user)  authenticated,required TResult Function( User user,  Token token)  unverified,required TResult Function( String phone,  Token token)  resettingPasscode,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  unauthenticated,required TResult Function( User user)  authenticated,required TResult Function( User user,  String token)  unverified,required TResult Function( String phone,  String token)  resettingPasscode,}) {final _that = this;
 switch (_that) {
 case InitialStatus():
 return initial();case UnauthenticatedStatus():
@@ -174,7 +174,7 @@ return resettingPasscode(_that.phone,_that.token);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  unauthenticated,TResult? Function( User user)?  authenticated,TResult? Function( User user,  Token token)?  unverified,TResult? Function( String phone,  Token token)?  resettingPasscode,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  unauthenticated,TResult? Function( User user)?  authenticated,TResult? Function( User user,  String token)?  unverified,TResult? Function( String phone,  String token)?  resettingPasscode,}) {final _that = this;
 switch (_that) {
 case InitialStatus() when initial != null:
 return initial();case UnauthenticatedStatus() when unauthenticated != null:
@@ -336,7 +336,7 @@ class UnverifiedStatus implements UserSessionStatus {
   
 
  final  User user;
- final  Token token;
+ final  String token;
 
 /// Create a copy of UserSessionStatus
 /// with the given fields replaced by the non-null parameter values.
@@ -368,11 +368,11 @@ abstract mixin class $UnverifiedStatusCopyWith<$Res> implements $UserSessionStat
   factory $UnverifiedStatusCopyWith(UnverifiedStatus value, $Res Function(UnverifiedStatus) _then) = _$UnverifiedStatusCopyWithImpl;
 @useResult
 $Res call({
- User user, Token token
+ User user, String token
 });
 
 
-$UserCopyWith<$Res> get user;$TokenCopyWith<$Res> get token;
+$UserCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -389,7 +389,7 @@ class _$UnverifiedStatusCopyWithImpl<$Res>
   return _then(UnverifiedStatus(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
 
@@ -402,15 +402,6 @@ $UserCopyWith<$Res> get user {
   return $UserCopyWith<$Res>(_self.user, (value) {
     return _then(_self.copyWith(user: value));
   });
-}/// Create a copy of UserSessionStatus
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
 }
 }
 
@@ -422,7 +413,7 @@ class ResettingPasscodeStatus implements UserSessionStatus {
   
 
  final  String phone;
- final  Token token;
+ final  String token;
 
 /// Create a copy of UserSessionStatus
 /// with the given fields replaced by the non-null parameter values.
@@ -454,11 +445,11 @@ abstract mixin class $ResettingPasscodeStatusCopyWith<$Res> implements $UserSess
   factory $ResettingPasscodeStatusCopyWith(ResettingPasscodeStatus value, $Res Function(ResettingPasscodeStatus) _then) = _$ResettingPasscodeStatusCopyWithImpl;
 @useResult
 $Res call({
- String phone, Token token
+ String phone, String token
 });
 
 
-$TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -475,20 +466,11 @@ class _$ResettingPasscodeStatusCopyWithImpl<$Res>
   return _then(ResettingPasscodeStatus(
 phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
 
-/// Create a copy of UserSessionStatus
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 // dart format on

@@ -13,8 +13,6 @@ import 'package:koora_kick/features/verification/otp/data/repository/otp_reposit
 import 'package:koora_kick/features/verification/otp/presentation/state/verify_phone_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:koora_kick/common/user/model/user.dart';
-
 part 'verify_phone_view_model.g.dart';
 
 @riverpod
@@ -43,7 +41,7 @@ class VerifyPhoneViewModel extends _$VerifyPhoneViewModel {
     return const VerifyPhoneState(phoneNumber: PhoneNumber(number: '', countryCode: ''));
   }
 
-  Token? get _currentToken {
+  String? get _currentToken {
     final session = _sessionService.currentStatus;
     if (session is UnverifiedStatus) {
       return session.token;
@@ -74,24 +72,24 @@ class VerifyPhoneViewModel extends _$VerifyPhoneViewModel {
     });
   }
 
-  Future<void> sendOtpCode({required Token token}) async {
+  Future<void> sendOtpCode({required String token}) async {
     state = state.copyWith(
       verifyStatus: const VerifyPhoneStatus.loading(),
       error: null,
       formError: null,
     );
-    
+
     final session = _sessionService.currentStatus;
     final Result<String> result;
 
     if (session is ResettingPasscodeStatus) {
       final resetResult = await _authRepository.sendResetPasswordOtp(session.phone);
       result = resetResult.when(
-        success: (response) => Result.success(response.token.raw!),
+        success: (response) => Result.success(response.token),
         error: Result.error,
       );
     } else {
-      result = await _otpRepository.sendOtp(token: token.raw);
+      result = await _otpRepository.sendOtp(token: token);
     }
 
     result.when(
@@ -159,7 +157,7 @@ class VerifyPhoneViewModel extends _$VerifyPhoneViewModel {
       error: null,
       formError: null,
     );
-    final result = await _otpRepository.verifyOtp(code, token: token.raw);
+    final result = await _otpRepository.verifyOtp(code, token: token);
     result.when(
       success: (response) async {
         final currentSession = _sessionService.currentStatus;

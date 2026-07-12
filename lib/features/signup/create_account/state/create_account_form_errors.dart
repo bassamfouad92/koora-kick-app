@@ -7,27 +7,33 @@ sealed class CreateAccountFormErrors with _$CreateAccountFormErrors {
   const CreateAccountFormErrors._(); // Private constructor for custom getters
 
   const factory CreateAccountFormErrors({
-    String? phoneNumber,
     String? name,
+    String? email,
+    String? phoneNumber,
+    String? password,
+    String? country,
     String? city,
-    String? passcode,
-    String? confirmPasscode,
+    String? terms,
   }) = _CreateAccountFormErrors;
 
   factory CreateAccountFormErrors.fromApi(List<APIErrorItem> errors) {
-    final mapped = {for (final e in errors) e.key: e.message};
+    final mapped = {for (final e in errors) e.fieldName: e.message};
     return CreateAccountFormErrors(
-      phoneNumber: mapped['phone'],
       name: mapped['name'],
-      city: mapped['city'],
-      passcode: mapped['passcode'],
+      email: mapped['email'],
+      phoneNumber: mapped['phone'],
+      password: mapped['password'],
+      country: mapped['countryId'],
+      city: mapped['cityId'],
     );
   }
 
   bool get isValid =>
-      phoneNumber == null &&
       name == null &&
+      email == null &&
+      phoneNumber == null &&
+      password == null &&
+      country == null &&
       city == null &&
-      passcode == null &&
-      confirmPasscode == null;
+      terms == null;
 }

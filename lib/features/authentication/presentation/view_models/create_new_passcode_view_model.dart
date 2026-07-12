@@ -59,9 +59,9 @@ class CreateNewPasscodeViewModel extends _$CreateNewPasscodeViewModel {
     String? token;
 
     if (session is UnverifiedStatus) {
-      token = session.token.raw;
+      token = session.token;
     } else if (session is ResettingPasscodeStatus) {
-      token = session.token.raw;
+      token = session.token;
     }
 
     if (token == null) {

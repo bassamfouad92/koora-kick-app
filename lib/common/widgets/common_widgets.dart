@@ -28,12 +28,8 @@ export 'page/koorakick_page_builder.dart';
 
 // Bottom sheet
 export 'bottom_sheet/app_bottom_sheet.dart';
-export 'bottom_sheet/country_bottom_sheet.dart';
-
 // Progress
 
 //Banner
 export 'banner/custom_banner.dart';
 
-//Map
-export 'map/map.dart';

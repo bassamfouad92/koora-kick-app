@@ -7,7 +7,7 @@ part of 'verify_phone_view_model.dart';
 // **************************************************************************
 
 String _$verifyPhoneViewModelHash() =>
-    r'76db9b7af2f5a36de3f76766f6b935d599cf9475';
+    r'3863a48b9e7e816cfe906867aa3a93614e98bc93';
 
 /// See also [VerifyPhoneViewModel].
 @ProviderFor(VerifyPhoneViewModel)

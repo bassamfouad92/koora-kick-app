@@ -8,7 +8,7 @@ part 'api_response.g.dart';
 sealed class ApiResponse<T> with _$ApiResponse<T> {
   const factory ApiResponse({
     required int status,
-    required String message,
+    @Default('') String message,
     T? data,
     @Default([]) List<APIErrorItem> errors,
     @JsonKey(name: 'correlation_id') String? correlationId,

@@ -11,7 +11,7 @@ _ApiResponse<T> _$ApiResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) => _ApiResponse<T>(
   status: (json['status'] as num).toInt(),
-  message: json['message'] as String,
+  message: json['message'] as String? ?? '',
   data: _$nullableGenericFromJson(json['data'], fromJsonT),
   errors:
       (json['errors'] as List<dynamic>?)

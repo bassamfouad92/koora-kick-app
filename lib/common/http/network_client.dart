@@ -113,7 +113,7 @@ class NetworkClient {
     };
 
     if (requiresAuth) {
-      requestHeaders.attachBearerTokenIf(appToken?.raw);
+      requestHeaders.attachBearerTokenIf(appToken);
     }
     requestHeaders.attachBearerTokenIf(token);
 
@@ -145,12 +145,13 @@ class NetworkClient {
               statusCode: apiResponse.status,
             requiredAuth: requiresAuth
             ),
-          501 => const Result.error(AppException.connectivity()),
-          
+          501 || 503 => const Result.error(AppException.connectivity()),
+
           _ => Result.error(
               AppException.api(
                 message: apiResponse.message,
                 statusCode: statusCode,
+                errors: apiResponse.errors,
               ),
             ),
         },

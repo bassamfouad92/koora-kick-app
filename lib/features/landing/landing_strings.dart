@@ -4,9 +4,12 @@ import 'package:flutter/foundation.dart';
 class LandingStrings {
   const LandingStrings._();
 
-  static const welcomeTitle = 'landing_welcomeTitle';
-  static const joinToKick = 'landing_joinToKick';
-  static const alreadyHaveAnAccount = 'landing_alreadyHaveAnAccount';
-  static const login = 'global_login';
-  static const footerSubTitle = 'landing_footerSubTitle';
+  static const tagline = 'landing_tagline';
+  static const subtitle = 'landing_subtitle';
+  static const joinTheGame = 'landing_joinTheGame';
+  static const signIn = 'landing_signIn';
+  static const agreeText = 'auth_termAndPrivacy_agreeText';
+  static const termsOfService = 'auth_termAndPrivacy_termTitle';
+  static const privacyPolicy = 'auth_termAndPrivacy_privacyTitle';
+  static const and = 'global_and';
 }

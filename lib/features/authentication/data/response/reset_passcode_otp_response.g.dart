@@ -8,9 +8,7 @@ part of 'reset_passcode_otp_response.dart';
 
 _ResetPasscodeOtpResponse _$ResetPasscodeOtpResponseFromJson(
   Map<String, dynamic> json,
-) => _ResetPasscodeOtpResponse(
-  token: Token.fromJson(json['token'] as Map<String, dynamic>),
-);
+) => _ResetPasscodeOtpResponse(token: json['token'] as String);
 
 Map<String, dynamic> _$ResetPasscodeOtpResponseToJson(
   _ResetPasscodeOtpResponse instance,

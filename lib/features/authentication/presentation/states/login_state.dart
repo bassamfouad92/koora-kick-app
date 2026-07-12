@@ -1,10 +1,8 @@
-import 'package:koora_kick/common/countries/domain/entities/country_model.dart';
 import 'package:koora_kick/common/errors/app_error.dart';
 import 'package:koora_kick/common/services/user_session_status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:koora_kick/common/http/api_error_item.dart';
-import 'package:koora_kick/domain/value_objects/phone_number.dart';
 
 part 'login_state.freezed.dart';
 
@@ -23,19 +21,19 @@ sealed class LoginFormErrors with _$LoginFormErrors {
   const LoginFormErrors._();
 
   const factory LoginFormErrors({
-    @Default(null) String? phoneNumber,
-    @Default(null) String? passcode,
+    @Default(null) String? email,
+    @Default(null) String? password,
   }) = _LoginFormErrors;
 
   factory LoginFormErrors.fromApi(List<APIErrorItem> errors) {
-    final mapped = {for (final e in errors) e.key: e.message};
+    final mapped = {for (final e in errors) e.fieldName: e.message};
     return LoginFormErrors(
-      phoneNumber: mapped['phone'],
-      passcode: mapped['pin'],
+      email: mapped['email'],
+      password: mapped['password'],
     );
   }
 
-  bool get isValid => phoneNumber == null && passcode == null;
+  bool get isValid => email == null && password == null;
 }
 
 @freezed
@@ -44,14 +42,8 @@ sealed class LoginState with _$LoginState {
 
   const factory LoginState({
     @Default(LoginStatus.initial()) LoginStatus loginStatus,
-    @Default(PhoneNumber(number: '', countryCode: '20')) PhoneNumber phoneNumber,
-    @Default(emptyString) String passcode,
-    @Default(CountryModel.defaultCountry) CountryModel country,
+    @Default(emptyString) String email,
+    @Default(emptyString) String password,
     @Default(LoginFormErrors()) LoginFormErrors formErrors,
   }) = _LoginState;
 }
-
-
-
-
-

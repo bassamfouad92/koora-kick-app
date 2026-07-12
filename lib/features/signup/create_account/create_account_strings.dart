@@ -4,19 +4,32 @@ import 'package:flutter/foundation.dart';
 class CreateAccountStrings {
   const CreateAccountStrings._();
 
-  static const globalPasscode = 'global_passcode';
-  static const globalConfirmPasscode = 'global_confirm_passcode';
-  static const createAccountTitle = 'create_account_title';
-  static const createYourKooraKickAccountTitle = 'create_your_account_title';
-  static const globalPhoneNumber = 'global_phone_number';
-  static const globalName = 'global_name';
-  static const profileEnterFullName = 'profile_enter_full_name';
-  static const globalCity = 'global_city';
-  static const profileSelectYourCity = 'profile_select_your_city';
-  static const enterPasscode = 'enter_passcode';
-  static const enterConfirmPasscode = 'enter_confirm_passcode';
-  static const createAccountButtonText = 'create_account_button_text';
+  static const createYourAccountTitle = 'signup_createYourAccount_title';
+  static const createAccountSubtitle = 'signup_subtitle';
+  static const fullNameLabel = 'signup_fullName_label';
+  static const fullNameHint = 'signup_fullName_hint';
+  static const emailLabel = 'signup_email_label';
+  static const emailHint = 'signup_email_hint';
+  static const phoneNumberLabel = 'global_phone_number';
+  static const passwordLabel = 'global_password';
+  static const passwordHint = 'signup_password_hint';
+  static const agreePrefix = 'signup_agreePrefix';
+  static const agreeToTermsRequired = 'signup_agreeToTerms_required';
+  static const signUpButton = 'global_signUp';
+  static const alreadyHaveAccount = 'signup_alreadyHaveAccount';
+  static const logIn = 'global_login';
+
+  // Location selection
+  static const countryLabel = 'global_country';
+  static const selectYourCountry = 'signup_selectYourCountry';
+  static const selectCountryFirst = 'signup_selectCountryFirst';
+  static const cityLabel = 'global_city';
+  static const selectYourCity = 'profile_select_your_city';
   static const selectCity = 'profile_select_city';
   static const searchCity = 'profile_search_city';
   static const noCityFound = 'global_no_city_found';
+
+  // Legacy passcode flow (still used by create_new_passcode_screen).
+  static const globalPasscode = 'global_passcode';
+  static const globalConfirmPasscode = 'global_confirm_passcode';
 }

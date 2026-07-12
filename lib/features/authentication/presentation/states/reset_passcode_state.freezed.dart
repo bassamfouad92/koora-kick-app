@@ -125,7 +125,7 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( AppError error)?  error,TResult Function( Token token)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( AppError error)?  error,TResult Function( String token)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
@@ -149,7 +149,7 @@ return success(_that.token);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( AppError error)  error,required TResult Function( Token token)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( AppError error)  error,required TResult Function( String token)  success,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
@@ -169,7 +169,7 @@ return success(_that.token);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( AppError error)?  error,TResult? Function( Token token)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( AppError error)?  error,TResult? Function( String token)?  success,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
@@ -329,7 +329,7 @@ class _Success implements ResetPasscodeStatus {
   const _Success({required this.token});
   
 
- final  Token token;
+ final  String token;
 
 /// Create a copy of ResetPasscodeStatus
 /// with the given fields replaced by the non-null parameter values.
@@ -361,11 +361,11 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $ResetPasscodeStatusCopy
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- Token token
+ String token
 });
 
 
-$TokenCopyWith<$Res> get token;
+
 
 }
 /// @nodoc
@@ -381,20 +381,11 @@ class __$SuccessCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? token = null,}) {
   return _then(_Success(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as Token,
+as String,
   ));
 }
 
-/// Create a copy of ResetPasscodeStatus
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$TokenCopyWith<$Res> get token {
-  
-  return $TokenCopyWith<$Res>(_self.token, (value) {
-    return _then(_self.copyWith(token: value));
-  });
-}
+
 }
 
 /// @nodoc

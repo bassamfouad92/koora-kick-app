@@ -79,9 +79,7 @@ class _VerifyPhoneScreenState extends ConsumerState<VerifyPhoneScreen> {
               },
               verifyOtpSuccess: (isResetPasscode) {
                 context.hideLoader();
-                if (isResetPasscode) {
-                  const CreateNewPasscodeRoute().pushReplacement(context);
-                }
+                if (isResetPasscode) {}
               },
               error: (error) {
                 context.hideLoader();
