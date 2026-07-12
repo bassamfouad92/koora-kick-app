@@ -201,7 +201,6 @@
 			buildPhases = (
 				213E37CFE5701DF32BFCD3F1 /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
-				581663F52EF013BD0033FFF5 /* Load Production ENV */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
@@ -311,9 +310,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -335,24 +338,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
-		};
-		581663F52EF013BD0033FFF5 /* Load Production ENV */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Load Production ENV";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "ENV_FILE=\"$SRCROOT/../.env.prod\"\nOUTPUT_FILE=\"$SRCROOT/Flutter/Env.xcconfig\"\n\nif [ -f \"$ENV_FILE\" ]; then\n    grep \"GOOGLE_MAPS_API_KEY=\" \"$ENV_FILE\" | sed \"s/[\\\"']//g\" > \"$OUTPUT_FILE\"\n    echo \"✅ Generated Env.xcconfig from .env.prod\"\nelse\n    echo \"⚠️ Warning: .env.prod not found at $ENV_FILE\"\n    touch \"$OUTPUT_FILE\"\nfi\n";
 		};
 		5C4513192F3A22B500D6F766 /* Firebase Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;

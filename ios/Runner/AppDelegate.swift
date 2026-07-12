@@ -1,6 +1,5 @@
 import Flutter
 import UIKit
-import GoogleMaps
 import Firebase
 
 @main
@@ -13,12 +12,6 @@ import Firebase
         
         if #available(iOS 10.0, *) {
           UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
-        }
-
-        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_API_KEY") as? String {
-            GMSServices.provideAPIKey(apiKey)
-        } else {
-            print("⚠️ ERROR: Google Maps API Key not found in Info.plist")
         }
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
