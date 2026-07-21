@@ -141,6 +141,14 @@ class NotificationService implements PermissionService {
     );
   }
 
+  /// Subscribes/unsubscribes this device to an FCM topic (e.g.
+  /// `channel_<channelId>`) so channel-related pushes can be targeted
+  /// without a per-user backend registration.
+  Future<void> subscribeToTopic(String topic) => _messaging.subscribeToTopic(topic);
+
+  Future<void> unsubscribeFromTopic(String topic) =>
+      _messaging.unsubscribeFromTopic(topic);
+
   Future<void> openNotificationSettings() async {
     if (Platform.isIOS) {
       await AppSettings.openAppSettings();

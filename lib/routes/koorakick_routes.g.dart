@@ -68,6 +68,21 @@ RouteBase get $appShellRoute => ShellRouteData.$route(
 
       factory: $AllSetRouteExtension._fromState,
     ),
+    GoRouteData.$route(
+      path: '/channels/:channelId',
+
+      factory: $ChannelDetailRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/channels/:channelId/create-thread',
+
+      factory: $CreateThreadRouteExtension._fromState,
+    ),
+    GoRouteData.$route(
+      path: '/threads/:threadId',
+
+      factory: $ThreadDetailRouteExtension._fromState,
+    ),
     StatefulShellRouteData.$route(
       factory: $MainShellRouteDataExtension._fromState,
       branches: [
@@ -312,6 +327,58 @@ extension $AllSetRouteExtension on AllSetRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ChannelDetailRouteExtension on ChannelDetailRoute {
+  static ChannelDetailRoute _fromState(GoRouterState state) =>
+      ChannelDetailRoute(channelId: state.pathParameters['channelId']!);
+
+  String get location =>
+      GoRouteData.$location('/channels/${Uri.encodeComponent(channelId)}');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $CreateThreadRouteExtension on CreateThreadRoute {
+  static CreateThreadRoute _fromState(GoRouterState state) =>
+      CreateThreadRoute(channelId: state.pathParameters['channelId']!);
+
+  String get location => GoRouteData.$location(
+    '/channels/${Uri.encodeComponent(channelId)}/create-thread',
+  );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ThreadDetailRouteExtension on ThreadDetailRoute {
+  static ThreadDetailRoute _fromState(GoRouterState state) =>
+      ThreadDetailRoute(threadId: state.pathParameters['threadId']!);
+
+  String get location =>
+      GoRouteData.$location('/threads/${Uri.encodeComponent(threadId)}');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $MainShellRouteDataExtension on MainShellRouteData {
   static MainShellRouteData _fromState(GoRouterState state) =>
       const MainShellRouteData();
@@ -448,7 +515,7 @@ extension $SplashRouteExtension on SplashRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'f54c31334e7a7b7341627712aaa7d4031e0931bd';
+String _$goRouterHash() => r'b1c41ece02622d7d604a4c8b1889196d6ce5c2a2';
 
 /// See also [goRouter].
 @ProviderFor(goRouter)

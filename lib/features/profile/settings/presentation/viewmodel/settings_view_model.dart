@@ -6,9 +6,12 @@ import 'package:koora_kick/common/widgets/image/app_image.dart';
 import 'package:koora_kick/features/profile/profile_strings.dart';
 import 'package:koora_kick/features/profile/settings/presentation/state/settings_state.dart';
 import 'package:koora_kick/app/provider/app_settings_provider.dart';
+import 'package:koora_kick/app/provider/language_provider.dart';
+import 'package:koora_kick/common/enum/app_language_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:koora_kick/routes/koorakick_routes.dart';
 
 part 'settings_view_model.g.dart';
 
@@ -25,72 +28,95 @@ class SettingsViewModel extends _$SettingsViewModel {
 
   Future<void> _loadSettings() async {
     final settings = await _store.fetch() ?? const AppSettingsData();
-    final timeFormat = settings.timeFormat;
     final themeMode = settings.themeMode;
+    final currentLanguage = ref.read(languageNotifierProvider).value ?? AppLanguage.english;
 
-    final items = [
-      SettingItem(
-        id: 'time_format',
-        icon: const Icon(Icons.access_time),
-        label: ProfileStrings.timeFormat.localized(),
-        currentValue: TimeFormat.fromString(timeFormat),
-        options: [
-          SettingOption(value: TimeFormat.h12, label: ProfileStrings.h12.localized()),
-          SettingOption(value: TimeFormat.h24, label: ProfileStrings.h24.localized()),
+    final sections = [
+      SettingsSection(
+        title: ProfileStrings.accountSection.localized(),
+        items: [
+          SettingItem(
+            id: 'edit_profile',
+            icon: const Icon(Icons.person_outline),
+            label: ProfileStrings.editProfile.localized(),
+          ),
+          SettingItem(
+            id: 'account_security',
+            icon: const Icon(Icons.security_outlined),
+            label: ProfileStrings.accountSecurity.localized(),
+          ),
+          SettingItem(
+            id: 'privacy',
+            icon: const Icon(Icons.lock_outline),
+            label: ProfileStrings.privacy.localized(),
+          ),
         ],
       ),
-      SettingItem(
-        id: 'theme_mode',
-        icon: const Icon(Icons.brightness_6),
-        label: ProfileStrings.themeMode.localized(),
-        currentValue: themeMode,
-        options: [
-          SettingOption(value: 'light', label: ProfileStrings.light.localized()),
-          SettingOption(value: 'dark', label: ProfileStrings.dark.localized()),
+      SettingsSection(
+        title: ProfileStrings.preferencesSection.localized(),
+        items: [
+          SettingItem(
+            id: 'notifications',
+            icon: const Icon(Icons.notifications_none_outlined),
+            label: ProfileStrings.notifications.localized(),
+          ),
+          SettingItem(
+            id: 'appearance',
+            icon: const Icon(Icons.brightness_6_outlined),
+            label: ProfileStrings.appearance.localized(),
+            trailingText: themeMode == 'dark'
+                ? ProfileStrings.dark.localized()
+                : ProfileStrings.light.localized(),
+          ),
+          SettingItem(
+            id: 'language',
+            icon: const Icon(Icons.language_outlined),
+            label: ProfileStrings.settingsLanguage.localized(),
+            trailingText: currentLanguage == AppLanguage.english
+                ? ProfileStrings.english.localized()
+                : ProfileStrings.arabic.localized(),
+          ),
+        ],
+      ),
+      SettingsSection(
+        title: ProfileStrings.supportSection.localized(),
+        items: [
+          SettingItem(
+            id: 'help_center',
+            icon: const Icon(Icons.help_outline),
+            label: ProfileStrings.helpCenter.localized(),
+          ),
+          SettingItem(
+            id: 'about',
+            icon: const Icon(Icons.info_outline),
+            label: ProfileStrings.aboutKoorakick.localized(),
+          ),
         ],
       ),
     ];
 
     state = state.copyWith(
-      items: items,
+      sections: sections,
       isLoading: false,
     );
   }
 
-  void updateSetting(String id, dynamic value) {
-    state = state.copyWith(
-      items: state.items.map((item) {
-        if (item.id == id) {
-          return item.copyWith(currentValue: value);
-        }
-        return item;
-      }).toList(),
-    );
-  }
-
-  Future<void> saveSettings() async {
-    state = state.copyWith(isSaving: true);
-    
-    var timeFormat = '12h';
-    var themeMode = 'light';
-
-    for (final item in state.items) {
-      if (item.id == 'time_format') {
-        final val = item.currentValue as TimeFormat;
-        timeFormat = val.value;
-      } else if (item.id == 'theme_mode') {
-        themeMode = item.currentValue as String;
-      }
+  void onItemTapped(BuildContext context, String id) {
+    switch (id) {
+      case 'language':
+        const LanguageRoute().push(context);
+        break;
+      case 'appearance':
+        // TODO: Show theme mode picker
+        break;
+      case 'edit_profile':
+      case 'account_security':
+      case 'privacy':
+      case 'notifications':
+      case 'help_center':
+      case 'about':
+        // Navigation placeholders
+        break;
     }
-
-    final current = await _store.fetch() ?? const AppSettingsData();
-    final updated = current.copyWith(
-      timeFormat: timeFormat,
-      themeMode: themeMode,
-    );
-
-    await ref.read(appSettingsNotifierProvider.notifier).updateSettings(updated);
-
-    state = state.copyWith(isSaving: false);
   }
 }

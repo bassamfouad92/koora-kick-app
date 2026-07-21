@@ -3,13 +3,10 @@ import 'package:koora_kick/common/extensions/localization.dart';
 import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/theme/app_typography.dart';
 import 'package:koora_kick/common/widgets/page/koorakick_page_builder.dart' show KooraKickPageBuilder;
-import 'package:koora_kick/features/profile/profile_strings.dart';
 import 'package:koora_kick/features/profile/settings/presentation/state/settings_state.dart';
 import 'package:koora_kick/features/profile/settings/presentation/viewmodel/settings_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:koora_kick/app/provider/app_settings_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -22,7 +19,7 @@ class SettingsScreen extends ConsumerWidget {
     return KooraKickPageBuilder.withAppBar()
         .title(
           Text(
-            ProfileStrings.appPreferences.localized(),
+            'Settings',
             style: context.typo.headingLarge,
           ),
         )
@@ -32,102 +29,97 @@ class SettingsScreen extends ConsumerWidget {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for (var i = 0; i < state.items.length; i++) ...[
-                      _buildSettingItem(context, ref, state.items[i], viewModel),
-                      if (i < state.items.length - 1)
-                        Divider(color: context.colors.divider),
-                    ],
+                    for (var i = 0; i < state.sections.length; i++) ...[
+                      _buildSection(context, state.sections[i], viewModel),
+                      if (i < state.sections.length - 1)
+                        SizedBox(height: context.dimensions.mediumH),
+                    ]
                   ],
-                ),
+                ).withPadding(EdgeInsets.only(bottom: context.dimensions.largeH)),
         )
-        .withBottomContent(
-          AppButton.primary(
-            ProfileStrings.confirmSettings.localized(),
-            onPressed: () async {
-              await viewModel.saveSettings();
-              if (context.mounted) {
-                Navigator.pop(context);
-              }
-            },
-          ).withSymmetricPadding(
-            horizontal: context.dimensions.pagePadding,
-            vertical: context.dimensions.mediumH,
-          ),
-        )
+        .scrollable()
         .alignTo(CrossAxisAlignment.start);
   }
 
-  Widget _buildSettingItem(
-    BuildContext context,
-    WidgetRef ref,
-    SettingItem item,
-    SettingsViewModel viewModel,
-  ) {
-    final settings = ref.watch(appSettingsNotifierProvider).valueOrNull;
-    final isDark = settings?.themeMode == 'dark';
+  Widget _buildSection(BuildContext context, SettingsSection section, SettingsViewModel viewModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          section.title,
+          style: context.typo.bodySmall.semiBold.copyWith(
+            color: context.colors.textSecondary,
+          ),
+        ).withPadding(EdgeInsets.only(
+          left: context.dimensions.smallW,
+          bottom: context.dimensions.smallH,
+        )),
+        Container(
+          decoration: BoxDecoration(
+            color: context.colors.surface,
+            borderRadius: BorderRadius.circular(context.dimensions.medium),
+            border: Border.all(color: context.colors.border, width: 1),
+          ),
+          child: Column(
+            children: [
+              for (var i = 0; i < section.items.length; i++) ...[
+                _buildSettingItem(context, section.items[i], viewModel),
+                if (i < section.items.length - 1)
+                  Divider(
+                    color: context.colors.divider,
+                    height: 1,
+                    indent: context.dimensions.xLargeW,
+                  ),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
-    return _SettingRow(
-      icon: item.icon,
-      label: item.label,
-      child: CupertinoSlidingSegmentedControl<Object>(
-        groupValue: item.currentValue,
-        thumbColor: isDark ? context.colors.primary : context.colors.surface,
-        children: {
-          for (final option in item.options)
-            option.value: Text(
-              option.label,
-              style: option.value != item.currentValue
-                  ? context.typo.bodySmall.regular.copyWith(
-                      color: isDark ? Colors.white : Colors.black,
-                    )
-                  : context.typo.bodySmall.semiBold.copyWith(
-                      color: isDark ? Colors.white : Colors.black,
-                    ),
+  Widget _buildSettingItem(BuildContext context, SettingItem item, SettingsViewModel viewModel) {
+    return InkWell(
+      onTap: () => viewModel.onItemTapped(context, item.id),
+      borderRadius: BorderRadius.circular(context.dimensions.medium),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: context.dimensions.mediumW,
+          vertical: context.dimensions.mediumH,
+        ),
+        child: Row(
+          children: [
+            IconTheme(
+              data: IconThemeData(
+                color: context.colors.textSecondary,
+                size: context.dimensions.iconSizeMedium,
+              ),
+              child: item.icon,
             ),
-        },
-        onValueChanged: (val) {
-          if (val != null) {
-            viewModel.updateSetting(item.id, val);
-          }
-        },
+            SizedBox(width: context.dimensions.mediumW),
+            Expanded(
+              child: Text(
+                item.label,
+                style: context.typo.bodyMedium.medium.copyWith(
+                  color: context.colors.textPrimary,
+                ),
+              ),
+            ),
+            if (item.trailingText != null)
+              Text(
+                item.trailingText!,
+                style: context.typo.bodySmall.copyWith(
+                  color: context.colors.textSecondary,
+                ),
+              ).withPadding(EdgeInsets.only(right: context.dimensions.smallW)),
+            Icon(
+              Icons.chevron_right,
+              color: context.colors.textSecondary,
+              size: context.dimensions.iconSizeMedium,
+            ),
+          ],
+        ),
       ),
     );
   }
-}
-
-class _SettingRow extends StatelessWidget {
-  const _SettingRow({
-    required this.icon,
-    required this.label,
-    required this.child,
-  });
-
-  final Widget icon;
-  final String label;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.symmetric(vertical: context.dimensions.smallH),
-    child: Row(
-      children: [
-        IconTheme(
-          data: IconThemeData(color: context.colors.textPrimary),
-          child: icon is AppImage
-              ? (icon as AppImage).copyWith(color: context.colors.textPrimary)
-              : icon,
-        ),
-        SizedBox(width: context.dimensions.medium),
-        Expanded(
-          child: Text(
-            label,
-            style: context.typo.bodyMedium.medium.copyWith(
-              color: context.colors.textPrimary,
-            ),
-          ),
-        ),
-        SizedBox(width: context.dimensions.w(140), child: child),
-      ],
-    ),
-  );
 }

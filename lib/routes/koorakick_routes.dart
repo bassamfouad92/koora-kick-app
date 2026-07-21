@@ -5,12 +5,14 @@ import 'package:koora_kick/common/app_guard/app_guard.dart';
 import 'package:koora_kick/utils/logger/app_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:koora_kick/common/widgets/screen/status_screen.dart';
-import 'package:koora_kick/features/authentication/presentation/screens/create_new_passcode_screen.dart';
 import 'package:koora_kick/features/authentication/presentation/screens/forgot_password_screen.dart';
 import 'package:koora_kick/features/authentication/presentation/screens/reset_password_screen.dart';
+import 'package:koora_kick/features/channels/presentation/screen/channel_detail_screen.dart';
+import 'package:koora_kick/features/channels/presentation/screen/create_thread_screen.dart';
+import 'package:koora_kick/features/channels/presentation/screen/thread_detail_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/dashboard_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/channels_screen.dart';
-import 'package:koora_kick/features/dashboard/presentation/screen/koora_map_screen.dart';
+import 'package:koora_kick/features/koora_map/presentation/screen/koora_map_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/live_scores_screen.dart';
 import 'package:koora_kick/features/dashboard/presentation/screen/main_screen.dart';
 import 'package:koora_kick/features/profile/presentation/screen/profile_screen.dart';
@@ -23,6 +25,7 @@ import 'package:koora_kick/features/onboarding/presentation/screens/interests_sc
 import 'package:koora_kick/features/onboarding/presentation/screens/watch_preference_screen.dart';
 import 'package:koora_kick/features/signup/create_account/presentation/screen/create_account_screen.dart';
 import 'package:koora_kick/features/verification/otp/presentation/screen/verify_phone_screen.dart';
+import 'package:koora_kick/common/repositories/token_repository.dart';
 import 'package:koora_kick/common/storage/app_settings_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,6 +42,8 @@ part 'auth_routes.dart';
 part 'dashboard_routes.dart';
 
 part 'onboarding_routes.dart';
+
+part 'channel_routes.dart';
 
 enum RouteAccess { public, private }
 
@@ -68,6 +73,9 @@ abstract class AppRouteData extends GoRouteData {
     TypedGoRoute<OnboardingInterestsRoute>(path: '/onboarding/interests'),
     TypedGoRoute<WatchPreferenceRoute>(path: '/onboarding/watch-preference'),
     TypedGoRoute<AllSetRoute>(path: '/onboarding/all-set'),
+    TypedGoRoute<ChannelDetailRoute>(path: '/channels/:channelId'),
+    TypedGoRoute<CreateThreadRoute>(path: '/channels/:channelId/create-thread'),
+    TypedGoRoute<ThreadDetailRoute>(path: '/threads/:threadId'),
     TypedStatefulShellRoute<MainShellRouteData>(
       branches: [
         TypedStatefulShellBranch<DashboardBranchData>(
@@ -186,11 +194,10 @@ GoRouter goRouter(Ref ref) => GoRouter(
     final sessionStatus = userSession.value;
 
     if (isRestarting) {
-      sessionStatus?.maybeWhen(
+      return sessionStatus?.maybeWhen(
         authenticated: (_) => const DashboardRoute().location,
         orElse: () => const LandingRoute().location,
       );
-      return null;
     }
 
     if (isLoading || sessionStatus is InitialStatus || isSplashDelaying) {
@@ -223,8 +230,19 @@ GoRouter goRouter(Ref ref) => GoRouter(
       orElse: () => const LandingRoute() as AppRouteData,
     );
 
+    // ChannelDetail/CreateThread/ThreadDetail carry a dynamic id in their
+    // path, so they can't be looked up in `allRoutes` above (which would
+    // otherwise fall through to the public `/channels` tab's access via
+    // prefix matching). Classify them explicitly instead.
+    final isDynamicPrivateRoute = location.startsWith('/threads/') ||
+        RegExp(r'^/channels/[^/]+').hasMatch(location);
+    final effectiveAccess =
+        isDynamicPrivateRoute ? RouteAccess.private : targetRoute.access;
+
     if (sessionStatus is UnauthenticatedStatus) {
-      if (targetRoute.access == RouteAccess.private) return const LandingRoute().location;
+      if (effectiveAccess == RouteAccess.private) {
+        return const LandingRoute().location;
+      }
       return null;
     }
 
@@ -245,6 +263,7 @@ Future<String?> _getAuthenticatedRedirect(
   required AppRouteData targetRoute,
 }) async {
   final authRoutes = [
+    const LandingRoute().location,
     const LoginRoute().location,
     const SignupRoute().location,
     const VerifyRoute().location,

@@ -4,6 +4,7 @@ import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/theme/app_background_property.dart';
 import 'package:koora_kick/common/theme/app_typography.dart';
 import 'package:koora_kick/common/user/model/user.dart';
+import 'package:koora_kick/common/widgets/banner/banner_text.dart';
 import 'package:koora_kick/common/widgets/decoration/slanted_header.dart';
 import 'package:koora_kick/features/profile/presentation/state/profile_menu_item.dart';
 import 'package:koora_kick/features/profile/presentation/state/profile_state.dart';
@@ -67,6 +68,16 @@ class ProfileScreen extends ConsumerWidget {
               ),
             ),
           ),
+          if (state.status case ProfileSuccess(profile: final profile)
+              when !profile.emailVerified)
+            _buildVerifyEmailBanner(context).withPadding(
+              EdgeInsets.fromLTRB(
+                context.dimensions.pagePadding,
+                context.dimensions.largeH,
+                context.dimensions.pagePadding,
+                0,
+              ),
+            ),
           SizedBox(height: context.dimensions.largeH),
           _buildSectionList(context, state.menuItems),
           _buildLogoutButton(context, ref),
@@ -74,6 +85,13 @@ class ProfileScreen extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _buildVerifyEmailBanner(BuildContext context) => CustomBanner.warning(
+    text: BannerText.titleAndSubtext(
+      title: ProfileStrings.verifyEmailTitle.localized(),
+      subtext: ProfileStrings.verifyEmailSubtitle.localized(),
+    ),
+  );
 
   Widget _buildProfileInfo(
     BuildContext context,

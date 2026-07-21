@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SettingsState {
 
- List<SettingItem> get items; bool get isLoading; bool get isSaving;
+ List<SettingsSection> get sections; bool get isLoading; bool get isSaving;
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SettingsStateCopyWith<SettingsState> get copyWith => _$SettingsStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsState&&const DeepCollectionEquality().equals(other.sections, sections)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(items),isLoading,isSaving);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(sections),isLoading,isSaving);
 
 @override
 String toString() {
-  return 'SettingsState(items: $items, isLoading: $isLoading, isSaving: $isSaving)';
+  return 'SettingsState(sections: $sections, isLoading: $isLoading, isSaving: $isSaving)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SettingsStateCopyWith<$Res>  {
   factory $SettingsStateCopyWith(SettingsState value, $Res Function(SettingsState) _then) = _$SettingsStateCopyWithImpl;
 @useResult
 $Res call({
- List<SettingItem> items, bool isLoading, bool isSaving
+ List<SettingsSection> sections, bool isLoading, bool isSaving
 });
 
 
@@ -62,10 +62,10 @@ class _$SettingsStateCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? items = null,Object? isLoading = null,Object? isSaving = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? sections = null,Object? isLoading = null,Object? isSaving = null,}) {
   return _then(_self.copyWith(
-items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
-as List<SettingItem>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+sections: null == sections ? _self.sections : sections // ignore: cast_nullable_to_non_nullable
+as List<SettingsSection>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -149,10 +149,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<SettingItem> items,  bool isLoading,  bool isSaving)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<SettingsSection> sections,  bool isLoading,  bool isSaving)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SettingsState() when $default != null:
-return $default(_that.items,_that.isLoading,_that.isSaving);case _:
+return $default(_that.sections,_that.isLoading,_that.isSaving);case _:
   return orElse();
 
 }
@@ -170,10 +170,10 @@ return $default(_that.items,_that.isLoading,_that.isSaving);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<SettingItem> items,  bool isLoading,  bool isSaving)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<SettingsSection> sections,  bool isLoading,  bool isSaving)  $default,) {final _that = this;
 switch (_that) {
 case _SettingsState():
-return $default(_that.items,_that.isLoading,_that.isSaving);}
+return $default(_that.sections,_that.isLoading,_that.isSaving);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -187,10 +187,10 @@ return $default(_that.items,_that.isLoading,_that.isSaving);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<SettingItem> items,  bool isLoading,  bool isSaving)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<SettingsSection> sections,  bool isLoading,  bool isSaving)?  $default,) {final _that = this;
 switch (_that) {
 case _SettingsState() when $default != null:
-return $default(_that.items,_that.isLoading,_that.isSaving);case _:
+return $default(_that.sections,_that.isLoading,_that.isSaving);case _:
   return null;
 
 }
@@ -202,14 +202,14 @@ return $default(_that.items,_that.isLoading,_that.isSaving);case _:
 
 
 class _SettingsState implements SettingsState {
-  const _SettingsState({final  List<SettingItem> items = const [], this.isLoading = false, this.isSaving = false}): _items = items;
+  const _SettingsState({final  List<SettingsSection> sections = const [], this.isLoading = false, this.isSaving = false}): _sections = sections;
   
 
- final  List<SettingItem> _items;
-@override@JsonKey() List<SettingItem> get items {
-  if (_items is EqualUnmodifiableListView) return _items;
+ final  List<SettingsSection> _sections;
+@override@JsonKey() List<SettingsSection> get sections {
+  if (_sections is EqualUnmodifiableListView) return _sections;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_items);
+  return EqualUnmodifiableListView(_sections);
 }
 
 @override@JsonKey() final  bool isLoading;
@@ -225,16 +225,16 @@ _$SettingsStateCopyWith<_SettingsState> get copyWith => __$SettingsStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsState&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsState&&const DeepCollectionEquality().equals(other._sections, _sections)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items),isLoading,isSaving);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),isLoading,isSaving);
 
 @override
 String toString() {
-  return 'SettingsState(items: $items, isLoading: $isLoading, isSaving: $isSaving)';
+  return 'SettingsState(sections: $sections, isLoading: $isLoading, isSaving: $isSaving)';
 }
 
 
@@ -245,7 +245,7 @@ abstract mixin class _$SettingsStateCopyWith<$Res> implements $SettingsStateCopy
   factory _$SettingsStateCopyWith(_SettingsState value, $Res Function(_SettingsState) _then) = __$SettingsStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<SettingItem> items, bool isLoading, bool isSaving
+ List<SettingsSection> sections, bool isLoading, bool isSaving
 });
 
 
@@ -262,10 +262,10 @@ class __$SettingsStateCopyWithImpl<$Res>
 
 /// Create a copy of SettingsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? items = null,Object? isLoading = null,Object? isSaving = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? sections = null,Object? isLoading = null,Object? isSaving = null,}) {
   return _then(_SettingsState(
-items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
-as List<SettingItem>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+sections: null == sections ? _self._sections : sections // ignore: cast_nullable_to_non_nullable
+as List<SettingsSection>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isSaving: null == isSaving ? _self.isSaving : isSaving // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -275,9 +275,269 @@ as bool,
 }
 
 /// @nodoc
+mixin _$SettingsSection {
+
+ String get title; List<SettingItem> get items;
+/// Create a copy of SettingsSection
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SettingsSectionCopyWith<SettingsSection> get copyWith => _$SettingsSectionCopyWithImpl<SettingsSection>(this as SettingsSection, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsSection&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.items, items));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,title,const DeepCollectionEquality().hash(items));
+
+@override
+String toString() {
+  return 'SettingsSection(title: $title, items: $items)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SettingsSectionCopyWith<$Res>  {
+  factory $SettingsSectionCopyWith(SettingsSection value, $Res Function(SettingsSection) _then) = _$SettingsSectionCopyWithImpl;
+@useResult
+$Res call({
+ String title, List<SettingItem> items
+});
+
+
+
+
+}
+/// @nodoc
+class _$SettingsSectionCopyWithImpl<$Res>
+    implements $SettingsSectionCopyWith<$Res> {
+  _$SettingsSectionCopyWithImpl(this._self, this._then);
+
+  final SettingsSection _self;
+  final $Res Function(SettingsSection) _then;
+
+/// Create a copy of SettingsSection
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? items = null,}) {
+  return _then(_self.copyWith(
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<SettingItem>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SettingsSection].
+extension SettingsSectionPatterns on SettingsSection {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SettingsSection value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SettingsSection() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SettingsSection value)  $default,){
+final _that = this;
+switch (_that) {
+case _SettingsSection():
+return $default(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SettingsSection value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SettingsSection() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  List<SettingItem> items)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SettingsSection() when $default != null:
+return $default(_that.title,_that.items);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  List<SettingItem> items)  $default,) {final _that = this;
+switch (_that) {
+case _SettingsSection():
+return $default(_that.title,_that.items);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  List<SettingItem> items)?  $default,) {final _that = this;
+switch (_that) {
+case _SettingsSection() when $default != null:
+return $default(_that.title,_that.items);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _SettingsSection implements SettingsSection {
+  const _SettingsSection({required this.title, required final  List<SettingItem> items}): _items = items;
+  
+
+@override final  String title;
+ final  List<SettingItem> _items;
+@override List<SettingItem> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+
+/// Create a copy of SettingsSection
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SettingsSectionCopyWith<_SettingsSection> get copyWith => __$SettingsSectionCopyWithImpl<_SettingsSection>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsSection&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other._items, _items));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,title,const DeepCollectionEquality().hash(_items));
+
+@override
+String toString() {
+  return 'SettingsSection(title: $title, items: $items)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SettingsSectionCopyWith<$Res> implements $SettingsSectionCopyWith<$Res> {
+  factory _$SettingsSectionCopyWith(_SettingsSection value, $Res Function(_SettingsSection) _then) = __$SettingsSectionCopyWithImpl;
+@override @useResult
+$Res call({
+ String title, List<SettingItem> items
+});
+
+
+
+
+}
+/// @nodoc
+class __$SettingsSectionCopyWithImpl<$Res>
+    implements _$SettingsSectionCopyWith<$Res> {
+  __$SettingsSectionCopyWithImpl(this._self, this._then);
+
+  final _SettingsSection _self;
+  final $Res Function(_SettingsSection) _then;
+
+/// Create a copy of SettingsSection
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? items = null,}) {
+  return _then(_SettingsSection(
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<SettingItem>,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$SettingItem {
 
- String get id; Widget get icon; String get label; Object get currentValue; List<SettingOption> get options;
+ String get id; Widget get icon; String get label; String? get trailingText;
 /// Create a copy of SettingItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -288,16 +548,16 @@ $SettingItemCopyWith<SettingItem> get copyWith => _$SettingItemCopyWithImpl<Sett
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingItem&&(identical(other.id, id) || other.id == id)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.label, label) || other.label == label)&&const DeepCollectionEquality().equals(other.currentValue, currentValue)&&const DeepCollectionEquality().equals(other.options, options));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingItem&&(identical(other.id, id) || other.id == id)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.label, label) || other.label == label)&&(identical(other.trailingText, trailingText) || other.trailingText == trailingText));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,icon,label,const DeepCollectionEquality().hash(currentValue),const DeepCollectionEquality().hash(options));
+int get hashCode => Object.hash(runtimeType,id,icon,label,trailingText);
 
 @override
 String toString() {
-  return 'SettingItem(id: $id, icon: $icon, label: $label, currentValue: $currentValue, options: $options)';
+  return 'SettingItem(id: $id, icon: $icon, label: $label, trailingText: $trailingText)';
 }
 
 
@@ -308,7 +568,7 @@ abstract mixin class $SettingItemCopyWith<$Res>  {
   factory $SettingItemCopyWith(SettingItem value, $Res Function(SettingItem) _then) = _$SettingItemCopyWithImpl;
 @useResult
 $Res call({
- String id, Widget icon, String label, Object currentValue, List<SettingOption> options
+ String id, Widget icon, String label, String? trailingText
 });
 
 
@@ -325,13 +585,13 @@ class _$SettingItemCopyWithImpl<$Res>
 
 /// Create a copy of SettingItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? icon = null,Object? label = null,Object? currentValue = null,Object? options = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? icon = null,Object? label = null,Object? trailingText = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as Widget,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String,currentValue: null == currentValue ? _self.currentValue : currentValue ,options: null == options ? _self.options : options // ignore: cast_nullable_to_non_nullable
-as List<SettingOption>,
+as String,trailingText: freezed == trailingText ? _self.trailingText : trailingText // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -413,10 +673,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Widget icon,  String label,  Object currentValue,  List<SettingOption> options)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  Widget icon,  String label,  String? trailingText)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SettingItem() when $default != null:
-return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options);case _:
+return $default(_that.id,_that.icon,_that.label,_that.trailingText);case _:
   return orElse();
 
 }
@@ -434,10 +694,10 @@ return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Widget icon,  String label,  Object currentValue,  List<SettingOption> options)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  Widget icon,  String label,  String? trailingText)  $default,) {final _that = this;
 switch (_that) {
 case _SettingItem():
-return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options);}
+return $default(_that.id,_that.icon,_that.label,_that.trailingText);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -451,10 +711,10 @@ return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Widget icon,  String label,  Object currentValue,  List<SettingOption> options)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  Widget icon,  String label,  String? trailingText)?  $default,) {final _that = this;
 switch (_that) {
 case _SettingItem() when $default != null:
-return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options);case _:
+return $default(_that.id,_that.icon,_that.label,_that.trailingText);case _:
   return null;
 
 }
@@ -466,20 +726,13 @@ return $default(_that.id,_that.icon,_that.label,_that.currentValue,_that.options
 
 
 class _SettingItem implements SettingItem {
-  const _SettingItem({required this.id, required this.icon, required this.label, required this.currentValue, required final  List<SettingOption> options}): _options = options;
+  const _SettingItem({required this.id, required this.icon, required this.label, this.trailingText});
   
 
 @override final  String id;
 @override final  Widget icon;
 @override final  String label;
-@override final  Object currentValue;
- final  List<SettingOption> _options;
-@override List<SettingOption> get options {
-  if (_options is EqualUnmodifiableListView) return _options;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_options);
-}
-
+@override final  String? trailingText;
 
 /// Create a copy of SettingItem
 /// with the given fields replaced by the non-null parameter values.
@@ -491,16 +744,16 @@ _$SettingItemCopyWith<_SettingItem> get copyWith => __$SettingItemCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingItem&&(identical(other.id, id) || other.id == id)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.label, label) || other.label == label)&&const DeepCollectionEquality().equals(other.currentValue, currentValue)&&const DeepCollectionEquality().equals(other._options, _options));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingItem&&(identical(other.id, id) || other.id == id)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.label, label) || other.label == label)&&(identical(other.trailingText, trailingText) || other.trailingText == trailingText));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,icon,label,const DeepCollectionEquality().hash(currentValue),const DeepCollectionEquality().hash(_options));
+int get hashCode => Object.hash(runtimeType,id,icon,label,trailingText);
 
 @override
 String toString() {
-  return 'SettingItem(id: $id, icon: $icon, label: $label, currentValue: $currentValue, options: $options)';
+  return 'SettingItem(id: $id, icon: $icon, label: $label, trailingText: $trailingText)';
 }
 
 
@@ -511,7 +764,7 @@ abstract mixin class _$SettingItemCopyWith<$Res> implements $SettingItemCopyWith
   factory _$SettingItemCopyWith(_SettingItem value, $Res Function(_SettingItem) _then) = __$SettingItemCopyWithImpl;
 @override @useResult
 $Res call({
- String id, Widget icon, String label, Object currentValue, List<SettingOption> options
+ String id, Widget icon, String label, String? trailingText
 });
 
 
@@ -528,265 +781,13 @@ class __$SettingItemCopyWithImpl<$Res>
 
 /// Create a copy of SettingItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? icon = null,Object? label = null,Object? currentValue = null,Object? options = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? icon = null,Object? label = null,Object? trailingText = freezed,}) {
   return _then(_SettingItem(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
 as Widget,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String,currentValue: null == currentValue ? _self.currentValue : currentValue ,options: null == options ? _self._options : options // ignore: cast_nullable_to_non_nullable
-as List<SettingOption>,
-  ));
-}
-
-
-}
-
-/// @nodoc
-mixin _$SettingOption {
-
- Object get value; String get label;
-/// Create a copy of SettingOption
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SettingOptionCopyWith<SettingOption> get copyWith => _$SettingOptionCopyWithImpl<SettingOption>(this as SettingOption, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingOption&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.label, label) || other.label == label));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(value),label);
-
-@override
-String toString() {
-  return 'SettingOption(value: $value, label: $label)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $SettingOptionCopyWith<$Res>  {
-  factory $SettingOptionCopyWith(SettingOption value, $Res Function(SettingOption) _then) = _$SettingOptionCopyWithImpl;
-@useResult
-$Res call({
- Object value, String label
-});
-
-
-
-
-}
-/// @nodoc
-class _$SettingOptionCopyWithImpl<$Res>
-    implements $SettingOptionCopyWith<$Res> {
-  _$SettingOptionCopyWithImpl(this._self, this._then);
-
-  final SettingOption _self;
-  final $Res Function(SettingOption) _then;
-
-/// Create a copy of SettingOption
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? value = null,Object? label = null,}) {
-  return _then(_self.copyWith(
-value: null == value ? _self.value : value ,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [SettingOption].
-extension SettingOptionPatterns on SettingOption {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SettingOption value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _SettingOption() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SettingOption value)  $default,){
-final _that = this;
-switch (_that) {
-case _SettingOption():
-return $default(_that);}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SettingOption value)?  $default,){
-final _that = this;
-switch (_that) {
-case _SettingOption() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Object value,  String label)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _SettingOption() when $default != null:
-return $default(_that.value,_that.label);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Object value,  String label)  $default,) {final _that = this;
-switch (_that) {
-case _SettingOption():
-return $default(_that.value,_that.label);}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Object value,  String label)?  $default,) {final _that = this;
-switch (_that) {
-case _SettingOption() when $default != null:
-return $default(_that.value,_that.label);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-
-
-class _SettingOption implements SettingOption {
-  const _SettingOption({required this.value, required this.label});
-  
-
-@override final  Object value;
-@override final  String label;
-
-/// Create a copy of SettingOption
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$SettingOptionCopyWith<_SettingOption> get copyWith => __$SettingOptionCopyWithImpl<_SettingOption>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingOption&&const DeepCollectionEquality().equals(other.value, value)&&(identical(other.label, label) || other.label == label));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(value),label);
-
-@override
-String toString() {
-  return 'SettingOption(value: $value, label: $label)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$SettingOptionCopyWith<$Res> implements $SettingOptionCopyWith<$Res> {
-  factory _$SettingOptionCopyWith(_SettingOption value, $Res Function(_SettingOption) _then) = __$SettingOptionCopyWithImpl;
-@override @useResult
-$Res call({
- Object value, String label
-});
-
-
-
-
-}
-/// @nodoc
-class __$SettingOptionCopyWithImpl<$Res>
-    implements _$SettingOptionCopyWith<$Res> {
-  __$SettingOptionCopyWithImpl(this._self, this._then);
-
-  final _SettingOption _self;
-  final $Res Function(_SettingOption) _then;
-
-/// Create a copy of SettingOption
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? value = null,Object? label = null,}) {
-  return _then(_SettingOption(
-value: null == value ? _self.value : value ,label: null == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
-as String,
+as String,trailingText: freezed == trailingText ? _self.trailingText : trailingText // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

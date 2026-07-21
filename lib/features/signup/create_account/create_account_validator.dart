@@ -10,15 +10,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'create_account_validator.g.dart';
 
 @riverpod
-CreateAccountValidator createAccountValidator(CreateAccountValidatorRef ref) {
-  final phoneValidator = ref.watch(phoneNumberValidatorProvider);
-  return CreateAccountValidator(phoneValidator);
-}
+CreateAccountValidator createAccountValidator(CreateAccountValidatorRef ref) => CreateAccountValidator();
 
 class CreateAccountValidator {
-
-  CreateAccountValidator(this._phoneValidator);
-  final PhoneNumberValidator _phoneValidator;
 
   Future<CreateAccountFormErrors> validate(CreateAccountState state) async {
     final nameError = FormValidator.validate(state.fullName, [
@@ -29,21 +23,6 @@ class CreateAccountValidator {
       RequiredRule(message: 'Email cannot be empty.'),
       EmailRule(),
     ]);
-
-    String? phoneNumberError = FormValidator.validate(state.phoneNumber.number, [
-      RequiredRule(message: 'Phone number cannot be empty.'),
-    ]);
-
-    if (phoneNumberError == null) {
-      final isPhoneValid = await _phoneValidator.isValid(
-        state.phoneNumber.number,
-        regionCode: state.country.countryCode,
-      );
-
-      if (!isPhoneValid) {
-        phoneNumberError = 'Invalid phone number';
-      }
-    }
 
     final passwordError = FormValidator.validate(state.password, [
       RequiredRule(message: 'Password cannot be empty.'),
@@ -62,7 +41,6 @@ class CreateAccountValidator {
     return CreateAccountFormErrors(
       name: nameError,
       email: emailError,
-      phoneNumber: phoneNumberError,
       password: passwordError,
       country: countryError,
       city: cityError,

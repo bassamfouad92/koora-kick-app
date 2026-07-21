@@ -123,6 +123,8 @@ class InterestsScreen extends ConsumerWidget {
         spacing: context.dimensions.xSmallH,
       );
 
+  static const _clubItemAspectRatio = 0.98;
+
   Widget _buildClubsSection(
     BuildContext context,
     WidgetRef ref,
@@ -137,27 +139,40 @@ class InterestsScreen extends ConsumerWidget {
         ),
       ),
       error: (_) => _clubsError(context, notifier),
-      orElse: () => GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: state.clubs.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: context.dimensions.mediumH,
-          crossAxisSpacing: context.dimensions.mediumW,
-          childAspectRatio: 0.95,
-        ),
-        itemBuilder: (context, index) {
-          final club = state.clubs[index];
-          return ClubGridItem(
-            club: club,
-            isSelected: state.selectedClubIds.contains(club.id),
-            onTap: () => notifier.toggleClub(club.id),
-          );
-        },
-      ),
+      orElse: () => _clubsList(context, state, notifier),
     );
   }
+
+  /// A horizontal, fixed-size list keeps every item's width/height known
+  /// upfront, so nothing needs to measure children to lay out — unlike a
+  /// shrink-wrapped GridView, which crashes inside this page's
+  /// SliverFillRemaining when Flutter probes its intrinsic height.
+  Widget _clubsList(
+    BuildContext context,
+    InterestsState state,
+    InterestsViewModel notifier,
+  ) =>
+      SizedBox(
+        height: context.dimensions.h(110) / _clubItemAspectRatio,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          itemCount: state.clubs.length,
+          separatorBuilder: (_, __) =>
+              SizedBox(width: context.dimensions.mediumW),
+          itemBuilder: (context, index) {
+            final club = state.clubs[index];
+            return SizedBox(
+              width: context.dimensions.w(110),
+              child: ClubGridItem(
+                club: club,
+                isSelected: state.selectedClubIds.contains(club.id),
+                onTap: () => notifier.toggleClub(club.id),
+              ),
+            );
+          },
+        ),
+      );
 
   Widget _clubsError(BuildContext context, InterestsViewModel notifier) => [
         Text(

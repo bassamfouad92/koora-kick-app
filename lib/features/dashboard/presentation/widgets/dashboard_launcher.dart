@@ -39,14 +39,18 @@ class DashboardLauncher extends StatelessWidget {
       ),
     ];
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (final (index, tile) in tiles.indexed) ...[
-          if (index > 0) SizedBox(width: context.dimensions.smallW),
-          Expanded(child: _LauncherTile(data: tile)),
+    // IntrinsicHeight + stretch makes every tile match the tallest one,
+    // regardless of how many lines its subtitle wraps to.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final (index, tile) in tiles.indexed) ...[
+            if (index > 0) SizedBox(width: context.dimensions.smallW),
+            Expanded(child: _LauncherTile(data: tile)),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

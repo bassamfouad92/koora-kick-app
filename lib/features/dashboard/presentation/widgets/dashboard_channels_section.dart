@@ -5,6 +5,7 @@ import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/theme/app_typography.dart';
 import 'package:koora_kick/features/dashboard/dashboard_strings.dart';
 import 'package:koora_kick/features/dashboard/presentation/widgets/dashboard_section_title.dart';
+import 'package:koora_kick/routes/koorakick_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -57,42 +58,47 @@ class _ChannelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logo = channel.logo;
+    final radius = BorderRadius.circular(context.dimensions.radiusLarge);
 
-    return Container(
-      width: context.dimensions.w(100),
-      padding: EdgeInsets.all(context.dimensions.small),
-      decoration: BoxDecoration(
-        color: context.colors.surface,
-        borderRadius: BorderRadius.circular(context.dimensions.radiusLarge),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (logo != null && logo.isNotEmpty)
-            AppImage.network(logo)
-                .setDimension(width: 44, height: 44)
-                .setStyle(const AppImageStyle.circular(fit: BoxFit.cover))
-                .setErrorWidget(_shieldPlaceholder(context))
-                .build()
-          else
-            _shieldPlaceholder(context),
-          SizedBox(height: context.dimensions.smallH),
-          Text(
-            channel.name,
-            style: context.typo.bodySmall.semiBold,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+    return Material(
+      color: context.colors.surface,
+      borderRadius: radius,
+      child: InkWell(
+        borderRadius: radius,
+        onTap: () => ChannelDetailRoute(channelId: channel.id).push(context),
+        child: Container(
+          width: context.dimensions.w(100),
+          padding: EdgeInsets.all(context.dimensions.small),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (logo != null && logo.isNotEmpty)
+                AppImage.network(logo)
+                    .setDimension(width: 44, height: 44)
+                    .setStyle(const AppImageStyle.circular(fit: BoxFit.cover))
+                    .setErrorWidget(_shieldPlaceholder(context))
+                    .build()
+              else
+                _shieldPlaceholder(context),
+              SizedBox(height: context.dimensions.smallH),
+              Text(
+                channel.name,
+                style: context.typo.bodySmall.semiBold,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: context.dimensions.xSmallH),
+              Text(
+                '${_formatMembers(channel.memberCount)} '
+                '${DashboardStrings.members.localized()}',
+                style: context.typo.bodyExtraSmall
+                    .copyWith(color: context.colors.textSecondary),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          SizedBox(height: context.dimensions.xSmallH),
-          Text(
-            '${_formatMembers(channel.memberCount)} '
-            '${DashboardStrings.members.localized()}',
-            style: context.typo.bodyExtraSmall
-                .copyWith(color: context.colors.textSecondary),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+        ),
       ),
     );
   }

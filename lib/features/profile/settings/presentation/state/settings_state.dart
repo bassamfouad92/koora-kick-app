@@ -6,10 +6,18 @@ part 'settings_state.freezed.dart';
 @freezed
 sealed class SettingsState with _$SettingsState {
   const factory SettingsState({
-    @Default([]) List<SettingItem> items,
+    @Default([]) List<SettingsSection> sections,
     @Default(false) bool isLoading,
     @Default(false) bool isSaving,
   }) = _SettingsState;
+}
+
+@freezed
+sealed class SettingsSection with _$SettingsSection {
+  const factory SettingsSection({
+    required String title,
+    required List<SettingItem> items,
+  }) = _SettingsSection;
 }
 
 @freezed
@@ -18,17 +26,8 @@ sealed class SettingItem with _$SettingItem {
     required String id,
     required Widget icon,
     required String label,
-    required Object currentValue,
-    required List<SettingOption> options,
+    String? trailingText,
   }) = _SettingItem;
-}
-
-@freezed
-sealed class SettingOption with _$SettingOption {
-  const factory SettingOption({
-    required Object value,
-    required String label,
-  }) = _SettingOption;
 }
 
 enum TimeFormat {

@@ -11,6 +11,8 @@ class StatusScreenViewHolder {
     required this.onButtonPressed,
     this.description,
     this.buttonType = AppButtonType.primary,
+    this.secondaryButtonText,
+    this.onSecondaryButtonPressed,
   }) : assert(buttonType != AppButtonType.icon,
             'AppButtonType.icon is not supported in StatusScreen as it requires text.');
 
@@ -25,6 +27,12 @@ class StatusScreenViewHolder {
   final VoidCallback onButtonPressed;
 
   final AppButtonType buttonType;
+
+  /// Optional secondary, less-prominent action rendered below the primary
+  /// button (e.g. "Back to Threads" under "View in Pending").
+  final String? secondaryButtonText;
+
+  final VoidCallback? onSecondaryButtonPressed;
 
   factory StatusScreenViewHolder.fake() => StatusScreenViewHolder(
         icon: AppImage.asset(AppAssets.success).setDimension(height: 80).build(),
@@ -69,6 +77,9 @@ class StatusScreen extends StatelessWidget {
       AppButtonType.floating => const SizedBox.shrink(),
     };
 
+    final secondaryText = viewModel.secondaryButtonText;
+    final onSecondaryPressed = viewModel.onSecondaryButtonPressed;
+
     return KooraKickPageBuilder.withAppBar()
         .centered()
         .content([
@@ -80,6 +91,17 @@ class StatusScreen extends StatelessWidget {
             AppText.body14(viewModel.description!),
           ],
         ].column(crossAxisAlignment: CrossAxisAlignment.center))
-        .withBottomContent(button);
+        .withBottomContent(
+          [
+            button,
+            if (secondaryText != null && onSecondaryPressed != null) ...[
+              const SizedBox(height: 8),
+              AppButton.text(
+                text: secondaryText,
+                onPressed: onSecondaryPressed,
+              ),
+            ],
+          ].column(crossAxisAlignment: CrossAxisAlignment.stretch),
+        );
   }
 }

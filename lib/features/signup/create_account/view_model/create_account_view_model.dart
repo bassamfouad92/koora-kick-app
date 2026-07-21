@@ -15,6 +15,7 @@ import 'package:koora_kick/features/signup/create_account/state/create_account_f
 import 'package:koora_kick/features/signup/create_account/state/create_account_state.dart';
 import 'package:koora_kick/common/services/user_session_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:koora_kick/routes/koorakick_routes.dart';
 
 part 'create_account_view_model.g.dart';
 
@@ -131,6 +132,7 @@ class CreateAccountViewModel extends _$CreateAccountViewModel {
           state = state.copyWith(
             createAccountStatus: CreateAccountStatus.success(userSessionStatus),
           );
+          ref.read(goRouterProvider).go(const OnboardingInterestsRoute().location);
         },
         error: _handleException,
       );
@@ -174,6 +176,7 @@ class CreateAccountViewModel extends _$CreateAccountViewModel {
         state = state.copyWith(
           createAccountStatus: CreateAccountStatus.success(userSessionStatus),
         );
+        ref.read(goRouterProvider).go(const OnboardingInterestsRoute().location);
       },
       error: _handleException,
     );

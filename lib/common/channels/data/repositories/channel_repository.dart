@@ -1,6 +1,8 @@
+import 'package:koora_kick/common/channels/data/requests/get_channel_request.dart';
 import 'package:koora_kick/common/channels/data/requests/get_channels_request.dart';
 import 'package:koora_kick/common/channels/data/requests/join_channel_request.dart';
 import 'package:koora_kick/common/channels/data/requests/join_channels_batch_request.dart';
+import 'package:koora_kick/common/channels/data/requests/leave_channel_request.dart';
 import 'package:koora_kick/common/channels/domain/entities/channel_model.dart';
 import 'package:koora_kick/common/channels/domain/entities/join_channels_batch_result.dart';
 import 'package:koora_kick/common/channels/domain/repositories/channel_repository.dart';
@@ -29,11 +31,31 @@ class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   @override
+  Future<Result<ChannelModel>> getChannel(String channelId) async {
+    final response =
+        await _networkClient.execute(GetChannelRequest(channelId: channelId));
+    return response.when(
+      success: (channel) => Result.success(channel),
+      error: (exception) => Result.error(exception),
+    );
+  }
+
+  @override
   Future<Result<ChannelModel>> joinChannel(String channelId) async {
     final response =
         await _networkClient.execute(JoinChannelRequest(channelId: channelId));
     return response.when(
       success: (channel) => Result.success(channel),
+      error: (exception) => Result.error(exception),
+    );
+  }
+
+  @override
+  Future<Result<void>> leaveChannel(String channelId) async {
+    final response = await _networkClient
+        .execute(LeaveChannelRequest(channelId: channelId));
+    return response.when(
+      success: (_) => const Result.success(null),
       error: (exception) => Result.error(exception),
     );
   }

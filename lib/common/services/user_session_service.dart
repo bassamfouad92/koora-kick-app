@@ -8,6 +8,7 @@ import 'package:koora_kick/common/storage/storage_providers.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:koora_kick/routes/koorakick_routes.dart';
 
 part 'user_session_service.g.dart';
 
@@ -36,7 +37,7 @@ class UserSessionService extends _$UserSessionService {
     final UserSessionStatus status;
     if (user != null) {
       await _userStore.save(user);
-      status = _statusFor(user, token);
+      status = UserSessionStatus.authenticated(user: user);
     } else {
       status = await _resolveStatus(token);
     }
@@ -55,45 +56,44 @@ class UserSessionService extends _$UserSessionService {
   }
 
   Future<void> logout() async {
-    // 1. Clear Repositories/Stores
-    await _tokenRepository.remove();
-    await _userStore.remove();
+    try {
+      // 1. Clear Repositories/Stores
+      await _tokenRepository.remove();
+      await _userStore.remove();
 
-    // 2. Clear SharedPreferences
-    final prefs = ref.read(sharedPreferencesProvider);
-    await prefs.clear();
+      // 2. Clear SharedPreferences
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.clear();
 
-    // 3. Clear FlutterSecureStorage (for any other stores using it)
-    const secureStorage = FlutterSecureStorage();
-    await secureStorage.deleteAll();
+      // 3. Clear FlutterSecureStorage (for any other stores using it)
+      const secureStorage = FlutterSecureStorage();
+      await secureStorage.deleteAll();
 
-    // 4. Clear Hive boxes from disk
-    await Hive.deleteFromDisk();
+      // 4. Clear Hive boxes from disk
+      await Hive.deleteFromDisk();
+    } catch (e) {
+      // Silently ignore cleanup errors to ensure logout completes
+    }
 
     state = const AsyncValue.data(UserSessionStatus.unauthenticated());
+    ref.read(goRouterProvider).go(const LandingRoute().location);
   }
 
   Future<UserSessionStatus> _resolveStatus(String token) async {
     final cachedUser = await _userStore.fetch();
     if (cachedUser != null) {
-      return _statusFor(cachedUser, token);
+      return UserSessionStatus.authenticated(user: cachedUser);
     }
 
     final result = await _userRepository.getMe();
     return result.when(
       success: (user) async {
         await _userStore.save(user);
-        return _statusFor(user, token);
+        return UserSessionStatus.authenticated(user: user);
       },
       error: (_) async => const UserSessionStatus.unauthenticated(),
     );
   }
-
-  /// A user must verify their email before the session counts as fully
-  /// authenticated.
-  UserSessionStatus _statusFor(User user, String token) => user.emailVerified
-      ? UserSessionStatus.authenticated(user: user)
-      : UserSessionStatus.unverified(user: user, token: token);
 
   UserSessionStatus? get currentStatus => state.value;
 }

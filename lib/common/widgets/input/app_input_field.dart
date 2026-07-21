@@ -33,6 +33,9 @@ class AppInputField extends StatefulWidget {
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
     InputFieldActionButton? actionButton,
+    int maxLines = 1,
+    int? minLines,
+    int? maxLength,
   }) => AppInputField._(
     type: AppInputTextType.text,
     controller: controller,
@@ -41,6 +44,9 @@ class AppInputField extends StatefulWidget {
     keyboardType: keyboardType,
     obscureText: obscureText,
     actionButton: actionButton,
+    maxLines: maxLines,
+    minLines: minLines,
+    maxLength: maxLength,
   );
 
   factory AppInputField.search({
@@ -114,6 +120,9 @@ class AppInputField extends StatefulWidget {
     this.actionButton,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.maxLines = 1,
+    this.minLines,
+    this.maxLength,
   });
 
   AppInputField withInputFieldStyle(AppInputFieldStyle? style) =>
@@ -195,6 +204,9 @@ class AppInputField extends StatefulWidget {
   final InputFieldActionButton? actionButton;
   final TextInputType keyboardType;
   final bool obscureText;
+  final int maxLines;
+  final int? minLines;
+  final int? maxLength;
 
   @override
   State<AppInputField> createState() => _AppInputFieldState();
@@ -274,6 +286,9 @@ class _AppInputFieldState extends State<AppInputField> {
         readOnly: widget.onTap != null,
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText,
+        maxLines: widget.obscureText ? 1 : widget.maxLines,
+        minLines: widget.minLines,
+        maxLength: widget.maxLength,
         style: style.textStyle,
         cursorColor: colors.textPrimary,
         decoration: InputDecoration(

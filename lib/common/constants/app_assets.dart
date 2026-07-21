@@ -105,4 +105,9 @@ class AppAssets {
   static const String icNavigate = 'assets/images/icons/ic_navigate.svg';
   static const String icSos = 'assets/images/icons/ic_sos.svg';
 
+  ///KooraMap markers
+  static const String icPinStadium = 'assets/images/icons/ic_pin_stadium.png';
+  static const String icPinScreening = 'assets/images/icons/ic_pin_screening.png';
+  static const String icPinGround = 'assets/images/icons/ic_pin_ground.png';
+
 }

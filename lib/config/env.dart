@@ -40,7 +40,10 @@ class Env {
   /// The base URL for the API.
   static String get apiUrl => _get('API_URL');
 
-  static String get googleMapsApiKey => _get('GOOGLE_MAPS_API_KEY');
+  static String get googleMapsApiKey => _get('GOOGLE_MAPS_API_KEY', fallback: '');
+
+  /// Mapbox public access token (`pk.*`) used to render the KooraMap.
+  static String get mapboxAccessToken => _get('MAPBOX_ACCESS_TOKEN', fallback: '');
 
   /// The API key for authenticating with the backend service.
   static String get apiKey => _get('API_KEY');

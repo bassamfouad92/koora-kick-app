@@ -37,6 +37,7 @@ class KooraKickPageBuilder extends ConsumerStatefulWidget {
   Widget? _content;
   Widget? _rightButton;
   Widget? _bottomContent;
+  Widget? _stickyHeader;
   bool _isCentered = false;
 
   CrossAxisAlignment _alignment = CrossAxisAlignment.center;
@@ -100,6 +101,15 @@ class KooraKickPageBuilder extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<KooraKickPageBuilder> createState() => _KooraKickPageBuilderState();
+}
+
+/// Pins [header] above the page content — the header never scrolls and no
+/// extra top spacing is added above it; the rest of the content (title,
+/// subtitle, content, bottom content) scrolls underneath as usual.
+/// Only supported by the regular (non pinned-title) scaffold.
+extension KooraKickStickyHeaderX on KooraKickPageBuilder {
+  KooraKickPageBuilder withStickyHeader(Widget header) =>
+      _set(() => _stickyHeader = header);
 }
 
 class _KooraKickPageBuilderState extends ConsumerState<KooraKickPageBuilder>
@@ -344,10 +354,11 @@ class _KooraKickPageBuilderState extends ConsumerState<KooraKickPageBuilder>
   }
 
   Widget _buildRegularScaffold(BuildContext context) {
+    final hasStickyHeader = widget._stickyHeader != null;
 
     final contentWidgets = [
       [
-        if (!widget._withAppBar)
+        if (!widget._withAppBar && !hasStickyHeader)
           SizedBox(height: context.dimensions.xLargeH),
         widget._title.let(
               (title) => title,
@@ -358,7 +369,9 @@ class _KooraKickPageBuilderState extends ConsumerState<KooraKickPageBuilder>
           orElse: () => const SizedBox.shrink(),
         ),
         widget._content.let(
-              (content) => content.withPadding(
+              (content) => hasStickyHeader
+              ? content
+              : content.withPadding(
             EdgeInsets.only(top: context.dimensions.xLargeH),
           ),
           orElse: () => const SizedBox.shrink(),
@@ -403,6 +416,45 @@ class _KooraKickPageBuilderState extends ConsumerState<KooraKickPageBuilder>
       },
     );
 
+    final scrollableContent = widget._isScrollable
+        ? CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: SafeArea(
+            top: !hasStickyHeader,
+            key: _contentKey,
+            child: contentColumn,
+          ),
+        ),
+      ],
+    )
+        : SafeArea(
+      top: !hasStickyHeader,
+      key: _contentKey,
+      child: contentColumn,
+    );
+
+    final body = hasStickyHeader
+        ? Column(
+      children: [
+        SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              context.dimensions.medium,
+              context.dimensions.mediumH,
+              context.dimensions.medium,
+              0,
+            ),
+            child: widget._stickyHeader!,
+          ),
+        ),
+        Expanded(child: scrollableContent),
+      ],
+    )
+        : scrollableContent;
+
     final scaffold = Scaffold(
       backgroundColor: Colors.transparent,
       appBar: widget._withAppBar
@@ -420,16 +472,7 @@ class _KooraKickPageBuilderState extends ConsumerState<KooraKickPageBuilder>
         ),
       )
           : null,
-      body: widget._isScrollable
-          ? CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: SafeArea(key: _contentKey, child: contentColumn),
-          ),
-        ],
-      )
-          : SafeArea(key: _contentKey, child: contentColumn),
+      body: body,
     );
 
     return _applyBackground(context, scaffold);

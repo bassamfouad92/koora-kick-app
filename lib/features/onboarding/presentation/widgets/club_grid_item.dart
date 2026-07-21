@@ -58,24 +58,6 @@ class ClubGridItem extends StatelessWidget {
               ),
             ].column(spacing: dimensions.smallH),
           ),
-          if (isSelected)
-            PositionedDirectional(
-              top: -dimensions.h(6),
-              end: -dimensions.w(6),
-              child: Container(
-                padding: EdgeInsets.all(dimensions.w(2)),
-                decoration: BoxDecoration(
-                  color: colors.primary,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: colors.surface, width: 2),
-                ),
-                child: Icon(
-                  Icons.check,
-                  size: dimensions.w(14),
-                  color: colors.buttonPrimaryText,
-                ),
-              ),
-            ),
         ],
       ),
     );

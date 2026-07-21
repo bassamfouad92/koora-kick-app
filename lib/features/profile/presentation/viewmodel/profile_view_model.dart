@@ -7,8 +7,6 @@ import 'package:koora_kick/common/widgets/image/app_image.dart';
 import 'package:koora_kick/features/profile/presentation/state/profile_menu_item.dart';
 import 'package:koora_kick/features/profile/presentation/state/profile_state.dart';
 import 'package:koora_kick/features/profile/profile_strings.dart';
-import 'package:koora_kick/app/provider/language_provider.dart';
-import 'package:koora_kick/common/enum/app_language_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,29 +28,13 @@ class ProfileViewModel extends _$ProfileViewModel {
           ProfileStatus.error(AppError.api(message: error.toString())),
     );
 
-    final languageAsync = ref.watch(languageNotifierProvider);
-    final currentLanguage = languageAsync.value ?? AppLanguage.english;
-
     return ProfileState(
       status: status,
-      menuItems: _buildMenuItems(
-        currentLanguage,
-      ),
+      menuItems: _buildMenuItems(),
     );
   }
 
-  List<ProfileMenuItem> _buildMenuItems(
-    AppLanguage currentLanguage,
-  ) => [
-    ProfileMenuItem(
-      icon: AppImage.asset(AppAssets.icGlobe).build(),
-      title: ProfileStrings.language,
-      type: ProfileMenuItemType.language,
-      trailingText: currentLanguage == AppLanguage.english
-          ? ProfileStrings.english
-          : ProfileStrings.arabic,
-      trailingTextColor: const Color(0xFF64748B),
-    ),
+  List<ProfileMenuItem> _buildMenuItems() => [
     ProfileMenuItem(
       icon: AppImage.asset(AppAssets.icSettings).build(),
       title: ProfileStrings.appPreferences,

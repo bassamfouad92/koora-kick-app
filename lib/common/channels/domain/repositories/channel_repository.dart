@@ -5,7 +5,9 @@ import 'package:koora_kick/common/http/response/result.dart';
 
 abstract interface class ChannelRepository {
   Future<Result<List<ChannelModel>>> getChannels({ChannelType? type});
+  Future<Result<ChannelModel>> getChannel(String channelId);
   Future<Result<ChannelModel>> joinChannel(String channelId);
+  Future<Result<void>> leaveChannel(String channelId);
   Future<Result<JoinChannelsBatchResult>> joinChannelsBatch(
     List<String> channelIds,
   );

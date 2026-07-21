@@ -1,4 +1,3 @@
-import 'package:koora_kick/common/common.dart';
 import 'package:koora_kick/common/extensions/localization.dart';
 import 'package:koora_kick/common/extensions/theme_context_extension.dart';
 import 'package:koora_kick/common/theme/app_typography.dart';
@@ -16,10 +15,21 @@ class DashboardHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppImage.asset(AppAssets.koorakickTextLogo)
-                  .setDimension(height: 28)
-                  .setStyle(const AppImageStyle(fit: BoxFit.contain))
-                  .build(),
+              RichText(
+                text: TextSpan(
+                  style: context.typo.headingLarge.bold,
+                  children: [
+                    TextSpan(
+                      text: 'Koora',
+                      style: TextStyle(color: context.colors.textPrimary),
+                    ),
+                    TextSpan(
+                      text: 'Kick',
+                      style: TextStyle(color: context.colors.primary),
+                    ),
+                  ],
+                ),
+              ),
               const _NotificationBell(),
             ],
           ),

@@ -24,6 +24,7 @@ class DashboardScreen extends ConsumerWidget {
     final state = ref.watch(dashboardViewModelProvider);
 
     return KooraKickPageBuilder.noAppBar()
+        .withStickyHeader(const DashboardHeader())
         .content(_buildBody(context, ref, state))
         .alignTo(CrossAxisAlignment.stretch)
         .scrollable();
@@ -59,16 +60,15 @@ class DashboardScreen extends ConsumerWidget {
         loaded: () => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (final (index, section) in state.sections.indexed) ...[
-              if (index > 0) SizedBox(height: context.dimensions.largeH),
-              _buildSection(section),
-            ],
+            // The header is pinned via withStickyHeader above, not scrolled.
+            for (final section in state.sections)
+              if (section is! DashboardHeaderSection) _buildSection(section),
           ],
         ),
       );
 
   Widget _buildSection(DashboardSection section) => switch (section) {
-        DashboardHeaderSection() => const DashboardHeader(),
+        DashboardHeaderSection() => const SizedBox.shrink(),
         DashboardLauncherSection() => const DashboardLauncher(),
         DashboardChannelsSection(:final channels) =>
           widgets.DashboardChannelsSection(channels: channels),
