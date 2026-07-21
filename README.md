@@ -219,19 +219,27 @@ classDiagram
 | :--- | :--- | :--- |
 | ![S4](screenshots/s4.png) | ![S5](screenshots/s5.png) | ![S6](screenshots/s6.png) |
 
+| Home Feed | Channels Hub | KooraMap |
+| :--- | :--- | :--- |
+| ![S7](screenshots/s7.png) | ![S8](screenshots/s8.png) | ![S9](screenshots/s9.png) |
+
+| Landing (Dark) |
+| :--- |
+| ![S10](screenshots/s10.png) |
+
 ---
 
-## 🌟 Upcoming Product Roadmap
+## 🌟 Product Roadmap
 
-We are continuously evolving KooraKick to become the definitive destination for football fans.
+Home, Channels, and KooraMap have shipped. Live scores and the profile space are next.
 
-| Feature & Icon | Purpose & Impact |
-| :--- | :--- |
-| **🏠 Home (Mixed Feed)** <br> `Icons.home_rounded` | A dynamic AI-driven feed combining world-class soccer news APIs with top-rated stadium construction updates from the community. |
-| **👥 Channels (Hub)** <br> `Icons.groups_rounded` | Specialized fan territories for giant Saudi clubs (Al-Hilal, Al-Nassr) and city-based community forums (e.g., Khobar Updates). |
-| **📍 KooraMap (USP)** <br> `Icons.stadium_rounded` | Our Unique Selling Point: A deep Google Maps integration tracking real-time stadium builds across Saudi cities with high-res community imagery. |
-| **⚽ Live (Scores)** <br> `Icons.sports_soccer_rounded` | Real-time match analytics and standings powered by Firebase Cloud Functions for instantaneous score updates. |
-| **👤 Profile (User Space)** <br> `Icons.person_pin_rounded` | Personal gallery for user posts, earned badges (Gamification), and granular club preference settings. |
+| Feature & Icon | Status | Purpose & Impact |
+| :--- | :--- | :--- |
+| **🏠 Home (Mixed Feed)** <br> `Icons.home_rounded` | ✅ Shipped | A dashboard feed combining live match updates, popular club channels, and top news in one scrollable home screen. |
+| **👥 Channels (Hub)** <br> `Icons.groups_rounded` | ✅ Shipped | Fan channels for clubs, leagues, and topics — join/leave, threaded discussions with hashtags, comments, likes, and moderation-aware pending threads. |
+| **📍 KooraMap (USP)** <br> `Icons.stadium_rounded` | ✅ Shipped | A Mapbox-powered dark map with custom pins for stadiums, live screenings, and grounds — current-location centering, a pulsing "now showing" indicator, and a marker detail sheet with venue photos, ratings, and directions. |
+| **⚽ Live (Scores)** <br> `Icons.sports_soccer_rounded` | 🔜 Planned | Real-time match analytics and standings powered by Firebase Cloud Functions for instantaneous score updates. |
+| **👤 Profile (User Space)** <br> `Icons.person_pin_rounded` | 🔜 Planned | Personal gallery for user posts, earned badges (Gamification), and granular club preference settings. |
 
 ---
 
@@ -242,6 +250,8 @@ We are continuously evolving KooraKick to become the definitive destination for 
 -   **Networking**: Dio + Retry Interceptor
 -   **Persistence**: Hive (NoSQL), Flutter Secure Storage
 -   **Routing**: GoRouter (Typed Routes)
+-   **Maps**: Mapbox (`mapbox_maps_flutter`) with Geolocator for current-location centering
+-   **Push Notifications**: Firebase Messaging — per-channel topic subscriptions (`channel_<id>`)
 -   **UI Components**: Super Cupertino (For iOS-native feel)
 
 ---
