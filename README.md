@@ -211,21 +211,9 @@ classDiagram
 
 ## 📱 App Showcase
 
-| Landing (EN) | Language Select | Landing (AR) |
-| :--- | :--- | :--- |
-| ![S1](screenshots/s1.png) | ![S2](screenshots/s2.png) | ![S3](screenshots/s3.png) |
-
-| Login (EN) | Login (Keypad) | Dark Mode Support |
-| :--- | :--- | :--- |
-| ![S4](screenshots/s4.png) | ![S5](screenshots/s5.png) | ![S6](screenshots/s6.png) |
-
-| Home Feed | Channels Hub | KooraMap |
-| :--- | :--- | :--- |
-| ![S7](screenshots/s7.png) | ![S8](screenshots/s8.png) | ![S9](screenshots/s9.png) |
-
-| Landing (Dark) |
-| :--- |
-| ![S10](screenshots/s10.png) |
+| Landing (Dark) | Home Feed | Channels Hub | KooraMap |
+| :--- | :--- | :--- | :--- |
+| ![S1](screenshots/s1.png) | ![S2](screenshots/s2.png) | ![S3](screenshots/s3.png) | ![S4](screenshots/s4.png) |
 
 ---
 
